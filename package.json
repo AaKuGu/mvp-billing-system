@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.2",
+    "mongoose": "^8.18.0",
+    "next": "14.2.32",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.32"
+    "react-hot-toast": "^2.6.0"
   },
   "devDependencies": {
     "postcss": "^8",
