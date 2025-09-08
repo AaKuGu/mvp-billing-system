@@ -84,14 +84,17 @@ const page = ({ params }) => {
   }, []);
 
   return (
-    <div className="w-full text-black min-h-screen flex flex-col items-center p-6 bg-gray-50">
+    <div className="w-full text-black min-h-screen flex flex-col items-center p-4 sm:p-6 bg-gray-50">
       <Back backLink={`/go/products`} />
-      <header className="w-full text-center text-black text-3xl font-semibold mb-6">
+
+      <header className="w-full text-center text-2xl sm:text-3xl font-semibold mb-6">
         Update Product
       </header>
-      {/* {productId} */}
+
       {loading ? (
-        <div className="text-black font-bold text-2xl">Loading...</div>
+        <div className="text-black font-bold text-xl sm:text-2xl">
+          Loading...
+        </div>
       ) : (
         <form
           onSubmit={handleSubmit}
@@ -158,9 +161,9 @@ const page = ({ params }) => {
             <label className="block mb-2 font-medium text-gray-700">
               Add Price Points
             </label>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <select
-                className="border rounded-lg p-2"
+                className="border rounded-lg p-2 w-full sm:w-auto"
                 value={unit}
                 onChange={(e) => setUnit(e.target.value)}
               >
@@ -182,7 +185,7 @@ const page = ({ params }) => {
               <button
                 type="button"
                 onClick={handleAddPricePoint}
-                className="bg-blue-500 text-white px-4 rounded-lg"
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full sm:w-auto"
               >
                 Add
               </button>
@@ -218,26 +221,31 @@ const page = ({ params }) => {
             Save Product
           </button>
 
-          <button
-            className="text-white px-5 py-2 bg-blue-500"
-            onClick={() => {
-              setProductName("");
-              setCostPrice("");
-              setWholesalePrice("");
-              setRetailPrice("");
-              setPricePoints([]);
-              setUnit("pcs");
-              setUnitPrice("");
-            }}
-          >
-            add another
-          </button>
-          <Link
-            href={`/go/products`}
-            className="text-white px-5 py-2 bg-gray-500"
-          >
-            Back to Products
-          </Link>
+          {/* Extra Actions */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              type="button"
+              className="w-full sm:flex-1 bg-blue-500 text-white py-2 rounded-lg"
+              onClick={() => {
+                setProductName("");
+                setCostPrice("");
+                setWholesalePrice("");
+                setRetailPrice("");
+                setPricePoints([]);
+                setUnit("pcs");
+                setUnitPrice("");
+              }}
+            >
+              Add Another
+            </button>
+
+            <Link
+              href={`/go/products`}
+              className="w-full sm:flex-1 bg-gray-500 text-white py-2 rounded-lg text-center"
+            >
+              Back to Products
+            </Link>
+          </div>
         </form>
       )}
     </div>
