@@ -1,5 +1,7 @@
 "use client";
 
+import { handleDelete } from "@/features/products/productListing/funcs";
+import { RedButton } from "@/shared/components/Button";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -28,29 +30,21 @@ const Page = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to delete this product?")) return;
-
-    try {
-      const res = await fetch(`/api/products/${id}`, {
-        method: "DELETE",
-      });
-      const data = await res.json();
-
-      if (data.success) {
-        setProducts(products.filter((p) => p._id !== id));
-        alert("✅ Product deleted successfully");
-      } else {
-        alert("❌ " + data.message);
-      }
-    } catch (err) {
-      console.error("Error deleting product:", err);
-    }
-  };
-
   const filteredProducts = products.filter((p) =>
     p.productName.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // helper for rendering price arrays
+  const renderPriceArray = (arr) =>
+    arr?.length > 0 ? (
+      arr.map((pp, i) => (
+        <span key={i} className="block text-sm sm:text-base text-gray-700">
+          {pp.unit} - ₹{pp.price}
+        </span>
+      ))
+    ) : (
+      <span className="text-gray-400 text-sm">N/A</span>
+    );
 
   return (
     <div className="w-full min-h-screen p-4 sm:p-6 text-black">
@@ -90,14 +84,13 @@ const Page = () => {
           <>
             {/* Desktop Table */}
             <div className="hidden sm:block overflow-x-auto rounded-lg border border-gray-300">
-              <table className="w-full min-w-[700px] border-collapse">
+              <table className="w-full min-w-[800px] border-collapse">
                 <thead>
                   <tr className="bg-gray-100 text-sm sm:text-base">
                     <th className="p-2 border">Name</th>
-                    <th className="p-2 border">Cost Price</th>
-                    <th className="p-2 border">Wholesale Price</th>
-                    <th className="p-2 border">Retail Price</th>
-                    <th className="p-2 border">Price Points</th>
+                    <th className="p-2 border">Cost</th>
+                    <th className="p-2 border">Wholesale</th>
+                    <th className="p-2 border">Retail</th>
                     <th className="p-2 border">Actions</th>
                   </tr>
                 </thead>
@@ -108,18 +101,12 @@ const Page = () => {
                       className="text-center hover:bg-gray-50 transition"
                     >
                       <td className="p-2 border">{p.productName}</td>
-                      <td className="p-2 border">₹{p.costPrice}</td>
-                      <td className="p-2 border">₹{p.wholesalePrice}</td>
-                      <td className="p-2 border">₹{p.retailPrice}</td>
+                      <td className="p-2 border">{renderPriceArray(p.cost)}</td>
                       <td className="p-2 border">
-                        {p.pricePoints?.map((pp, i) => (
-                          <span
-                            key={i}
-                            className="block text-sm sm:text-base text-gray-700"
-                          >
-                            {pp.unit} - ₹{pp.price}
-                          </span>
-                        ))}
+                        {renderPriceArray(p.wholesale)}
+                      </td>
+                      <td className="p-2 border">
+                        {renderPriceArray(p.retail)}
                       </td>
                       <td className="p-2 border flex flex-col sm:flex-row gap-2 justify-center">
                         <Link
@@ -129,7 +116,9 @@ const Page = () => {
                           Update
                         </Link>
                         <button
-                          onClick={() => handleDelete(p._id)}
+                          onClick={() =>
+                            handleDelete(p._id, setProducts, products)
+                          }
                           className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-lg transition"
                         >
                           Delete
@@ -149,19 +138,17 @@ const Page = () => {
                   className="border rounded-lg p-4 shadow-sm bg-white"
                 >
                   <p className="font-semibold">{p.productName}</p>
-                  <p>Cost Price: ₹{p.costPrice}</p>
-                  <p>Wholesale Price: ₹{p.wholesalePrice}</p>
-                  <p>Retail Price: ₹{p.retailPrice}</p>
                   <div className="mt-2">
-                    <p className="font-medium">Price Points:</p>
-                    {p.pricePoints?.map((pp, i) => (
-                      <span
-                        key={i}
-                        className="block text-sm text-gray-700 ml-2"
-                      >
-                        {pp.unit} - ₹{pp.price}
-                      </span>
-                    ))}
+                    <p className="font-medium">Cost:</p>
+                    {renderPriceArray(p.cost)}
+                  </div>
+                  <div className="mt-2">
+                    <p className="font-medium">Wholesale:</p>
+                    {renderPriceArray(p.wholesale)}
+                  </div>
+                  <div className="mt-2">
+                    <p className="font-medium">Retail:</p>
+                    {renderPriceArray(p.retail)}
                   </div>
                   <div className="flex gap-2 mt-3">
                     <Link
@@ -170,12 +157,9 @@ const Page = () => {
                     >
                       Update
                     </Link>
-                    <button
-                      onClick={() => handleDelete(p._id)}
-                      className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-lg transition w-full"
-                    >
+                    <RedButton onClick={() => handleDelete(p._id)}>
                       Delete
-                    </button>
+                    </RedButton>
                   </div>
                 </div>
               ))}

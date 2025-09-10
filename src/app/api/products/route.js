@@ -8,23 +8,33 @@ export async function POST(req) {
     await dbConnect(); // connect to DB
 
     const body = await req.json(); // parse request body
-    const { productName, costPrice, wholesalePrice, retailPrice, pricePoints } =
-      body;
+    const { productName, cost, wholesale, retail } = body;
 
-    // Basic validation
-    if (!productName || !costPrice || !wholesalePrice || !retailPrice) {
+    // ✅ Basic validation
+    if (
+      !productName ||
+      !Array.isArray(cost) ||
+      cost.length === 0 ||
+      !Array.isArray(wholesale) ||
+      wholesale.length === 0 ||
+      !Array.isArray(retail) ||
+      retail.length === 0
+    ) {
       return NextResponse.json(
-        { success: false, message: "All main fields are required" },
+        {
+          success: false,
+          message: "Product name, cost, wholesale, and retail are required",
+        },
         { status: 400 }
       );
     }
 
+    // ✅ Create new product
     const newProduct = await Product.create({
       productName,
-      costPrice,
-      wholesalePrice,
-      retailPrice,
-      pricePoints,
+      cost,
+      wholesale,
+      retail,
     });
 
     return NextResponse.json(

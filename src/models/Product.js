@@ -8,10 +8,9 @@ const PricePointSchema = new mongoose.Schema({
 const ProductSchema = new mongoose.Schema(
   {
     productName: { type: String, required: true },
-    costPrice: { type: Number, required: true },
-    wholesalePrice: { type: Number, required: true },
-    retailPrice: { type: Number, required: true },
-    pricePoints: [PricePointSchema],
+    cost: [PricePointSchema], // e.g. [{ unit: "pcs", price: 8 }]
+    wholesale: [PricePointSchema], // e.g. [{ unit: "pcs", price: 9 }, { unit: "dozen", price: 105 }]
+    retail: [PricePointSchema], // e.g. [{ unit: "pcs", price: 10 }]
   },
   { timestamps: true }
 );

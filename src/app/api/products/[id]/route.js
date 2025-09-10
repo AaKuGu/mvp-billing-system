@@ -36,20 +36,19 @@ export async function PUT(req, { params }) {
     const { id } = params;
     const body = await req.json();
 
-    const { productName, costPrice, wholesalePrice, retailPrice, pricePoints } =
-      body;
+    const { productName, cost, wholesale, retail } = body;
 
-    const updatedProduct = await Product.findByIdAndUpdate(
-      id,
-      {
-        productName,
-        costPrice,
-        wholesalePrice,
-        retailPrice,
-        pricePoints,
-      },
-      { new: true, runValidators: true }
-    );
+    // ✅ Build update object only with provided fields
+    const updateFields = {};
+    if (productName !== undefined) updateFields.productName = productName;
+    if (Array.isArray(cost)) updateFields.cost = cost;
+    if (Array.isArray(wholesale)) updateFields.wholesale = wholesale;
+    if (Array.isArray(retail)) updateFields.retail = retail;
+
+    const updatedProduct = await Product.findByIdAndUpdate(id, updateFields, {
+      new: true,
+      runValidators: true,
+    });
 
     if (!updatedProduct) {
       return NextResponse.json(
