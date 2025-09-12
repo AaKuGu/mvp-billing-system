@@ -1,4 +1,6 @@
 // 🔧 Generic change handler
+import toast from "react-hot-toast";
+
 export const handleChange = (type, index, field, value, setProductDetails) => {
   setProductDetails((prev) => {
     const updated = [...prev[type]];
@@ -27,7 +29,8 @@ export const handleSave = async (
   e,
   productDetails,
   createOrUpdate,
-  productId
+  productId,
+  setLoading
 ) => {
   e.preventDefault();
 
@@ -48,21 +51,27 @@ export const handleSave = async (
     const data = await res.json();
 
     if (data.success) {
-      alert(
+      toast.success(
         createOrUpdate === "update"
-          ? "✅ Product updated successfully!"
-          : "✅ Product added successfully!"
+          ? "Product updated successfully!"
+          : "Product added successfully!"
       );
     } else {
-      alert("❌ Failed: " + data.message);
+      toast.error("❌ Failed: " + data.message);
     }
   } catch (err) {
     console.error("❌ Error submitting product:", err);
-    alert("❌ Error submitting product");
+    toast.error("❌ Error submitting product");
+  } finally {
+    setLoading(false);
   }
 };
 
-export const fetchProduct = async (setLoading, setProductDetails, productId) => {
+export const fetchProduct = async (
+  setLoading,
+  setProductDetails,
+  productId
+) => {
   try {
     setLoading(true);
     const res = await fetch(`/api/products/${productId}`);

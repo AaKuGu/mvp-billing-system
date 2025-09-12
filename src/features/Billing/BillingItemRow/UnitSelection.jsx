@@ -13,7 +13,7 @@ const UnitSelection = ({
   customProduct,
 }) => {
   return (
-    <div className="flex-1">
+    <div className="flex-1 w-full">
       <Label>Unit</Label>
       <Select
         value={unit}

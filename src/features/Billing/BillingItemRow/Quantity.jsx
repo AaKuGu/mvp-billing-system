@@ -21,7 +21,7 @@ const Quantity = ({
     );
   }, [quantity]);
   return (
-    <div className="flex-1">
+    <div className="flex-1 w-full">
       <Label>Quantity</Label>
       <Input
         type="number"

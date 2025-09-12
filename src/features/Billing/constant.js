@@ -8,9 +8,9 @@ const emptyBillProduct = {
 
 //above one can be deleted any time
 
-export const emptyBillData = {
+export const createEmptyBillData = () => ({
+  id: crypto.randomUUID(), // ✅ new ID every call
   dataFromDB: null,
-  itemDetails: {
-    ...emptyBillProduct,
-  },
-};
+  itemDetails: { ...emptyBillProduct },
+});
+

@@ -12,10 +12,8 @@ const ProductName = ({
   billingItems,
   setBillingItems,
   index,
-  
+  setCustomProduct,
 }) => {
-  
-
   return (
     <>
       {/* productname = {JSON.stringify(productName)} */}
@@ -25,6 +23,7 @@ const ProductName = ({
         value={name}
         onChange={(e) => {
           setName(e.target.value);
+          setCustomProduct(true);
           productNameChangeHandler(
             billingItems,
             setBillingItems,
@@ -39,18 +38,9 @@ const ProductName = ({
           const results = fuse.search(e.target.value);
           setSearchedProducts(results.map((r) => r.item));
         }}
-        // onBlur={(e) => {
-        //   const newBilling = [...billingItems];
-        //   if (selectedProductFromDB) {
-        //     newBilling[i].productName = selectedProductFromDB.productName;
-        //   } else {
-        //     newBilling[i].productName = [
-        //       { lang: "eng", value: e.target.value },
-        //       { lang: "hi", value: "" },
-        //     ];
-        //   }
-        //   setBillingItems(newBilling);
-        // }}
+        onBlur={() => {
+          setSearchedProducts([]);
+        }}
       />
     </>
   );

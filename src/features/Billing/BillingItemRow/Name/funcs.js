@@ -26,7 +26,7 @@ export const productNameChangeHandler = (
   const _billingItems = [...billingItems];
   _billingItems[index] = {
     //clear row data & update productName only
-
+    ..._billingItems[index],
     dataFromDB: null,
     itemDetails: {
       productName,

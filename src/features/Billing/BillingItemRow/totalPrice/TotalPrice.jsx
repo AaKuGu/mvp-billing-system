@@ -1,19 +1,19 @@
+import { Input } from "@/shared/components/form/Input";
 import Label from "@/shared/components/form/Label";
 import React from "react";
-import { handleTotalPriceChange } from "./funcs";
 
-const TotalPrice = ({ customProduct, totalPrice }) => {
+const TotalPrice = ({ customProduct, totalPrice, setTotalPrice }) => {
   return (
-    <div className="flex-1">
+    <div className="flex-1 w-full">
       <Label>Total</Label>
       {customProduct ? (
-        <input
+        <Input
           type="number"
           value={totalPrice}
           onChange={(e) => {
-            handleTotalPriceChange(e, billingItems, d, setBillingItems, i);
+            setTotalPrice(e.target.value);
+            // handleTotalPriceChange(e, billingItems, d, setBillingItems, i);
           }}
-          className="p-2 border rounded w-full"
           placeholder="Enter total"
         />
       ) : (

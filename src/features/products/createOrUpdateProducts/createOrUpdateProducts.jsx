@@ -12,6 +12,7 @@ import ProductName from "./productName/ProductName";
 import MainPriceComponent from "./MainPriceComponent";
 import { fetchProduct, handleSave } from "./funcs";
 import Form from "@/shared/components/form/Form";
+import LoadingWrapper from "@/shared/components/Loading/LoadingWrapper";
 
 const CreateOrUpdateProducts = ({ createOrUpdate, productId }) => {
   const [productDetails, setProductDetails] = useState({
@@ -28,6 +29,7 @@ const CreateOrUpdateProducts = ({ createOrUpdate, productId }) => {
 
   useEffect(() => {
     if (createOrUpdate === "update" && productId) {
+      setLoading(true);
       fetchProduct(setLoading, setProductDetails, productId);
     }
   }, [createOrUpdate, productId]);
@@ -64,55 +66,63 @@ const CreateOrUpdateProducts = ({ createOrUpdate, productId }) => {
   // };
 
   return (
-    <div className="w-full h-full bg-white flex flex-col px-10 py-5">
-      <Header>
-        {createOrUpdate === "update" ? "Update Product" : "Add Product"}
-      </Header>
-      productDetails = {JSON.stringify(productDetails)}
-      <Form
-        onSubmit={(e) =>
-          handleSave(e, productDetails, createOrUpdate, productId)
-        }
-      >
-        {/* Product Name */}
-        <ProductName
-          productDetails={productDetails}
-          setProductDetails={setProductDetails}
-        />
+    <div className="w-full h-full bg-white flex flex-col px-2 py-2 md:px-5 md:py-5 ">
+      <LoadingWrapper loading={loading}>
+        <Header>
+          {createOrUpdate === "update" ? "Update Product" : "Add Product"}
+        </Header>
+        <Form
+          onSubmit={(e) => {
+            setLoading(true);
+            handleSave(
+              e,
+              productDetails,
+              createOrUpdate,
+              productId,
+              setLoading
+            );
+          }}
+        >
+          {/* Product Name */}
+          <ProductName
+            productDetails={productDetails}
+            setProductDetails={setProductDetails}
+          />
 
-        {/* Cost Price */}
-        <BuyingCostPrice
-          setProductDetails={setProductDetails}
-          productDetails={productDetails}
-        />
+          {/* Cost Price */}
+          <BuyingCostPrice
+            setProductDetails={setProductDetails}
+            productDetails={productDetails}
+          />
 
-        {/* Wholesale Section */}
-        <MainPriceComponent
-          header="Wholesale Price"
-          main="wholesale"
-          productDetails={productDetails}
-          units={units}
-          setProductDetails={setProductDetails}
-        />
+          {/* Wholesale Section */}
+          <MainPriceComponent
+            header="Wholesale Price"
+            main="wholesale"
+            productDetails={productDetails}
+            units={units}
+            setProductDetails={setProductDetails}
+          />
 
-        {/* Retail Section */}
-        <MainPriceComponent
-          header="Retail Price"
-          main="retail"
-          productDetails={productDetails}
-          units={units}
-          setProductDetails={setProductDetails}
-        />
+          {/* Retail Section */}
+          <MainPriceComponent
+            header="Retail Price"
+            main="retail"
+            productDetails={productDetails}
+            units={units}
+            setProductDetails={setProductDetails}
+          />
 
-        {/* Save button */}
-        <GreenButton type="submit" disabled={loading}>
-          {loading
-            ? "Loading..."
-            : createOrUpdate === "update"
-            ? "Update Product"
-            : "Save Product"}
-        </GreenButton>
-      </Form>
+          {/* Save button */}
+          <GreenButton type="submit" disabled={loading}>
+            {loading
+              ? "Loading..."
+              : createOrUpdate === "update"
+              ? "Update Product"
+              : "Save Product"}
+          </GreenButton>
+        </Form>
+      </LoadingWrapper>
     </div>
   );
 };

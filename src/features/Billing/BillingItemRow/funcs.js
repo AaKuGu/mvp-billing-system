@@ -1,10 +1,7 @@
 // Get selected wholesale price
 
 // Remove item handler
-export const handleRemove = (billingItems, i, setBillingItems) => {
-  const updated = billingItems.filter((_, idx) => idx !== i);
-  setBillingItems(updated);
-};
+
 
 export const onChangeHandler = (
   fieldName,

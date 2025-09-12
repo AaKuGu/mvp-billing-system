@@ -12,7 +12,6 @@ const Sidebar = () => {
     <>
       {/* Top Bar (only visible on mobile) */}
       <div className="lg:hidden flex items-center justify-between p-4 bg-red-500 text-white">
-        <h1 className="text-lg font-bold">My App</h1>
         <button onClick={() => setIsOpen(true)} className="text-2xl">
           <FaBars />
         </button>

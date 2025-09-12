@@ -3,7 +3,7 @@ import Header from "../../../shared/components/ui/Header";
 import Label from "../../../shared/components/form/Label";
 import Select from "@/shared/components/form/Select";
 import { Input } from "@/shared/components/form/Input";
-import { BlueButton, GreenButton } from "@/shared/components/Button";
+import { BlueButton, GreenButton, RedButton } from "@/shared/components/Button";
 import { handleChange, addRow, removeRow } from "./funcs";
 const MainPriceComponent = ({
   header,
@@ -64,14 +64,14 @@ const MainPriceComponent = ({
           {/* Remove Button */}
           <div className="flex flex-col w-1/4">
             <Label className="invisible">Remove</Label>
-            <GreenButton
+            <RedButton
               onClick={(e) => {
                 e.preventDefault();
                 removeRow(main, index, setProductDetails);
               }}
             >
-              Remove
-            </GreenButton>
+              X
+            </RedButton>
           </div>
         </div>
       ))}

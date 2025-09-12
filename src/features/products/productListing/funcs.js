@@ -1,4 +1,4 @@
-export const handleDelete = async (id, setProducts, products) => {
+export const handleDelete = async (id, setProducts, products, setLoading) => {
   if (!confirm("Are you sure you want to delete this product?")) return;
 
   try {
@@ -14,5 +14,7 @@ export const handleDelete = async (id, setProducts, products) => {
     }
   } catch (err) {
     console.error("Error deleting product:", err);
+  } finally{
+    setLoading(false);
   }
 };

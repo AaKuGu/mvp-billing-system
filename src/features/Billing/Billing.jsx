@@ -9,10 +9,10 @@ const Billing = () => {
   const [customerName, setCustomerName] = useState("");
   const [whatsappNum, setWhatsappNum] = useState("");
   return (
-    <div className={`w-full min-h-screen  md:px-20 px-2`}>
+    <div className={`w-full min-h-screen   md:px-20 px-2`}>
       <Header>Billing</Header>
       <div
-        className={`w-full min-h-screen  flex flex-col items-center justify-start gap-4`}
+        className={`w-full min-h-screen px-10  flex flex-col items-center justify-start gap-4`}
       >
         <Form>
           <CustomerDetails

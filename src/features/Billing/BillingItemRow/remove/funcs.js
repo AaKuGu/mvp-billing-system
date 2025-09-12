@@ -1,3 +1,3 @@
-export const handleRemove = () => {
-  setBillingItems(billingItems.filter((_, idx) => idx !== i));
+export const handleRemove = (billingItems, setBillingItems, index, id) => {
+  setBillingItems(billingItems.filter((_) => _.id !== id));
 };
