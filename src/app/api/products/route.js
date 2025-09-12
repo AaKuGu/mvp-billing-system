@@ -66,3 +66,51 @@ export async function GET() {
     );
   }
 }
+
+// PUT - One-time migration to update productName from string → array
+export async function PUT() {
+  try {
+    await dbConnect();
+
+    // Find products where productName is still a string
+    const products = await Product.find({ productName: { $type: "string" } });
+
+    if (!products.length) {
+      return NextResponse.json(
+        { success: true, message: "No products need migration" },
+        { status: 200 }
+      );
+    }
+
+    // Update each product
+    const bulkOps = products.map((p) => ({
+      updateOne: {
+        filter: { _id: p._id },
+        update: {
+          $set: {
+            productName: [
+              { lang: "eng", value: p.productName },
+              { lang: "hi", value: "" }, // leave Hindi blank initially
+            ],
+          },
+        },
+      },
+    }));
+
+    await Product.bulkWrite(bulkOps);
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: `✅ Migrated ${products.length} products successfully`,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error migrating product names:", error);
+    return NextResponse.json(
+      { success: false, message: "Server error", error: error.message },
+      { status: 500 }
+    );
+  }
+}

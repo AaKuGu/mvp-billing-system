@@ -2,33 +2,27 @@
 import React, { useState } from "react";
 import CustomerDetails from "./CustomerDetails";
 import BillingItems from "./BillingItems";
-import { emptyBillProduct } from "./constant";
+import Header from "@/shared/components/ui/Header";
+import Form from "@/shared/components/form/Form";
 
 const Billing = () => {
   const [customerName, setCustomerName] = useState("");
   const [whatsappNum, setWhatsappNum] = useState("");
-  const [billingItems, setBillingItems] = useState([emptyBillProduct]);
   return (
     <div className={`w-full min-h-screen  md:px-20 px-2`}>
-      <header>Billing</header>
+      <Header>Billing</Header>
       <div
-        className={`w-full min-h-screen  flex flex-col items-center justify-center gap-4`}
+        className={`w-full min-h-screen  flex flex-col items-center justify-start gap-4`}
       >
-        <form>
+        <Form>
           <CustomerDetails
             customerName={customerName}
             setCustomerName={setCustomerName}
             setWhatsappNum={setWhatsappNum}
             whatsappNum={whatsappNum}
           />
-          <BillingItems
-            billingItems={billingItems}
-            setBillingItems={setBillingItems}
-          />
-        </form>
-
-        {customerName}
-        {whatsappNum}
+          <BillingItems />
+        </Form>
       </div>
     </div>
   );

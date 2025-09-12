@@ -1,12 +1,16 @@
-export const emptyBillProduct = {
+const emptyBillProduct = {
   productName: "",
-  costPrice: 0,
-  wholesalePrice: 0,
-  retailPrice: 0,
-  pricePoints: [
-    {
-      unit: "",
-      price: 0,
-    },
-  ],
+  quantity: 0,
+  unit: "",
+  unitPrice: 0,
+  totalPrice: 0,
+};
+
+//above one can be deleted any time
+
+export const emptyBillData = {
+  dataFromDB: null,
+  itemDetails: {
+    ...emptyBillProduct,
+  },
 };

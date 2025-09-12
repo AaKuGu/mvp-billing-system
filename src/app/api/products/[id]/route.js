@@ -38,6 +38,8 @@ export async function PUT(req, { params }) {
 
     const { productName, cost, wholesale, retail } = body;
 
+    console.log(productName);
+
     // ✅ Build update object only with provided fields
     const updateFields = {};
     if (productName !== undefined) updateFields.productName = productName;
@@ -49,6 +51,8 @@ export async function PUT(req, { params }) {
       new: true,
       runValidators: true,
     });
+
+    console.log(`updatedProduct: ${updatedProduct}`);
 
     if (!updatedProduct) {
       return NextResponse.json(

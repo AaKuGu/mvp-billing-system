@@ -1,64 +1,43 @@
 import React, { useEffect, useState } from "react";
-import Fuse from "fuse.js";
-import BillingItemRow from "./BillingItemRow";
-import { emptyBillProduct } from "./constant";
+import BillingItemRow from "./BillingItemRow/BillingItemRow";
+import { emptyBillData, emptyBillProduct } from "./constant";
 import PlusMinusButtons from "./PlusMinusButtons";
+import Header from "@/shared/components/ui/Header";
+import { fetchProducts } from "./funcs";
 
-const BillingItems = ({ billingItems, setBillingItems }) => {
-  const [products, setProducts] = useState([]);
+const BillingItems = () => {
+  // const [productsFromServer, setProductsFromServer] = useState([]);
   const [fuse, setFuse] = useState(null);
+  const [billingItems, setBillingItems] = useState([emptyBillData]);
+  // const [selectedProductFromDB, setSelectedProductFromDB] = useState(null);
+
+  // console.log("billing items : ", billingItems);
 
   // Fetch products
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch("/api/products");
-        const data = await res.json();
-        if (data.success) {
-          setProducts(data.products);
-
-          // Initialize Fuse
-          const fuseInstance = new Fuse(data.products, {
-            keys: ["productName"],
-            includeScore: true,
-            threshold: 0.4, // typo-tolerant
-            ignoreLocation: false, // prioritize prefix matches
-            minMatchCharLength: 1,
-          });
-          setFuse(fuseInstance);
-        } else {
-          console.error("Failed to fetch products:", data.message);
-        }
-      } catch (err) {
-        console.error("Error fetching products:", err);
-      }
-    };
-
-    fetchProducts();
+    fetchProducts(setFuse);
   }, []);
 
   return (
     <div>
-      <header className="font-bold text-lg">Billing Items</header>
-
+      {/* fuseDocsi = {JSON.stringify(fuse._docs)} */}
+      {/* fuseDocs[i] = {JSON.stringify(fuseDocs[i].unit)} */}
+      <Header>Billing Items</Header>
       <div className="flex flex-col gap-2 mt-2">
         {billingItems.map((d, i) => (
           <BillingItemRow
             key={i}
-            d={d}
-            i={i}
+            rowData={d}
+            index={i}
             billingItems={billingItems}
             setBillingItems={setBillingItems}
             fuse={fuse}
           />
         ))}
       </div>
-
       {/* Plus / Minus Buttons */}
       <PlusMinusButtons setBillingItems={setBillingItems} />
-
-      {JSON.stringify(billingItems[0]?.pricePoints)}
-      {JSON.stringify(billingItems[0]?.productName)}
+      d={JSON.stringify(billingItems, 2)}
     </div>
   );
 };

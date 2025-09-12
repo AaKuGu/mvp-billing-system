@@ -2,19 +2,23 @@
 
 import { Input } from "@/shared/components/form/Input";
 import React, { useEffect, useState } from "react";
-import { units } from "../constant";
+import { units } from "@/shared/components/constants";
 import { BlueButton, GreenButton } from "@/shared/components/Button";
 import Select from "@/shared/components/form/Select";
 import Header from "../../../shared/components/ui/Header";
-import Label from "./ui/Label";
+import Label from "../../../shared/components/form/Label";
 import BuyingCostPrice from "./BuyingCostPrice";
-import ProductName from "./ProductName";
+import ProductName from "./productName/ProductName";
 import MainPriceComponent from "./MainPriceComponent";
 import { fetchProduct, handleSave } from "./funcs";
+import Form from "@/shared/components/form/Form";
 
 const CreateOrUpdateProducts = ({ createOrUpdate, productId }) => {
   const [productDetails, setProductDetails] = useState({
-    productName: "",
+    productName: [
+      { lang: "eng", value: "" },
+      { lang: "hi", value: "" },
+    ],
     cost: [{ unit: "pcs", price: 0 }],
     wholesale: [{ unit: "pcs", price: 0 }],
     retail: [{ unit: "pcs", price: 0 }],
@@ -64,9 +68,8 @@ const CreateOrUpdateProducts = ({ createOrUpdate, productId }) => {
       <Header>
         {createOrUpdate === "update" ? "Update Product" : "Add Product"}
       </Header>
-
-      <form
-        className="border p-2 md:p-5 space-y-6"
+      productDetails = {JSON.stringify(productDetails)}
+      <Form
         onSubmit={(e) =>
           handleSave(e, productDetails, createOrUpdate, productId)
         }
@@ -109,7 +112,7 @@ const CreateOrUpdateProducts = ({ createOrUpdate, productId }) => {
             ? "Update Product"
             : "Save Product"}
         </GreenButton>
-      </form>
+      </Form>
     </div>
   );
 };

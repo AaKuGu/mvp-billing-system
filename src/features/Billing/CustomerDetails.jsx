@@ -1,4 +1,6 @@
 import React from "react";
+import Label from "../../shared/components/form/Label";
+import { Input } from "@/shared/components/form/Input";
 
 const CustomerDetails = ({
   customerName,
@@ -9,16 +11,16 @@ const CustomerDetails = ({
   return (
     <>
       <div>
-        <label>Name</label>
-        <input
+        <Label>Name</Label>
+        <Input
           type="text"
           value={customerName}
           onChange={(e) => setCustomerName(e.target.value)}
         />
       </div>
       <div>
-        <label>Whatsapp Number</label>
-        <input
+        <Label>Whatsapp Number</Label>
+        <Input
           type="number"
           value={whatsappNum}
           onChange={(e) => setWhatsappNum(e.target.value)}

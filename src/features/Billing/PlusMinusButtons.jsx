@@ -1,5 +1,5 @@
 import React from "react";
-import { emptyBillProduct } from "./constant";
+import { emptyBillData, emptyBillProduct } from "./constant";
 
 const PlusMinusButtons = ({ setBillingItems }) => {
   return (
@@ -7,16 +7,11 @@ const PlusMinusButtons = ({ setBillingItems }) => {
       <button
         type="button"
         className="rounded-lg px-5 py-2 bg-blue-500"
-        onClick={() => setBillingItems((prev) => [...prev, emptyBillProduct])}
+        onClick={() => {
+          setBillingItems((prev) => [...prev, { ...emptyBillData }]);
+        }}
       >
         +
-      </button>
-      <button
-        type="button"
-        className="rounded-lg px-5 py-2 bg-red-500"
-        onClick={() => setBillingItems((prev) => prev.slice(0, -1))}
-      >
-        -
       </button>
     </div>
   );

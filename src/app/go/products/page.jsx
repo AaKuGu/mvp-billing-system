@@ -2,6 +2,7 @@
 
 import { handleDelete } from "@/features/products/productListing/funcs";
 import { RedButton } from "@/shared/components/Button";
+import Header from "@/shared/components/ui/Header";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
@@ -31,7 +32,10 @@ const Page = () => {
   };
 
   const filteredProducts = products.filter((p) =>
-    p.productName.toLowerCase().includes(searchTerm.toLowerCase())
+    p.productName
+      .find((n) => n.lang === "eng")
+      ?.value.toLowerCase()
+      .includes(searchTerm.toLowerCase())
   );
 
   // helper for rendering price arrays
@@ -49,9 +53,7 @@ const Page = () => {
   return (
     <div className="w-full min-h-screen p-4 sm:p-6 text-black">
       {/* Header */}
-      <header className="w-full text-center text-2xl font-semibold mb-4">
-        Products
-      </header>
+      <Header>Products</Header>
 
       {/* Top Controls */}
       <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 mb-4">
@@ -100,7 +102,14 @@ const Page = () => {
                       key={p._id}
                       className="text-center hover:bg-gray-50 transition"
                     >
-                      <td className="p-2 border">{p.productName}</td>
+                      <td className="p-2 border ">
+                        {p.productName.find((n) => n.lang === "eng")?.value ||
+                          ""}
+                          <br />
+                        {p.productName.find((n) => n.lang === "hi")?.value ||
+                          ""}
+                      </td>
+
                       <td className="p-2 border">{renderPriceArray(p.cost)}</td>
                       <td className="p-2 border">
                         {renderPriceArray(p.wholesale)}
@@ -137,7 +146,10 @@ const Page = () => {
                   key={p._id}
                   className="border rounded-lg p-4 shadow-sm bg-white"
                 >
-                  <p className="font-semibold">{p.productName}</p>
+                  <p className="font-semibold">
+                    {p.productName.find((n) => n.lang === "eng")?.value || ""}
+                    {p.productName.find((n) => n.lang === "hi")?.value || ""}
+                  </p>
                   <div className="mt-2">
                     <p className="font-medium">Cost:</p>
                     {renderPriceArray(p.cost)}

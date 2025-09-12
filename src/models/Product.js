@@ -5,12 +5,18 @@ const PricePointSchema = new mongoose.Schema({
   price: { type: Number, required: true },
 });
 
+// New schema for multilingual product name
+const LocalizedNameSchema = new mongoose.Schema({
+  lang: { type: String, required: true }, // e.g. "en", "hi", "fr"
+  value: { type: String, required: true }, // actual name
+});
+
 const ProductSchema = new mongoose.Schema(
   {
-    productName: { type: String, required: true },
-    cost: [PricePointSchema], // e.g. [{ unit: "pcs", price: 8 }]
-    wholesale: [PricePointSchema], // e.g. [{ unit: "pcs", price: 9 }, { unit: "dozen", price: 105 }]
-    retail: [PricePointSchema], // e.g. [{ unit: "pcs", price: 10 }]
+    productName: [LocalizedNameSchema], // [{ lang: "en", value: "Kaveri" }, { lang: "hi", value: "कावेरी" }]
+    cost: [PricePointSchema],
+    wholesale: [PricePointSchema],
+    retail: [PricePointSchema],
   },
   { timestamps: true }
 );

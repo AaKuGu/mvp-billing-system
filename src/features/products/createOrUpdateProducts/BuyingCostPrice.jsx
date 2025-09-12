@@ -1,10 +1,9 @@
 import React from "react";
 import Header from "../../../shared/components/ui/Header";
-import Label from "./ui/Label";
+import Label from "../../../shared/components/form/Label";
 import Select from "@/shared/components/form/Select";
-import { units } from "../constant";
-import { GreenButton } from "@/shared/components/Button";
 import { Input } from "@/shared/components/form/Input";
+import { units } from "@/shared/components/constants";
 
 const BuyingCostPrice = ({ setProductDetails, productDetails }) => {
   console.log("BuyingCostPrice Rendered", productDetails?.cost);
