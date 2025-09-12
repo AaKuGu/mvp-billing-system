@@ -13,17 +13,10 @@ import MainPriceComponent from "./MainPriceComponent";
 import { fetchProduct, handleSave } from "./funcs";
 import Form from "@/shared/components/form/Form";
 import LoadingWrapper from "@/shared/components/Loading/LoadingWrapper";
+import { emptyProductDetails } from "./constant";
 
 const CreateOrUpdateProducts = ({ createOrUpdate, productId }) => {
-  const [productDetails, setProductDetails] = useState({
-    productName: [
-      { lang: "eng", value: "" },
-      { lang: "hi", value: "" },
-    ],
-    cost: [{ unit: "pcs", price: 0 }],
-    wholesale: [{ unit: "pcs", price: 0 }],
-    retail: [{ unit: "pcs", price: 0 }],
-  });
+  const [productDetails, setProductDetails] = useState(emptyProductDetails);
 
   const [loading, setLoading] = useState(false);
 
@@ -79,7 +72,8 @@ const CreateOrUpdateProducts = ({ createOrUpdate, productId }) => {
               productDetails,
               createOrUpdate,
               productId,
-              setLoading
+              setLoading,
+              setProductDetails
             );
           }}
         >

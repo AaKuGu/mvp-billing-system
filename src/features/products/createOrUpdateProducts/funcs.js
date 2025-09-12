@@ -1,5 +1,6 @@
 // 🔧 Generic change handler
 import toast from "react-hot-toast";
+import { emptyProductDetails } from "./constant";
 
 export const handleChange = (type, index, field, value, setProductDetails) => {
   setProductDetails((prev) => {
@@ -30,7 +31,8 @@ export const handleSave = async (
   productDetails,
   createOrUpdate,
   productId,
-  setLoading
+  setLoading,
+  setProductDetails
 ) => {
   e.preventDefault();
 
@@ -56,6 +58,7 @@ export const handleSave = async (
           ? "Product updated successfully!"
           : "Product added successfully!"
       );
+      setProductDetails(emptyProductDetails);
     } else {
       toast.error("❌ Failed: " + data.message);
     }
