@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 export const handleDelete = async (id, setProducts, products, setLoading) => {
   if (!confirm("Are you sure you want to delete this product?")) return;
 
@@ -8,13 +10,14 @@ export const handleDelete = async (id, setProducts, products, setLoading) => {
     const data = await res.json();
 
     if (data.success) {
+      toast.success(data?.message);
       setProducts(products.filter((p) => p._id !== id));
     } else {
       alert("❌ " + data.message);
     }
   } catch (err) {
     console.error("Error deleting product:", err);
-  } finally{
+  } finally {
     setLoading(false);
   }
 };

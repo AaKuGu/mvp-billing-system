@@ -1,104 +1,72 @@
 import { dbConnect } from "@/db/connectDB";
 import Product from "@/models/Product";
-import { NextResponse } from "next/server";
+import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
+import CustomError from "@/shared/backend/utils/error/CustomError";
+import successResponse from "@/shared/backend/utils/success/successResponse";
 
-// GET - Fetch a product by ID
-export async function GET(req, { params }) {
-  try {
-    await dbConnect();
+export const GET = controllerFunc(async (req, { params }) => {
+  await dbConnect();
 
-    const { id } = params;
+  let errorContext = "Error in GET /products/[id]";
 
-    const product = await Product.findById(id);
+  const { id } = params;
 
-    if (!product) {
-      return NextResponse.json(
-        { success: false, message: "Product not found" },
-        { status: 404 }
-      );
-    }
+  const product = await Product.findById(id);
 
-    return NextResponse.json({ success: true, product }, { status: 200 });
-  } catch (error) {
-    console.error("Error fetching product:", error);
-    return NextResponse.json(
-      { success: false, message: "Server error", error: error.message },
-      { status: 500 }
-    );
+  if (!product) {
+    throw new CustomError("Product not found", 404, errorContext);
   }
-}
 
-// PUT - Update product by ID
-export async function PUT(req, { params }) {
-  try {
-    await dbConnect();
+  return successResponse({ product }, "Product fetched", 200);
+}, "Error in GET /products/[id]");
 
-    const { id } = params;
-    const body = await req.json();
+export const PUT = controllerFunc(async (req, { params }) => {
+  await dbConnect();
 
-    const { productName, cost, wholesale, retail } = body;
+  let errorContext = "Error in PUT /products/[id]";
 
-    console.log(productName);
+  const { id } = params;
+  const body = await req.json();
 
-    // ✅ Build update object only with provided fields
-    const updateFields = {};
-    if (productName !== undefined) updateFields.productName = productName;
-    if (Array.isArray(cost)) updateFields.cost = cost;
-    if (Array.isArray(wholesale)) updateFields.wholesale = wholesale;
-    if (Array.isArray(retail)) updateFields.retail = retail;
+  const { productName, cost, wholesale, retail } = body;
 
-    const updatedProduct = await Product.findByIdAndUpdate(id, updateFields, {
-      new: true,
-      runValidators: true,
-    });
+  // ✅ Build update object only with provided fields
+  const updateFields = {};
+  if (productName !== undefined) updateFields.productName = productName;
+  if (Array.isArray(cost)) updateFields.cost = cost;
+  if (Array.isArray(wholesale)) updateFields.wholesale = wholesale;
+  if (Array.isArray(retail)) updateFields.retail = retail;
 
-    console.log(`updatedProduct: ${updatedProduct}`);
+  const updatedProduct = await Product.findByIdAndUpdate(id, updateFields, {
+    new: true,
+    runValidators: true,
+  });
 
-    if (!updatedProduct) {
-      return NextResponse.json(
-        { success: false, message: "Product not found" },
-        { status: 404 }
-      );
-    }
+  console.log(`updatedProduct: ${updatedProduct}`);
 
-    return NextResponse.json(
-      { success: true, product: updatedProduct },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error("Error updating product:", error);
-    return NextResponse.json(
-      { success: false, message: "Server error", error: error.message },
-      { status: 500 }
-    );
+  if (!updatedProduct) {
+    throw new CustomError("Product not found", 404, errorContext);
   }
-}
 
-// DELETE - Remove product by ID
-export async function DELETE(req, { params }) {
-  try {
-    await dbConnect();
+  return successResponse(updatedProduct, "Product updated successfully", 200);
+}, "Error in PUT /products/[id]");
 
-    const { id } = params;
+export const DELETE = controllerFunc(async (req, { params }) => {
+  await dbConnect();
 
-    const deletedProduct = await Product.findByIdAndDelete(id);
+  let errorContext = "Error in DELETE /products/[id]";
 
-    if (!deletedProduct) {
-      return NextResponse.json(
-        { success: false, message: "Product not found" },
-        { status: 404 }
-      );
-    }
+  const { id } = params;
 
-    return NextResponse.json(
-      { success: true, message: "Product deleted successfully" },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error("Error deleting product:", error);
-    return NextResponse.json(
-      { success: false, message: "Server error", error: error.message },
-      { status: 500 }
-    );
+  if (!id) {
+    throw new CustomError("Id is required", 400, errorContext);
   }
-}
+
+  const deletedProduct = await Product.findByIdAndDelete(id);
+
+  if (!deletedProduct) {
+    throw new CustomError("Product not found", 404, errorContext);
+  }
+
+  return successResponse({}, "Product deleted successfully");
+}, "Error in DELETE /products/[id]");

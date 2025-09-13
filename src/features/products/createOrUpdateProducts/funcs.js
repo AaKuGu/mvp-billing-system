@@ -1,6 +1,8 @@
 // 🔧 Generic change handler
 import toast from "react-hot-toast";
 import { emptyProductDetails } from "./constant";
+import axios from "axios";
+import { fetchAProduct_api, saveAProduct, updateAProduct } from "./apiCall";
 
 export const handleChange = (type, index, field, value, setProductDetails) => {
   setProductDetails((prev) => {
@@ -36,71 +38,45 @@ export const handleSave = async (
 ) => {
   e.preventDefault();
 
-  try {
-    const url =
-      createOrUpdate === "update" && productId
-        ? `/api/products/${productId}`
-        : "/api/products";
+  let data;
 
-    const method = createOrUpdate === "update" ? "PUT" : "POST";
+  if (createOrUpdate === "update")
+    data = await updateAProduct(productId, productDetails);
+  else data = await saveAProduct(productDetails);
 
-    const res = await fetch(url, {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(productDetails),
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      toast.success(
-        createOrUpdate === "update"
-          ? "Product updated successfully!"
-          : "Product added successfully!"
-      );
-      setProductDetails(emptyProductDetails);
-    } else {
-      toast.error("❌ Failed: " + data.message);
-    }
-  } catch (err) {
-    console.error("❌ Error submitting product:", err);
-    toast.error("❌ Error submitting product");
-  } finally {
-    setLoading(false);
+  if (data) {
+    toast.success(data.message);
+    setProductDetails(emptyProductDetails);
   }
+  setLoading(false);
 };
 
-export const fetchProduct = async (
+export const fetchAProduct = async (
   setLoading,
   setProductDetails,
   productId
 ) => {
-  try {
-    setLoading(true);
-    const res = await fetch(`/api/products/${productId}`);
-    const data = await res.json();
+  setLoading(true);
 
-    console.log("Fetched product data:", data);
+  const data = await fetchAProduct_api(productId);
 
-    if (data.success && data.product) {
-      setProductDetails({
-        productName: data.product.productName || "",
-        cost: data.product.cost?.length
-          ? data.product.cost
-          : [{ unit: "pcs", price: 0 }],
-        wholesale: data.product.wholesale?.length
-          ? data.product.wholesale
-          : [{ unit: "pcs", price: 0 }],
-        retail: data.product.retail?.length
-          ? data.product.retail
-          : [{ unit: "pcs", price: 0 }],
-      });
-    } else {
-      console.error("❌ Failed to load product:", data.message);
-    }
-  } catch (err) {
-    console.error("❌ Error fetching product:", err);
-  } finally {
-    setLoading(false);
+  console.log("Fetched product data:", data);
+
+  if (data && data.product) {
+    setProductDetails({
+      productName: data.product.productName || "",
+      cost: data.product.cost?.length
+        ? data.product.cost
+        : [{ unit: "pcs", price: 0 }],
+      wholesale: data.product.wholesale?.length
+        ? data.product.wholesale
+        : [{ unit: "pcs", price: 0 }],
+      retail: data.product.retail?.length
+        ? data.product.retail
+        : [{ unit: "pcs", price: 0 }],
+    });
+  } else {
+    console.error("❌ Failed to load product");
   }
+  setLoading(false);
 };
