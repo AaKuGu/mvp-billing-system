@@ -16,7 +16,6 @@ const ProductName = ({ productDetails, setProductDetails, createOrUpdate }) => {
     if (productNameEng.length >= 3) {
       fetchProductsNames(productNameEng, setExistingMatchingProductNames);
     } else {
-      alert("u")
       setExistingMatchingProductNames([]);
     }
   }, [productNameEng]);
@@ -58,7 +57,7 @@ const ProductName = ({ productDetails, setProductDetails, createOrUpdate }) => {
       </div>
       {createOrUpdate === "create" &&
         existingMatchingProductNames.length > 0 && (
-          <ExistingProductsNames searchTerm={productNameEng} />
+          <ExistingProductsNames existingMatchingProductNames={existingMatchingProductNames} />
         )}
       <div className="flex items-center gap-2">
         <Label styles="min-w-[50px]">Hindi&nbsp;:</Label>

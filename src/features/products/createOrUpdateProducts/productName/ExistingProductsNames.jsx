@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { fetchProductsNames } from "./funcs";
+import React from "react";
 
-const ExistingProductsNames = ({ searchTerm }) => {
-  const [productNames, setProductNames] = useState([]);
-
-  useEffect(() => {
-    fetchProductsNames(searchTerm, setProductNames);
-  }, [searchTerm]);
-
+const ExistingProductsNames = ({ existingMatchingProductNames }) => {
   return (
     <div className="flex items-center gap-2 flex-wrap">
       <p className="font-medium text-gray-700">Existing products:</p>
       <div className="flex gap-2 flex-wrap">
-        {productNames.map((product) => {
+        {existingMatchingProductNames.map((product) => {
           const engName = product.productName.find(
             (d) => d.lang.toLowerCase() === "eng"
           );
