@@ -3,10 +3,10 @@ import { handleDelete, renderPriceArray } from "../funcs";
 import Link from "next/link";
 import { RedButton } from "@/shared/components/Button";
 
-const MobileView = ({ filteredProducts, setLoading }) => {
+const MobileView = ({ products, setProducts, setLoading }) => {
   return (
     <div className="sm:hidden space-y-4">
-      {filteredProducts.map((p) => (
+      {products.map((p) => (
         <div key={p._id} className="border rounded-lg p-4 shadow-sm bg-white">
           <p className="font-semibold">
             {p.productName.find((n) => n.lang === "eng")?.value || ""}

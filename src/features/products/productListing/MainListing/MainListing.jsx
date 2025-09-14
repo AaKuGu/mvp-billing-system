@@ -26,15 +26,16 @@ const MainListing = ({
           // filteredProducts={filteredProducts}
           setProducts={setProducts}
           products={products}
-          loading={loading}
           setLoading={setLoading}
         />
 
         {/* Mobile Card View */}
-        {/* <MobileView
-          filteredProducts={filteredProducts}
+        <MobileView
+          setProducts={setProducts}
+          products={products}
+          // filteredProducts={filteredProducts}
           setLoading={setLoading}
-        /> */}
+        />
       </>
     </div>
   );
