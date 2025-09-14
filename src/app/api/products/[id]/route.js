@@ -3,6 +3,7 @@ import Product from "@/models/Product";
 import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
 import CustomError from "@/shared/backend/utils/error/CustomError";
 import successResponse from "@/shared/backend/utils/success/successResponse";
+import { allowedCategories } from "../constant";
 
 export const GET = controllerFunc(async (req, { params }) => {
   await dbConnect();
@@ -12,6 +13,8 @@ export const GET = controllerFunc(async (req, { params }) => {
   const { id } = params;
 
   const product = await Product.findById(id);
+
+  // console.log(product);
 
   if (!product) {
     throw new CustomError("Product not found", 404, errorContext);
@@ -28,11 +31,13 @@ export const PUT = controllerFunc(async (req, { params }) => {
   const { id } = params;
   const body = await req.json();
 
-  const { productName, cost, wholesale, retail } = body;
+  const { productName, cost, wholesale, retail, category } = body;
 
   // ✅ Build update object only with provided fields
   const updateFields = {};
   if (productName !== undefined) updateFields.productName = productName;
+  if (typeof category === "string" && allowedCategories.includes(category))
+    updateFields.category = category;
   if (Array.isArray(cost)) updateFields.cost = cost;
   if (Array.isArray(wholesale)) updateFields.wholesale = wholesale;
   if (Array.isArray(retail)) updateFields.retail = retail;

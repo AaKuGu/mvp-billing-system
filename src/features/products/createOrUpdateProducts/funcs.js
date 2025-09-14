@@ -60,11 +60,12 @@ export const fetchAProduct = async (
 
   const data = await fetchAProduct_api(productId);
 
-  console.log("Fetched product data:", data);
+  // console.log("Fetched product data:", data);
 
   if (data && data.product) {
     setProductDetails({
       productName: data.product.productName || "",
+      category: data?.product?.category || "",
       cost: data.product.cost?.length
         ? data.product.cost
         : [{ unit: "pcs", price: 0 }],

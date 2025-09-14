@@ -3,27 +3,31 @@ import Product from "@/models/Product";
 import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
 import CustomError from "@/shared/backend/utils/error/CustomError";
 import successResponse from "@/shared/backend/utils/success/successResponse";
+import { allowedCategories } from "./constant";
 
 export const POST = controllerFunc(async (req) => {
   await dbConnect(); // connect to DB
 
-  let errorContext = "Error in POST /products";
-
+  const errorContext = "Error in POST /products";
   const body = await req.json(); // parse request body
-  const { productName, cost, wholesale, retail } = body;
+  const { productName, cost, wholesale, retail, category } = body;
 
-  // ✅ Basic validation
+  // ✅ Validation
   if (
-    !productName ||
+    !Array.isArray(productName) ||
+    productName.length === 0 ||
     !Array.isArray(cost) ||
     cost.length === 0 ||
     !Array.isArray(wholesale) ||
     wholesale.length === 0 ||
     !Array.isArray(retail) ||
-    retail.length === 0
+    retail.length === 0 ||
+    !category ||
+    typeof category !== "string" ||
+    !allowedCategories.includes(category)
   ) {
     throw new CustomError(
-      "Product name, cost, wholesale, and retail are required",
+      "Invalid input: productName, cost, wholesale, retail and valid category are required",
       400,
       errorContext
     );
@@ -35,6 +39,7 @@ export const POST = controllerFunc(async (req) => {
     cost,
     wholesale,
     retail,
+    category,
   });
 
   return successResponse({}, "Product Created Successfully", 201);

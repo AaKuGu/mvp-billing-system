@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { categoryEnum } from "./constant";
 
 const PricePointSchema = new mongoose.Schema({
   unit: { type: String, required: true },
@@ -17,7 +18,11 @@ const ProductSchema = new mongoose.Schema(
     cost: [PricePointSchema],
     wholesale: [PricePointSchema],
     retail: [PricePointSchema],
-    
+    category: {
+      type: String,
+      enum: categoryEnum, // ✅ only allow these categories
+      required: true,
+    },
   },
   { timestamps: true }
 );

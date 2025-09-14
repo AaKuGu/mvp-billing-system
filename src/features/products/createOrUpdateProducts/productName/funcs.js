@@ -1,4 +1,4 @@
-export const handleChange = (lang, value, setProductDetails) => {
+export const handleChangeForName = (lang, value, setProductDetails) => {
   setProductDetails((prev) => ({
     ...prev,
     productName: prev.productName.map((item) =>

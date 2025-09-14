@@ -1,5 +1,7 @@
 // helper for rendering price arrays
 
+import toast from "react-hot-toast";
+
 export const handleDelete = async (id, setProducts, products, setLoading) => {
   if (!confirm("Are you sure you want to delete this product?")) return;
 

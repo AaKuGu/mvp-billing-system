@@ -48,13 +48,11 @@ const CreateOrUpdateProducts = ({ createOrUpdate, productId }) => {
             productDetails={productDetails}
             setProductDetails={setProductDetails}
           />
-
           {/* Cost Price */}
           <BuyingCostPrice
             setProductDetails={setProductDetails}
             productDetails={productDetails}
           />
-
           {/* Wholesale Section */}
           <MainPriceComponent
             header="Wholesale Price"
@@ -63,7 +61,6 @@ const CreateOrUpdateProducts = ({ createOrUpdate, productId }) => {
             units={units}
             setProductDetails={setProductDetails}
           />
-
           {/* Retail Section */}
           <MainPriceComponent
             header="Retail Price"
@@ -72,7 +69,6 @@ const CreateOrUpdateProducts = ({ createOrUpdate, productId }) => {
             units={units}
             setProductDetails={setProductDetails}
           />
-
           {/* Save button */}
           <GreenButton type="submit" disabled={loading}>
             {loading
