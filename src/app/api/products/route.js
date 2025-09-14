@@ -4,6 +4,7 @@ import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
 import CustomError from "@/shared/backend/utils/error/CustomError";
 import successResponse from "@/shared/backend/utils/success/successResponse";
 import { allowedCategories } from "./constant";
+import { finalProductsToSend, queryToSearch } from "./funcs";
 
 export const POST = controllerFunc(async (req) => {
   await dbConnect(); // connect to DB
@@ -51,25 +52,13 @@ export const GET = controllerFunc(async (req) => {
 
   const { searchParams } = new URL(req.url);
   const productName = searchParams.get("productName"); // from query param
-  console.log("productName : ", productName);
+  const onlyNames = searchParams.get("onlyNames"); // from query param
 
-  let query = {};
+  const query = queryToSearch(productName);
 
-  if (productName) {
-    // ✅ partial & case-insensitive match on English name
-    query = {
-      productName: {
-        $elemMatch: {
-          lang: "eng",
-          value: { $regex: productName, $options: "i" }, // <-- regex
-        },
-      },
-    };
-  }
+  const products = await finalProductsToSend(Product, query, onlyNames);
 
-  console.log(query);
-
-  const products = await Product.find(query).sort({ createdAt: -1 }).limit(10);
+  console.log("pp : ", products);
 
   return successResponse({ products }, "Products Fetched Successfully");
 }, "Error in GET /products");

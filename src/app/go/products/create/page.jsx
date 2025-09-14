@@ -222,7 +222,7 @@ import CreateOrUpdateProducts from "@/features/products/createOrUpdateProducts/c
 import React, { useState } from "react";
 
 const page = () => {
-  return <CreateOrUpdateProducts />;
+  return <CreateOrUpdateProducts createOrUpdate={"create"} />;
 };
 
 export default page;

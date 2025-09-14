@@ -47,6 +47,7 @@ const CreateOrUpdateProducts = ({ createOrUpdate, productId }) => {
           <ProductName
             productDetails={productDetails}
             setProductDetails={setProductDetails}
+            createOrUpdate={createOrUpdate}
           />
           {/* Cost Price */}
           <BuyingCostPrice

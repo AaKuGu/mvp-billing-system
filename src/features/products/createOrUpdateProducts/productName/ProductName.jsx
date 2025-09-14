@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/shared/components/form/Input";
 import Header from "../../../../shared/components/ui/Header";
 import Label from "@/shared/components/form/Label";
-import { getValue, handleChangeForName } from "./funcs";
+import { fetchProductsNames, getValue, handleChangeForName } from "./funcs";
 import Select from "@/shared/components/form/Select";
 import { category } from "./constant";
+import ExistingProductsNames from "./ExistingProductsNames";
 
-const ProductName = ({ productDetails, setProductDetails }) => {
+const ProductName = ({ productDetails, setProductDetails, createOrUpdate }) => {
+  const [productNameEng, setProductNameEng] = useState("");
+  const [existingMatchingProductNames, setExistingMatchingProductNames] =
+    useState([]);
+
+  useEffect(() => {
+    if (productNameEng.length >= 3) {
+      fetchProductsNames(productNameEng, setExistingMatchingProductNames);
+    } else {
+      setExistingMatchingProductNames([]);
+    }
+  }, [productNameEng]);
   return (
     <div className={`flex flex-col gap-2`}>
       <Header htmlFor="">Product Name</Header>
@@ -37,11 +49,16 @@ const ProductName = ({ productDetails, setProductDetails }) => {
           type="text"
           placeholder={`Type English Name`}
           value={getValue("eng", productDetails)}
-          onChange={(e) =>
-            handleChangeForName("eng", e.target.value, setProductDetails)
-          }
+          onChange={(e) => {
+            handleChangeForName("eng", e.target.value, setProductDetails);
+            setProductNameEng(e.target.value);
+          }}
         />
       </div>
+      {createOrUpdate === "create" &&
+        existingMatchingProductNames.length > 0 && (
+          <ExistingProductsNames searchTerm={productNameEng} />
+        )}
       <div className="flex items-center gap-2">
         <Label styles="min-w-[50px]">Hindi&nbsp;:</Label>
         <Input
