@@ -5,6 +5,7 @@ import CustomError from "@/shared/backend/utils/error/CustomError";
 import successResponse from "@/shared/backend/utils/success/successResponse";
 import { allowedCategories } from "./constant";
 import { finalProductsToSend, queryToSearch } from "./funcs";
+import System_logs from "@/models/System_logs";
 
 export const POST = controllerFunc(async (req) => {
   await dbConnect(); // connect to DB
@@ -41,6 +42,18 @@ export const POST = controllerFunc(async (req) => {
     wholesale,
     retail,
     category,
+  });
+
+  System_logs.create({
+    operationType: "product_created",
+    payload: JSON.stringify({
+      productId: newProduct._id,
+      productName: newProduct.productName,
+      category: newProduct.category,
+      cost: newProduct.cost,
+      wholesale: newProduct.wholesale,
+      retail: newProduct.retail,
+    }),
   });
 
   return successResponse({}, "Product Created Successfully", 201);

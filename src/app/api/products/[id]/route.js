@@ -4,6 +4,7 @@ import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
 import CustomError from "@/shared/backend/utils/error/CustomError";
 import successResponse from "@/shared/backend/utils/success/successResponse";
 import { allowedCategories } from "../constant";
+import System_logs from "@/models/System_logs";
 
 export const GET = controllerFunc(async (req, { params }) => {
   await dbConnect();
@@ -53,6 +54,18 @@ export const PUT = controllerFunc(async (req, { params }) => {
     throw new CustomError("Product not found", 404, errorContext);
   }
 
+  System_logs.create({
+    operationType: "product_updated",
+    payload: JSON.stringify({
+      productId: updatedProduct._id,
+      productName: updatedProduct.productName,
+      category: updatedProduct.category,
+      cost: updatedProduct.cost,
+      wholesale: updatedProduct.wholesale,
+      retail: updatedProduct.retail,
+    }),
+  });
+
   return successResponse(updatedProduct, "Product updated successfully", 200);
 }, "Error in PUT /products/[id]");
 
@@ -72,6 +85,18 @@ export const DELETE = controllerFunc(async (req, { params }) => {
   if (!deletedProduct) {
     throw new CustomError("Product not found", 404, errorContext);
   }
+
+  System_logs.create({
+    operationType: "product_deleted",
+    payload: JSON.stringify({
+      productId: deletedProduct._id,
+      productName: deletedProduct.productName,
+      category: deletedProduct.category,
+      cost: deletedProduct.cost,
+      wholesale: deletedProduct.wholesale,
+      retail: deletedProduct.retail,
+    }),
+  });
 
   return successResponse({}, "Product deleted successfully");
 }, "Error in DELETE /products/[id]");
