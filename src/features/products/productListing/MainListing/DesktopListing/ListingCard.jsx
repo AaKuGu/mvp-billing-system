@@ -12,7 +12,7 @@ const ListingCard = ({ p, index, setLoading, setProducts, products }) => {
         <br />
         {p.productName.find((n) => n.lang === "hi")?.value || ""}
       </td>
-      <td className="p-2 border">{p.category}</td>
+      <td className="p-2 border">{p?.category}</td>
       <td className="p-2 border">{renderPriceArray(p.cost)}</td>
       <td className="p-2 border">{renderPriceArray(p.wholesale)}</td>
       <td className="p-2 border">{renderPriceArray(p.retail)}</td>
