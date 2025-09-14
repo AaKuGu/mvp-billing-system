@@ -16,6 +16,7 @@ const ProductName = ({ productDetails, setProductDetails, createOrUpdate }) => {
     if (productNameEng.length >= 3) {
       fetchProductsNames(productNameEng, setExistingMatchingProductNames);
     } else {
+      alert("u")
       setExistingMatchingProductNames([]);
     }
   }, [productNameEng]);
