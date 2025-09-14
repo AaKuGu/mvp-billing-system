@@ -17,6 +17,7 @@ const ProductSchema = new mongoose.Schema(
     cost: [PricePointSchema],
     wholesale: [PricePointSchema],
     retail: [PricePointSchema],
+    
   },
   { timestamps: true }
 );

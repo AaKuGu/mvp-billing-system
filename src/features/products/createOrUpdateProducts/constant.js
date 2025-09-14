@@ -4,6 +4,6 @@ export const emptyProductDetails = {
     { lang: "hi", value: "" },
   ],
   cost: [{ unit: "pcs", price: 0 }],
-  wholesale: [{ unit: "pcs", price: 0 }],
-  retail: [{ unit: "pcs", price: 0 }],
+  wholesale: [{ unit: "pcs", price: null }],
+  retail: [{ unit: "pcs", price: null }],
 };

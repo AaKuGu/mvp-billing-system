@@ -8,9 +8,14 @@ export const deleteAProduct = (productId) => {
   }, "features/products/productsListing/deleteAProduct");
 };
 
-export const fetchAllProducts = () =>
+export const fetchAllProducts = (searchTerm) =>
   apiCallWrapper(async () => {
-    const res = await axios.get(`/api/products`);
+    let res;
+    if (searchTerm) {
+      res = await axios.get(`/api/products?productName=${searchTerm}`);
+    } else {
+      res = await axios.get(`/api/products`);
+    }
     console.log("ores : ", res);
     return res.data;
   }, "features/products/productsListing/fetchAllProducts");

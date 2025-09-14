@@ -40,10 +40,10 @@ const BuyingCostPrice = ({ setProductDetails, productDetails }) => {
         <div className="flex flex-col w-1/3">
           <Label htmlFor="costPrice">Cost Price</Label>
           <Input
-            type="number"
+            type="number" 
             name="costPrice"
             id="costPrice"
-            value={productDetails?.cost?.[0]?.price || ""}
+            value={productDetails?.cost?.[0]?.price}
             onChange={(e) => {
               setProductDetails({
                 ...productDetails,

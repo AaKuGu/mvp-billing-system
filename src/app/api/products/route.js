@@ -41,10 +41,30 @@ export const POST = controllerFunc(async (req) => {
 }, "Error in POST /products");
 
 // GET - Fetch all products
-export const GET = controllerFunc(async () => {
+export const GET = controllerFunc(async (req) => {
   await dbConnect(); // connect to DB
 
-  const products = await Product.find({}).sort({ createdAt: -1 });
+  const { searchParams } = new URL(req.url);
+  const productName = searchParams.get("productName"); // from query param
+  console.log("productName : ", productName);
+
+  let query = {};
+
+  if (productName) {
+    // ✅ partial & case-insensitive match on English name
+    query = {
+      productName: {
+        $elemMatch: {
+          lang: "eng",
+          value: { $regex: productName, $options: "i" }, // <-- regex
+        },
+      },
+    };
+  }
+
+  console.log(query);
+
+  const products = await Product.find(query).sort({ createdAt: -1 }).limit(10);
 
   return successResponse({ products }, "Products Fetched Successfully");
 }, "Error in GET /products");
