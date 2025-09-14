@@ -6,8 +6,12 @@ import { RedButton } from "@/shared/components/Button";
 const MobileView = ({ products, setProducts, setLoading }) => {
   return (
     <div className="sm:hidden space-y-4">
-      {products.map((p) => (
+      {products.map((p, i) => (
         <div key={p._id} className="border rounded-lg p-4 shadow-sm bg-white">
+          <div className="mb-5 flex">
+            <p className="font-medium">S.No:</p>
+            {i + 1}
+          </div>
           <p className="font-semibold">
             {p.productName.find((n) => n.lang === "eng")?.value || ""}
             {p.productName.find((n) => n.lang === "hi")?.value || ""}
@@ -15,6 +19,10 @@ const MobileView = ({ products, setProducts, setLoading }) => {
           <div className="mt-2">
             <p className="font-medium">Cost:</p>
             {renderPriceArray(p.cost)}
+          </div>
+          <div className="mt-2">
+            <p className="font-medium">Category:</p>
+            {p?.category}
           </div>
           <div className="mt-2">
             <p className="font-medium">Wholesale:</p>

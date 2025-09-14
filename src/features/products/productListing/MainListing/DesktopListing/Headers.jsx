@@ -5,6 +5,7 @@ const Headers = () => {
     <tr className="bg-gray-100 text-sm sm:text-base">
       <th className="p-2 border">No.</th>
       <th className="p-2 border">Name</th>
+      <th className="p-2 border">Category</th>
       <th className="p-2 border">Cost</th>
       <th className="p-2 border">Wholesale</th>
       <th className="p-2 border">Retail</th>
