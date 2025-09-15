@@ -8,6 +8,9 @@ import successResponse from "@/shared/backend/utils/success/successResponse";
 export const GET = controllerFunc(async (req) => {
   await dbConnect();
 
+  const { searchParams } = new URL(req.url);
+  const parameter = searchParams.get("parameter");
+
   const now = new Date();
   const fromDate = new Date();
   fromDate.setHours(0, 0, 0, 0); // start of today
