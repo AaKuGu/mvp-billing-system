@@ -3,38 +3,9 @@ import { dbConnect } from "@/db/connectDB";
 import System_logs from "@/models/System_logs";
 import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
 import successResponse from "@/shared/backend/utils/success/successResponse";
-import { NextResponse } from "next/server";
 
-// POST - Create a log
-// export async function POST(req) {
-//   try {
-//     await dbConnect();
-
-//     const body = await req.json();
-//     const { operationType, payload } = body;
-
-//     // ✅ Basic validation
-//     if (!operationType) {
-//       return NextResponse.json(
-//         { success: false, message: "operationType is required" },
-//         { status: 400 }
-//       );
-//     }
-
-//     const newLog = await System_logs.create({
-//       operationType,
-//       payload: payload ? JSON.stringify(payload) : "",
-//     });
-
-//     return NextResponse.json({ success: true, log: newLog }, { status: 201 });
-//   } catch (error) {
-//     console.error("Error creating log:", error);
-//     return NextResponse.json(
-//       { success: false, message: "Server error", error: error.message },
-//       { status: 500 }
-//     );
-//   }
-// }
+// export const dynamic = "force-dynamic"; // ensure route is evaluated at request time
+// export const revalidate = 0; // disable ISR (if applicable)
 
 // GET - Fetch logs (default filter: today)
 export const GET = controllerFunc(async (req) => {

@@ -3,8 +3,6 @@ import axios from "axios";
 
 export const fetchSystemLogs_api = () =>
   apiCallWrapper(async () => {
-    const res = await axios.get(`/api/system_logs`, {
-      headers: { "Cache-Control": "no-store" },
-    });
+    const res = await axios.get(`/api/system_logs`, { cache: "no-store" });
     return res.data;
   });
