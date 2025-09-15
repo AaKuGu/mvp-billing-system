@@ -6,6 +6,7 @@ import UnitSelection from "./UnitSelection";
 import TotalPrice from "./totalPrice/TotalPrice";
 import RemoveButton from "./remove/RemoveButton";
 import UnitPrice from "./unitPrice/UnitPrice";
+import { units } from "@/shared/components/constants";
 
 const BillingItemRow = ({
   key,
@@ -30,12 +31,12 @@ const BillingItemRow = ({
     }
   }, [rowData.dataFromDB]);
 
-  useEffect(() => {
-    setUnit("pcs");
-    // setQuantity(null); this is commencted as this was creating problem when upon first mount if data exists in localstorage and while setting it, it was always null, despite having values
-    setUnitPrice(null);
-    setTotalPrice(null);
-  }, [name]);
+  // useEffect(() => {
+  //   // setUnit("pcs");
+  //   // setQuantity(null); this is commencted as this was creating problem when upon first mount if data exists in localstorage and while setting it, it was always null, despite having values
+  //   setUnitPrice(null);
+  //   setTotalPrice(null);
+  // }, [name]);
 
   useEffect(() => {
     if (customProduct) {
@@ -99,9 +100,11 @@ const BillingItemRow = ({
     if (rowData) {
       const itemDetails = rowData.itemDetails;
       const qty = itemDetails.quantity; // ✅ no shadowing
+
+      const _unit = units.find((d) => d.hiLabel === itemDetails.unit);
       setQuantity(Number(qty));
       setName(itemDetails.productName);
-      setUnit(itemDetails.unit);
+      setUnit(_unit.engLabel);
       setUnitPrice(itemDetails.unitPrice);
       setTotalPrice(itemDetails.totalPrice);
     }
@@ -112,11 +115,6 @@ const BillingItemRow = ({
       className="flex flex-col md:flex-row w-full text-black p-2 gap-4 relative items-center border-b"
       key={key}
     >
-      quantity = {quantity}
-      <br />
-      unit = {unit}
-      <br />
-      unitPrice = {unitPrice}
       <div className="relative flex-1 w-[300px]">
         <ProductName
           setSearchedProducts={setSearchedProducts}
@@ -124,6 +122,9 @@ const BillingItemRow = ({
           fuse={fuse}
           name={name}
           setName={setName}
+          setUnit={setUnit}
+          setTotalPrice={setTotalPrice}
+          setUnitPrice={setUnitPrice}
           index={index}
           setBillingItems={setBillingItems}
           setCustomProduct={setCustomProduct}

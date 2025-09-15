@@ -4,6 +4,7 @@ import Header from "@/shared/components/ui/Header";
 import { fetchProducts } from "../funcs";
 import BillingItemRow from "./BillingItemRow/BillingItemRow";
 import PlusMinusButtons from "./PlusMinusButtons";
+import { RedButton } from "@/shared/components/Button";
 
 const BillingItems = ({ billingItems, setBillingItems }) => {
   const [fuse, setFuse] = useState(null);
@@ -30,6 +31,16 @@ const BillingItems = ({ billingItems, setBillingItems }) => {
         ))}
       </div>
       <PlusMinusButtons setBillingItems={setBillingItems} />
+      <RedButton
+        onClick={() => {
+          if (window.confirm("Do you want to clear?")) {
+            setBillingItems([]);
+            window.localStorage.removeItem("billingItems");
+          }
+        }}
+      >
+        Clear
+      </RedButton>
     </div>
   );
 };
