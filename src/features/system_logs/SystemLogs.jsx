@@ -10,9 +10,10 @@ import LoadingWrapper from "@/shared/components/Loading/LoadingWrapper";
 const SystemLogs = () => {
   const [logsList, setLogsList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [parameter, setParameter] = useState(null);
 
   useEffect(() => {
-    fetchSystemLogs(setLogsList, setLoading);
+    fetchSystemLogs(setLogsList, parameter, setLoading);
   }, []);
 
   return (

@@ -4,9 +4,6 @@ import System_logs from "@/models/System_logs";
 import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
 import successResponse from "@/shared/backend/utils/success/successResponse";
 
-export const dynamic = "force-dynamic"; // ensure route is evaluated at request time
-export const revalidate = 0; // disable ISR (if applicable)
-
 // GET - Fetch logs (default filter: today)
 export const GET = controllerFunc(async (req) => {
   await dbConnect();
