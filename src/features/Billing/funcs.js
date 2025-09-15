@@ -30,3 +30,5 @@ export const fetchProducts = async (setFuse) => {
     console.error("Error fetching products:", err);
   }
 };
+
+export const showBill = () => {};

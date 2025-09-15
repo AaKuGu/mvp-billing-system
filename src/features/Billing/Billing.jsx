@@ -1,18 +1,46 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomerDetails from "./CustomerDetails";
-import BillingItems from "./BillingItems";
+import BillingItems from "./BillingItems/BillingItems";
 import Header from "@/shared/components/ui/Header";
 import Form from "@/shared/components/form/Form";
+import BillEye from "./BillEye";
+import PrintableBill from "./PrintableBill/PrintableBill";
+import Modal from "@/shared/components/Modal";
 
 const Billing = () => {
   const [customerName, setCustomerName] = useState("");
   const [whatsappNum, setWhatsappNum] = useState("");
+  const [billingItems, setBillingItems] = useState();
+  const [viewPrintableBill, setViewPrintableBill] = useState(false);
+
+  // ✅ Load from localStorage on mount
+  useEffect(() => {
+    const savedItems = localStorage.getItem("billingItems");
+    if (savedItems) {
+      // alert(JSON.stringify(JSON.parse(savedItems)));
+      try {
+        setBillingItems(JSON.parse(savedItems));
+      } catch (err) {
+        console.error("Error parsing billingItems:", err);
+      }
+    }
+  }, []);
+
+  // ✅ Save whenever billingItems changes
+  useEffect(() => {
+    if (billingItems?.length) {
+      localStorage.setItem("billingItems", JSON.stringify(billingItems));
+    }
+  }, [billingItems]);
+
   return (
-    <div className={`w-full min-h-screen   md:px-20 px-2`}>
+    <div className={`w-full h-screen md:px-20 px-2 relative`}>
+      {/* billingItems={JSON.stringify(billingItems[0])} */}
       <Header>Billing</Header>
+      <BillEye setViewPrintableBill={setViewPrintableBill} />
       <div
-        className={`w-full min-h-screen px-10  flex flex-col items-center justify-start gap-4`}
+        className={`w-full h-[600px] overflow-y-auto px-10  flex flex-col items-center justify-start gap-4`}
       >
         <Form>
           <CustomerDetails
@@ -21,7 +49,20 @@ const Billing = () => {
             setWhatsappNum={setWhatsappNum}
             whatsappNum={whatsappNum}
           />
-          <BillingItems />
+          <BillingItems
+            billingItems={billingItems}
+            setBillingItems={setBillingItems}
+          />
+          {viewPrintableBill && (
+            <Modal>
+              <PrintableBill
+                customerName={customerName}
+                whatsappNum={whatsappNum}
+                billingItems={billingItems}
+                setViewPrintableBill={setViewPrintableBill}
+              />
+            </Modal>
+          )}
         </Form>
       </div>
     </div>

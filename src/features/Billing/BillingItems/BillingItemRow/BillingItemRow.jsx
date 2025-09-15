@@ -16,10 +16,10 @@ const BillingItemRow = ({
   fuse,
 }) => {
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState();
   const [unit, setUnit] = useState("pcs");
-  const [unitPrice, setUnitPrice] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [unitPrice, setUnitPrice] = useState();
+  const [totalPrice, setTotalPrice] = useState();
   const [searchedProducts, setSearchedProducts] = useState([]);
   const [customProduct, setCustomProduct] = useState(true);
 
@@ -32,16 +32,23 @@ const BillingItemRow = ({
 
   useEffect(() => {
     setUnit("pcs");
-    setQuantity(0);
-    setUnitPrice(0);
-    setTotalPrice(0);
+    // setQuantity(null); this is commencted as this was creating problem when upon first mount if data exists in localstorage and while setting it, it was always null, despite having values
+    setUnitPrice(null);
+    setTotalPrice(null);
   }, [name]);
 
   useEffect(() => {
     if (customProduct) {
-      if (unit && quantity) {
+      if (unit && quantity && unitPrice) {
         // If unitPrice changes → update totalPrice
-        // setTotalPrice(Number(unitPrice) * Number(quantity));
+        setTotalPrice(Number(unitPrice) * Number(quantity));
+        const _billingItems = [...billingItems];
+        _billingItems[index].itemDetails = {
+          ..._billingItems[index].itemDetails,
+          quantity: Number(quantity),
+          totalPrice: Number(unitPrice) * quantity,
+        };
+        setBillingItems(_billingItems);
       }
     } else {
       if (unit && quantity && rowData.dataFromDB) {
@@ -50,6 +57,14 @@ const BillingItemRow = ({
           const dbUnitPrice = data.price;
           setUnitPrice(dbUnitPrice);
           setTotalPrice(dbUnitPrice * quantity);
+          const _billingItems = [...billingItems];
+          _billingItems[index].itemDetails = {
+            ..._billingItems[index].itemDetails,
+            quantity: Number(quantity),
+            unitPrice: dbUnitPrice,
+            totalPrice: dbUnitPrice * quantity,
+          };
+          setBillingItems(_billingItems);
         }
       }
     }
@@ -58,20 +73,50 @@ const BillingItemRow = ({
   useEffect(() => {
     if (unit && quantity && unitPrice) {
       setTotalPrice(unitPrice * quantity);
+      const _billingItems = [...billingItems];
+      _billingItems[index].itemDetails = {
+        ..._billingItems[index].itemDetails,
+        totalPrice: unitPrice * quantity,
+      };
+      setBillingItems(_billingItems);
     }
   }, [unitPrice]);
 
   useEffect(() => {
     if (unit && quantity && totalPrice) {
       setUnitPrice(totalPrice / quantity);
+
+      const _billingItems = [...billingItems];
+      _billingItems[index].itemDetails = {
+        ..._billingItems[index].itemDetails,
+        unitPrice: totalPrice / quantity,
+      };
+      setBillingItems(_billingItems);
     }
   }, [totalPrice]);
+
+  useEffect(() => {
+    if (rowData) {
+      const itemDetails = rowData.itemDetails;
+      const qty = itemDetails.quantity; // ✅ no shadowing
+      setQuantity(Number(qty));
+      setName(itemDetails.productName);
+      setUnit(itemDetails.unit);
+      setUnitPrice(itemDetails.unitPrice);
+      setTotalPrice(itemDetails.totalPrice);
+    }
+  }, []);
 
   return (
     <div
       className="flex flex-col md:flex-row w-full text-black p-2 gap-4 relative items-center border-b"
       key={key}
     >
+      quantity = {quantity}
+      <br />
+      unit = {unit}
+      <br />
+      unitPrice = {unitPrice}
       <div className="relative flex-1 w-[300px]">
         <ProductName
           setSearchedProducts={setSearchedProducts}

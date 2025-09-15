@@ -31,7 +31,7 @@ export const productNameChangeHandler = (
     itemDetails: {
       productName,
       quantity: 0,
-      unit: "",
+      unit: "पीस",
       unitPrice: 0,
       totalPrice: 0,
     },

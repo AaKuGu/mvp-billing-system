@@ -1,7 +1,7 @@
 const emptyBillProduct = {
   productName: "",
   quantity: 0,
-  unit: "",
+  unit: "पीस",
   unitPrice: 0,
   totalPrice: 0,
 };
@@ -13,4 +13,3 @@ export const createEmptyBillData = () => ({
   dataFromDB: null,
   itemDetails: { ...emptyBillProduct },
 });
-
