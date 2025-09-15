@@ -10,8 +10,15 @@ export default function successResponse(
     {
       success: true,
       message,
-      ...data, // you can pass { product }, { products }, etc.
+      ...data,
     },
-    { status }
+    {
+      status,
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0, s-maxage=0",
+        Pragma: "no-cache",
+        Expires: "0",
+      },
+    }
   );
 }
