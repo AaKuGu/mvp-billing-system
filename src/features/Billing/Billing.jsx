@@ -43,7 +43,7 @@ const Billing = () => {
         <BillEye setViewPrintableBill={setViewPrintableBill} />
         <RedButton
           onClick={() => {
-            if (window.confirm("Do you want to clear?")) {
+            if (window.confirm("आप यह बिल साफ़ करना चाहते हैं क्या?")) {
               setBillingItems([]);
               window.localStorage.removeItem("billingItems");
             }
