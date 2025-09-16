@@ -7,6 +7,7 @@ import Form from "@/shared/components/form/Form";
 import BillEye from "./BillEye";
 import PrintableBill from "./PrintableBill/PrintableBill";
 import Modal from "@/shared/components/Modal";
+import { RedButton } from "@/shared/components/Button";
 
 const Billing = () => {
   const [customerName, setCustomerName] = useState("");
@@ -35,10 +36,22 @@ const Billing = () => {
   }, [billingItems]);
 
   return (
-    <div className={`w-full h-screen md:px-20 px-2 relative`}>
+    <div className={`w-full h-screen md:px-20 px-2 `}>
       {/* billingItems={JSON.stringify(billingItems[0])} */}
       <Header>Billing</Header>
-      <BillEye setViewPrintableBill={setViewPrintableBill} />
+      <div className={`flex justify-center`}>
+        <BillEye setViewPrintableBill={setViewPrintableBill} />
+        <RedButton
+          onClick={() => {
+            if (window.confirm("Do you want to clear?")) {
+              setBillingItems([]);
+              window.localStorage.removeItem("billingItems");
+            }
+          }}
+        >
+          Clear
+        </RedButton>
+      </div>
       <div
         className={`w-full h-[600px] overflow-y-auto px-10  flex flex-col items-center justify-start gap-4`}
       >
