@@ -41,15 +41,24 @@ export const handleSave = async (
   let data;
 
   if (createOrUpdate === "update") {
-    updateHandler(data, productId, productDetails, setProductDetails);
+    updateHandler(
+      data,
+      productId,
+      productDetails,
+      setProductDetails,
+      setLoading
+    );
   } else {
-    createHandler(data, productDetails, setProductDetails);
+    createHandler(data, productDetails, setProductDetails, setLoading);
   }
-
-  setLoading(false);
 };
 
-const createHandler = async (data, productDetails, setProductDetails) => {
+const createHandler = async (
+  data,
+  productDetails,
+  setProductDetails,
+  setLoading
+) => {
   data = await saveAProduct(productDetails);
   if (data) {
     toast.success(data.message);
@@ -58,13 +67,15 @@ const createHandler = async (data, productDetails, setProductDetails) => {
     const updatedProducts = [...storedProducts, data.newProduct];
     localStorage.setItem("products", JSON.stringify(updatedProducts));
   }
+  setLoading(false);
 };
 
 const updateHandler = async (
   data,
   productId,
   productDetails,
-  setProductDetails
+  setProductDetails,
+  setLoading
 ) => {
   data = await updateAProduct(productId, productDetails);
   if (data?.success) {
@@ -80,6 +91,7 @@ const updateHandler = async (
 
     localStorage.setItem("products", JSON.stringify(updatedProducts));
   }
+  setLoading(false);
 };
 
 export const fetchAProduct = async (
