@@ -11,18 +11,10 @@ const MainListing = ({
   setProducts,
   products,
 }) => {
-  // const filteredProducts = products.filter((p) =>
-  //   p.productName
-  //     .find((n) => n.lang === "eng")
-  //     ?.value.toLowerCase()
-  //     .includes(searchTerm.toLowerCase())
-  // );
-
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <Header>List of Products</Header>
-      <>
-        {/* Desktop Table */}
+      <div className={` overflow-y-auto h-[400px] md:h-[500px] overflow-y-auto`}>
         <DesktopListing
           // filteredProducts={filteredProducts}
           setLoading={setLoading}
@@ -31,7 +23,6 @@ const MainListing = ({
           products={products}
         />
 
-        {/* Mobile Card View */}
         <MobileView
           // filteredProducts={filteredProducts}
           setLoading={setLoading}
@@ -39,7 +30,7 @@ const MainListing = ({
           setProducts={setProducts}
           products={products}
         />
-      </>
+      </div>
     </div>
   );
 };

@@ -33,11 +33,10 @@ const ProductListing = () => {
   }, [searchTerm, products]);
 
   return (
-    <div className="w-full min-h-screen p-4 sm:p-6 text-black">
+    <div className="w-full h-screen p-4 sm:p-6 text-black">
       {/* Header */}
       <LoadingWrapper loading={loading}>
         <Header>Products</Header>
-        {/* Top Controls */}
         <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 mb-4">
           <Input
             type="text"
