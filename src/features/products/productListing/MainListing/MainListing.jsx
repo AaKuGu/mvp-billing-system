@@ -14,7 +14,7 @@ const MainListing = ({
   return (
     <div className="w-full ">
       <Header>List of Products</Header>
-      <div className={` overflow-y-auto h-[400px] md:h-[500px] overflow-y-auto`}>
+      <div className={`h-[400px] md:h-[500px] overflow-y-auto`}>
         <DesktopListing
           // filteredProducts={filteredProducts}
           setLoading={setLoading}

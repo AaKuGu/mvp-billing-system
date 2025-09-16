@@ -16,16 +16,6 @@ const DesktopListing = ({
           <Headers />
         </thead>
         <tbody>
-          {/* {filteredProducts.map((p, i) => (
-            <ListingCard
-              p={p}
-              key={p._id}
-              index={i}
-              setProducts={setProducts}
-              products={products}
-              setLoading={setLoading}
-            />
-          ))} */}
           {filteredProducts.map((p, i) => (
             <ListingCard
               p={p}
