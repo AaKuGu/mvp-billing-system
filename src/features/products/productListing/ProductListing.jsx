@@ -12,14 +12,25 @@ const ProductListing = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     fetchProducts(setProducts, setLoading);
   }, []);
 
   useEffect(() => {
-    fetchProducts(setProducts, setLoading, searchTerm);
-  }, [searchTerm]);
+    if (!searchTerm) {
+      setFilteredProducts(products); // show all if search empty
+    } else {
+      const lowerSearch = searchTerm.toLowerCase();
+      const filtered = products.filter((product) =>
+        product.productName.some(
+          (d) => d.lang === "eng" && d.value.toLowerCase().includes(lowerSearch)
+        )
+      );
+      setFilteredProducts(filtered);
+    }
+  }, [searchTerm, products]);
 
   return (
     <div className="w-full min-h-screen p-4 sm:p-6 text-black">
@@ -41,12 +52,14 @@ const ProductListing = () => {
             Create Product
           </Link>
         </div>
+
         <MainListing
           setLoading={setLoading}
           loading={loading}
-          products={products}
           searchTerm={searchTerm}
+          filteredProducts={filteredProducts}
           setProducts={setProducts}
+          products={products}
         />
       </LoadingWrapper>
     </div>

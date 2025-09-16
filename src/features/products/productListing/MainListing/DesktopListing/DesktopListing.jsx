@@ -3,10 +3,11 @@ import Headers from "./Headers";
 import ListingCard from "./ListingCard";
 
 const DesktopListing = ({
-//   filteredProducts,
+  //   filteredProducts,
   setProducts,
   products,
   setLoading,
+  filteredProducts,
 }) => {
   return (
     <div className="hidden sm:block overflow-x-auto rounded-lg border border-gray-300">
@@ -25,10 +26,10 @@ const DesktopListing = ({
               setLoading={setLoading}
             />
           ))} */}
-          {products.map((p, i) => (
+          {filteredProducts.map((p, i) => (
             <ListingCard
               p={p}
-              key={p._id}
+              key={p?._id}
               index={i}
               setProducts={setProducts}
               products={products}

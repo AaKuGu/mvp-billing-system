@@ -1,0 +1,3 @@
+1 : central produts state in zustand
+2 : mange your few of the codes using your way of writing code
+3 : billing ke first page pe zustand products state wala code check lagao

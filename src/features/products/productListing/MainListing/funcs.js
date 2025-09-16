@@ -13,7 +13,12 @@ export const handleDelete = async (id, setProducts, products, setLoading) => {
 
     if (data.success) {
       toast.success(data?.message);
-      setProducts(products.filter((p) => p._id !== id));
+
+      const updatedProducts = products.filter((p) => p._id !== id);
+      setProducts(updatedProducts);
+
+      // ✅ update localStorage as well
+      window.localStorage.setItem("products", JSON.stringify(updatedProducts));
     } else {
       alert("❌ " + data.message);
     }

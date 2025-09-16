@@ -6,9 +6,10 @@ import DesktopListing from "./DesktopListing/DesktopListing";
 const MainListing = ({
   setLoading,
   loading,
-  products,
   searchTerm,
+  filteredProducts,
   setProducts,
+  products,
 }) => {
   // const filteredProducts = products.filter((p) =>
   //   p.productName
@@ -24,17 +25,19 @@ const MainListing = ({
         {/* Desktop Table */}
         <DesktopListing
           // filteredProducts={filteredProducts}
+          setLoading={setLoading}
+          filteredProducts={filteredProducts}
           setProducts={setProducts}
           products={products}
-          setLoading={setLoading}
         />
 
         {/* Mobile Card View */}
         <MobileView
-          setProducts={setProducts}
-          products={products}
           // filteredProducts={filteredProducts}
           setLoading={setLoading}
+          filteredProducts={filteredProducts}
+          setProducts={setProducts}
+          products={products}
         />
       </>
     </div>
