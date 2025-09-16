@@ -56,7 +56,7 @@ export const POST = controllerFunc(async (req) => {
     }),
   });
 
-  return successResponse({}, "Product Created Successfully", 201);
+  return successResponse({ newProduct }, "Product Created Successfully", 201);
 }, "Error in POST /products");
 
 // GET - Fetch all products

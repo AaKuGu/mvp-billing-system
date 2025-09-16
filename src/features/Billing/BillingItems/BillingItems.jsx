@@ -31,16 +31,7 @@ const BillingItems = ({ billingItems, setBillingItems }) => {
         ))}
       </div>
       <PlusMinusButtons setBillingItems={setBillingItems} />
-      <RedButton
-        onClick={() => {
-          if (window.confirm("Do you want to clear?")) {
-            setBillingItems([]);
-            window.localStorage.removeItem("billingItems");
-          }
-        }}
-      >
-        Clear
-      </RedButton>
+      
     </div>
   );
 };

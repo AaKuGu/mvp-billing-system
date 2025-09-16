@@ -2,7 +2,6 @@
 
 // Remove item handler
 
-
 export const onChangeHandler = (
   fieldName,
   value,

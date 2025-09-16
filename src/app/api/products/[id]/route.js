@@ -66,7 +66,11 @@ export const PUT = controllerFunc(async (req, { params }) => {
     }),
   });
 
-  return successResponse(updatedProduct, "Product updated successfully", 200);
+  return successResponse(
+    { updatedProduct },
+    "Product updated successfully",
+    200
+  );
 }, "Error in PUT /products/[id]");
 
 export const DELETE = controllerFunc(async (req, { params }) => {

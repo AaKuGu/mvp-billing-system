@@ -9,19 +9,19 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <>
+    <div className="lg:static absolute h-full ">
       {/* Top Bar (only visible on mobile) */}
-      <div className="lg:hidden flex items-center justify-between p-4 bg-red-500 text-white">
-        <button onClick={() => setIsOpen(true)} className="text-2xl">
+      <div className="lg:hidden flex items-center justify-between p-2 text-white bg-black">
+        <button onClick={() => setIsOpen(true)} className="text-xl">
           <FaBars />
         </button>
       </div>
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-[200px] bg-red-500 text-black transform transition-transform duration-300 z-50 
+        className={`fixed top-0 left-0 h-full w-[150px] md:w-[200px] bg-black text-black transform transition-transform duration-300 z-50 
         ${isOpen ? "translate-x-0" : "-translate-x-full"} 
-        lg:translate-x-0 lg:static lg:w-[200px]`}
+        lg:translate-x-0 lg:static lg:w-[200px] p-1`}
       >
         {/* Close button (mobile only) */}
         <div className="lg:hidden flex justify-end p-4">
@@ -50,11 +50,11 @@ const Sidebar = () => {
       {/* Overlay (when sidebar open on mobile) */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black opacity-50 z-[4] lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
-    </>
+    </div>
   );
 };
 

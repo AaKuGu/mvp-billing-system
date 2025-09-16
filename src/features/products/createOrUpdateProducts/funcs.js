@@ -40,13 +40,56 @@ export const handleSave = async (
 
   let data;
 
-  if (createOrUpdate === "update")
-    data = await updateAProduct(productId, productDetails);
-  else data = await saveAProduct(productDetails);
+  if (createOrUpdate === "update") {
+    updateHandler(
+      data,
+      productId,
+      productDetails,
+      setProductDetails,
+      setLoading
+    );
+  } else {
+    createHandler(data, productDetails, setProductDetails, setLoading);
+  }
+};
 
+const createHandler = async (
+  data,
+  productDetails,
+  setProductDetails,
+  setLoading
+) => {
+  data = await saveAProduct(productDetails);
   if (data) {
     toast.success(data.message);
     setProductDetails(emptyProductDetails);
+    const storedProducts = JSON.parse(localStorage.getItem("products")) || [];
+    const updatedProducts = [...storedProducts, data.newProduct];
+    localStorage.setItem("products", JSON.stringify(updatedProducts));
+  }
+  setLoading(false);
+};
+
+const updateHandler = async (
+  data,
+  productId,
+  productDetails,
+  setProductDetails,
+  setLoading
+) => {
+  data = await updateAProduct(productId, productDetails);
+  if (data?.success) {
+    toast.success(data.message);
+    setProductDetails(emptyProductDetails);
+    // ✅ Update localStorage
+    const storedProducts = JSON.parse(localStorage.getItem("products")) || [];
+    const updatedProducts = storedProducts.map((p) => {
+      if (p?._id === productId) {
+        return { ...p, ...data.updatedProduct };
+      } else return p;
+    });
+
+    localStorage.setItem("products", JSON.stringify(updatedProducts));
   }
   setLoading(false);
 };

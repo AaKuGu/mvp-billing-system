@@ -23,7 +23,7 @@ export const finalProductsToSend = async (Product, query = {}, onlyNames) => {
       .sort({ createdAt: -1 })
       .select("productName");
   } else {
-    products = await Product.find(query).sort({ createdAt: -1 }).limit(10);
+    products = await Product.find(query).sort({ createdAt: -1 });
   }
 
   return products;

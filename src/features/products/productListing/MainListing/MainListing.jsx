@@ -6,37 +6,31 @@ import DesktopListing from "./DesktopListing/DesktopListing";
 const MainListing = ({
   setLoading,
   loading,
-  products,
   searchTerm,
+  filteredProducts,
   setProducts,
+  products,
 }) => {
-  // const filteredProducts = products.filter((p) =>
-  //   p.productName
-  //     .find((n) => n.lang === "eng")
-  //     ?.value.toLowerCase()
-  //     .includes(searchTerm.toLowerCase())
-  // );
-
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <Header>List of Products</Header>
-      <>
-        {/* Desktop Table */}
+      <div className={`h-[400px] md:h-[500px] overflow-y-auto`}>
         <DesktopListing
           // filteredProducts={filteredProducts}
+          setLoading={setLoading}
+          filteredProducts={filteredProducts}
           setProducts={setProducts}
           products={products}
-          setLoading={setLoading}
         />
 
-        {/* Mobile Card View */}
         <MobileView
-          setProducts={setProducts}
-          products={products}
           // filteredProducts={filteredProducts}
           setLoading={setLoading}
+          filteredProducts={filteredProducts}
+          setProducts={setProducts}
+          products={products}
         />
-      </>
+      </div>
     </div>
   );
 };

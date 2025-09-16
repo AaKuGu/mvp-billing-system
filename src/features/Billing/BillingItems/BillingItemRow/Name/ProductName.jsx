@@ -13,6 +13,9 @@ const ProductName = ({
   setBillingItems,
   index,
   setCustomProduct,
+  setTotalPrice,
+  setUnit,
+  setUnitPrice,
 }) => {
   return (
     <>
@@ -24,6 +27,11 @@ const ProductName = ({
         onChange={(e) => {
           setName(e.target.value);
           setCustomProduct(true);
+
+          setTotalPrice(null);
+          setUnitPrice(null);
+          setUnit("pcs");
+
           productNameChangeHandler(
             billingItems,
             setBillingItems,

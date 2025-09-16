@@ -2,11 +2,12 @@ import Fuse from "fuse.js";
 
 export const fetchProducts = async (setFuse) => {
   try {
-    const res = await fetch("/api/products");
-    const data = await res.json();
-    if (data.success) {
+    const productsStr = window.localStorage.getItem("products");
+    if (productsStr) {
+      const products = JSON.parse(productsStr); // ✅ parse string to array
+
       // Fuse only on English product name
-      const fuseInstance = new Fuse(data.products, {
+      const fuseInstance = new Fuse(products, {
         keys: [
           {
             name: "productNameEng",
@@ -24,7 +25,7 @@ export const fetchProducts = async (setFuse) => {
 
       setFuse(fuseInstance);
     } else {
-      console.error("Failed to fetch products:", data.message);
+      console.warn("No products found in localStorage");
     }
   } catch (err) {
     console.error("Error fetching products:", err);

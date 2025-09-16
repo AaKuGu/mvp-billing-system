@@ -4,18 +4,8 @@ import { handleUnitPriceChange } from "./funcs";
 import { Input } from "@/shared/components/form/Input";
 
 const UnitPrice = ({ unitPrice, customProduct, setUnitPrice }) => {
-  // const unitPriceHandlerForDBProduct = () => {
-  // const unitValue = selectedProductFromDB.wholesale.find(
-  //   (f) => f.unit === d.unit
-  // );
-  // const newBilling = [...billingItems];
-  // newBilling[i].unitPrice = unitValue?.price;
-  // setBillingItems(newBilling);
-  //   return unitValue?.price;
-  // };
-
   return (
-    <div className="flex flex-col items-start w-full">
+    <div className="flex-1 w-full">
       <Label>Unit Price</Label>
       {customProduct ? (
         <Input
