@@ -53,3 +53,14 @@ export const generateCleanPdf = async () => {
 
   pdf.save(`bill-${Date.now()}.pdf`);
 };
+
+export const whatsappRedirect = async (phone, text) => {
+  // Ensure country code is prefixed (e.g., 91 for India)
+  let formattedPhone = phone.toString();
+  if (!formattedPhone.startsWith("91")) {
+    formattedPhone = "91" + formattedPhone;
+  }
+  const message = encodeURIComponent(text);
+
+  window.open(`https://wa.me/${formattedPhone}?text=${message}`, "_blank");
+};

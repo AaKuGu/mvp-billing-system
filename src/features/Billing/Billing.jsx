@@ -10,8 +10,8 @@ import Modal from "@/shared/components/Modal";
 import { RedButton } from "@/shared/components/Button";
 
 const Billing = () => {
-  const [customerName, setCustomerName] = useState("");
-  const [whatsappNum, setWhatsappNum] = useState("");
+  const [customerName, setCustomerName] = useState(null);
+  const [whatsappNum, setWhatsappNum] = useState(null);
   const [billingItems, setBillingItems] = useState();
   const [viewPrintableBill, setViewPrintableBill] = useState(false);
 

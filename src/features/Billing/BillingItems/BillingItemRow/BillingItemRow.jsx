@@ -115,6 +115,7 @@ const BillingItemRow = ({
       className="flex flex-col md:flex-row w-full text-black p-2 gap-4 relative items-center border-b"
       key={key}
     >
+      <div>{index + 1}.</div>
       <div className="relative flex-1 w-[300px]">
         <ProductName
           setSearchedProducts={setSearchedProducts}

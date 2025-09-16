@@ -57,7 +57,9 @@ const ProductName = ({ productDetails, setProductDetails, createOrUpdate }) => {
       </div>
       {createOrUpdate === "create" &&
         existingMatchingProductNames.length > 0 && (
-          <ExistingProductsNames existingMatchingProductNames={existingMatchingProductNames} />
+          <ExistingProductsNames
+            existingMatchingProductNames={existingMatchingProductNames}
+          />
         )}
       <div className="flex items-center gap-2">
         <Label styles="min-w-[50px]">Hindi&nbsp;:</Label>
