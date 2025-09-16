@@ -1,6 +1,6 @@
-export const GreenButton = ({ onClick, children }) => {
+export const GreenButton = ({ onClick, children, type="button" }) => {
   return (
-    <button type="button" className="bg-green-800 text-white px-5 py-2" onClick={onClick}>
+    <button type={type} className="bg-green-800 text-white px-5 py-2" onClick={onClick}>
       {children}
     </button>
   );
