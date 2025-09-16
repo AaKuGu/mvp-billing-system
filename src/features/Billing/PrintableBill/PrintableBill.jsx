@@ -30,7 +30,9 @@ const PrintableBill = ({
         </div>
         <div id="bill-printable" className={`h-full`}>
           <div className="p-4 font-sans ">
-            <div className={`w-full flex justify-between border items-center px-2 mb-5`}>
+            <div
+              className={`w-full flex justify-between border items-center px-2 mb-5`}
+            >
               <h2 className="text-center text-sm text-gray-600 mb-2">
                 8090159071
               </h2>
