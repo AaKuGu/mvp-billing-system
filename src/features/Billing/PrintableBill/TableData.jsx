@@ -9,7 +9,9 @@ const TableData = ({ item, i, quantity, unit, unitPrice, totalPrice }) => {
       <td className={dataStyle}>
         {quantity} {unit} × ₹{unitPrice}
       </td>
-      <td className={dataStyle}>₹{totalPrice}</td>
+      <td className={`w-[20%] border text-center p-1 py-2 md:p-2`}>
+        ₹{totalPrice}
+      </td>
     </tr>
   );
 };
