@@ -1,8 +1,13 @@
 export const sidebarMenus = [
-  { name: "Products", link: "/go/products" },
-  { name: "Bills", link: "/go" },
-  { name: "Sytem Logs", link: "/go/system_logs" },
+  { label: "Products", link: "/go/products", name: "products" },
+  { label: "Bills", link: "/go", name: "bills" },
+  { label: "Sytem Logs", link: "/go/system_logs", name: "system_logs" },
 ];
+
+
+export const links = {
+  landingPage : "/",
+}
 
 export const units = [
   {

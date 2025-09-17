@@ -1,9 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { sidebarMenus } from "./constants";
+import { sidebarMenus } from "../constants";
 import Link from "next/link";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { RedButton } from "../Button";
+import { logout } from "./funcs";
+import { useRouter } from "next/navigation";
+import useLoadingStore from "@/store/loading";
+import Logout from "./Logout";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +26,7 @@ const Sidebar = () => {
       <div
         className={`fixed top-0 left-0 h-full w-[150px] md:w-[200px] bg-black text-black transform transition-transform duration-300 z-50 
         ${isOpen ? "translate-x-0" : "-translate-x-full"} 
-        lg:translate-x-0 lg:static lg:w-[200px] p-1`}
+        lg:translate-x-0 lg:static lg:w-[200px] p-1 flex flex-col justify-between`}
       >
         {/* Close button (mobile only) */}
         <div className="lg:hidden flex justify-end p-4">
@@ -33,7 +38,7 @@ const Sidebar = () => {
           </button>
         </div>
 
-        <nav className="flex flex-col gap-2">
+        <nav className="flex flex-col gap-2 flex-1">
           {sidebarMenus.map((menu) => (
             <Link
               key={menu.name}
@@ -41,10 +46,11 @@ const Sidebar = () => {
               className="p-4 hover:bg-gray-100 cursor-pointer bg-gray-200"
               onClick={() => setIsOpen(false)} // auto-close when clicking a link on mobile
             >
-              {menu.name}
+              {menu.label}
             </Link>
           ))}
         </nav>
+        <Logout />
       </div>
 
       {/* Overlay (when sidebar open on mobile) */}
