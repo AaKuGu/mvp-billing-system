@@ -35,6 +35,7 @@ export const POST = controllerFunc(async (req) => {
 
       return res;
     } else {
+      console.log("password  ; ", password);
       throw new CustomError(`Invalid Password`, 401, errorContext);
     }
   }
