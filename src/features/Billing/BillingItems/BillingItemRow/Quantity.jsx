@@ -12,13 +12,7 @@ const Quantity = ({
   setQuantity,
 }) => {
   useEffect(() => {
-    onChangeHandler(
-      "quantity",
-      Number(quantity),
-      billingItems,
-      setBillingItems,
-      index
-    );
+    onChangeHandler("quantity", quantity, billingItems, setBillingItems, index);
   }, [quantity]);
   return (
     <div className="flex-1 w-full">

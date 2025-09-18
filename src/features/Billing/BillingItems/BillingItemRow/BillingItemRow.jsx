@@ -46,7 +46,7 @@ const BillingItemRow = ({
         const _billingItems = [...billingItems];
         _billingItems[index].itemDetails = {
           ..._billingItems[index].itemDetails,
-          quantity: Number(quantity),
+          quantity: quantity,
           totalPrice: Number(unitPrice) * quantity,
         };
         setBillingItems(_billingItems);
@@ -61,7 +61,7 @@ const BillingItemRow = ({
           const _billingItems = [...billingItems];
           _billingItems[index].itemDetails = {
             ..._billingItems[index].itemDetails,
-            quantity: Number(quantity),
+            quantity: quantity,
             unitPrice: dbUnitPrice,
             totalPrice: dbUnitPrice * quantity,
           };
@@ -102,7 +102,7 @@ const BillingItemRow = ({
       const qty = itemDetails.quantity; // ✅ no shadowing
 
       const _unit = units.find((d) => d.hiLabel === itemDetails.unit);
-      setQuantity(Number(qty));
+      setQuantity(qty);
       setName(itemDetails.productName);
       setUnit(_unit.engLabel);
       setUnitPrice(itemDetails.unitPrice);
@@ -112,11 +112,11 @@ const BillingItemRow = ({
 
   return (
     <div
-      className="flex flex-col md:flex-row w-full text-black p-2 gap-4 relative items-center border-b"
+      className="flex flex-col  w-full text-black p-2 gap-4 relative items-center border-b"
       key={key}
     >
       <div>{index + 1}.</div>
-      <div className="relative flex-1 w-[300px]">
+      <div className="relative flex-1 w-full">
         <ProductName
           setSearchedProducts={setSearchedProducts}
           billingItems={billingItems}
@@ -144,39 +144,41 @@ const BillingItemRow = ({
           setTotalPrice={setTotalPrice}
         />
       </div>
-      <Quantity
-        billingItems={billingItems}
-        rowData={rowData}
-        index={index}
-        setBillingItems={setBillingItems}
-        setQuantity={setQuantity}
-        quantity={quantity}
-      />
-      <UnitSelection
-        rowData={rowData}
-        billingItems={billingItems}
-        setBillingItems={setBillingItems}
-        index={index}
-        setUnit={setUnit}
-        unit={unit}
-        customProduct={customProduct}
-      />
-      <UnitPrice
-        unitPrice={unitPrice}
-        customProduct={customProduct}
-        setUnitPrice={setUnitPrice}
-      />
-      <TotalPrice
-        customProduct={customProduct}
-        totalPrice={totalPrice}
-        setTotalPrice={setTotalPrice}
-      />
-      <RemoveButton
-        billingItems={billingItems}
-        setBillingItems={setBillingItems}
-        id={rowData.id}
-        index={index}
-      />
+      <div className="flex flex-col md:flex-row w-full text-black p-2 gap-4 relative items-center border-b">
+        <Quantity
+          billingItems={billingItems}
+          rowData={rowData}
+          index={index}
+          setBillingItems={setBillingItems}
+          setQuantity={setQuantity}
+          quantity={quantity}
+        />
+        <UnitSelection
+          rowData={rowData}
+          billingItems={billingItems}
+          setBillingItems={setBillingItems}
+          index={index}
+          setUnit={setUnit}
+          unit={unit}
+          customProduct={customProduct}
+        />
+        <UnitPrice
+          unitPrice={unitPrice}
+          customProduct={customProduct}
+          setUnitPrice={setUnitPrice}
+        />
+        <TotalPrice
+          customProduct={customProduct}
+          totalPrice={totalPrice}
+          setTotalPrice={setTotalPrice}
+        />
+        <RemoveButton
+          billingItems={billingItems}
+          setBillingItems={setBillingItems}
+          id={rowData.id}
+          index={index}
+        />
+      </div>
     </div>
   );
 };

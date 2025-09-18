@@ -1,9 +1,9 @@
 const emptyBillProduct = {
   productName: "",
-  quantity: 0,
+  quantity: null,
   unit: "पीस",
-  unitPrice: 0,
-  totalPrice: 0,
+  unitPrice: null,
+  totalPrice: null,
 };
 
 //above one can be deleted any time

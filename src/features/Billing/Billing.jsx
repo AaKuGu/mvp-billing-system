@@ -40,7 +40,7 @@ const Billing = () => {
     <div className={`w-full h-screen md:px-20 px-2 `}>
       {/* billingItems={JSON.stringify(billingItems[0])} */}
       <Header>Billing</Header>
-      <div className={`flex justify-center`}>
+      <div className={`flex justify-center `}>
         <BillEye setViewPrintableBill={setViewPrintableBill} />
         <RedButton
           onClick={() => {
@@ -54,9 +54,9 @@ const Billing = () => {
         </RedButton>
       </div>
       <div
-        className={`w-full h-[600px] overflow-y-auto px-10  flex flex-col items-center justify-start gap-4`}
+        className={`w-full h-[600px] overflow-y-auto md:px-10 px-2  flex flex-col items-center justify-start gap-4`}
       >
-        <Form>
+        <Form style="w-full">
           <CustomerDetails
             customerName={customerName}
             setCustomerName={setCustomerName}
