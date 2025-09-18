@@ -7,6 +7,8 @@ const CustomerDetails = ({
   setCustomerName,
   setWhatsappNum,
   whatsappNum,
+  customerAddressArea,
+  setCustomerAddressArea,
 }) => {
   return (
     <>
@@ -24,6 +26,14 @@ const CustomerDetails = ({
           type="number"
           value={whatsappNum}
           onChange={(e) => setWhatsappNum(e.target.value)}
+        />
+      </div>
+      <div>
+        <Label>Area</Label>
+        <Input
+          type="text"
+          value={customerAddressArea}
+          onChange={(e) => setCustomerAddressArea(e.target.value)}
         />
       </div>
     </>

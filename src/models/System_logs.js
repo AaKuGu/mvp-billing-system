@@ -3,7 +3,12 @@ import mongoose from "mongoose";
 const systemLogsSchema = new mongoose.Schema({
   operationType: {
     type: String,
-    enum: ["product_created", "product_updated", "product_deleted"], // ✅ enum values
+    enum: [
+      "product_created",
+      "product_updated",
+      "product_deleted",
+      "customer_created",
+    ], // ✅ enum values
     required: true,
   },
   payload: {

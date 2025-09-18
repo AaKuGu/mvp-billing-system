@@ -12,6 +12,7 @@ import { RedButton } from "@/shared/components/Button";
 const Billing = () => {
   const [customerName, setCustomerName] = useState(null);
   const [whatsappNum, setWhatsappNum] = useState(null);
+  const [customerAddressArea, setCustomerAddressArea] = useState("");
   const [billingItems, setBillingItems] = useState();
   const [viewPrintableBill, setViewPrintableBill] = useState(false);
 
@@ -61,6 +62,8 @@ const Billing = () => {
             setCustomerName={setCustomerName}
             setWhatsappNum={setWhatsappNum}
             whatsappNum={whatsappNum}
+            customerAddressArea={customerAddressArea}
+            setCustomerAddressArea={setCustomerAddressArea}
           />
           <BillingItems
             billingItems={billingItems}
