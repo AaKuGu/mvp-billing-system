@@ -16,14 +16,29 @@ export const GreenButton = ({
   );
 };
 
-export const BlueButton = ({ onClick, children }) => {
+// ✅ BlueButton.jsx
+export const BlueButton = ({
+  onClick,
+  loading = false,
+  children,
+  className = "",
+}) => {
   return (
     <button
       type="button"
-      className="bg-blue-500 text-white px-5 py-2"
-      onClick={onClick}
+      onClick={loading ? undefined : onClick} // disable click if loading
+      disabled={loading}
+      className={`bg-blue-500 text-white px-5 py-2 rounded 
+        transition disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
     >
-      {children}
+      {loading ? (
+        <div className="flex items-center justify-center gap-2">
+          <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+          Loading...
+        </div>
+      ) : (
+        children
+      )}
     </button>
   );
 };

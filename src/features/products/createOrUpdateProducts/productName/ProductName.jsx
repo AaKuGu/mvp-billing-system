@@ -6,6 +6,7 @@ import { fetchProductsNames, getValue, handleChangeForName } from "./funcs";
 import Select from "@/shared/components/form/Select";
 import { category } from "./constant";
 import ExistingProductsNames from "./ExistingProductsNames";
+import HindiName from "./hindiName/HindiName";
 
 const ProductName = ({ productDetails, setProductDetails, createOrUpdate }) => {
   const [productNameEng, setProductNameEng] = useState("");
@@ -19,6 +20,10 @@ const ProductName = ({ productDetails, setProductDetails, createOrUpdate }) => {
       setExistingMatchingProductNames([]);
     }
   }, [productNameEng]);
+
+  useEffect(() => {
+    setProductNameEng(getValue("eng", productDetails));
+  }, []);
   return (
     <div className={`flex flex-col gap-2`}>
       <Header htmlFor="">Product Name</Header>
@@ -61,17 +66,11 @@ const ProductName = ({ productDetails, setProductDetails, createOrUpdate }) => {
             existingMatchingProductNames={existingMatchingProductNames}
           />
         )}
-      <div className="flex items-center gap-2">
-        <Label styles="min-w-[50px]">Hindi&nbsp;:</Label>
-        <Input
-          type="text"
-          placeholder={`Type Hindi Name`}
-          value={getValue("hi", productDetails)}
-          onChange={(e) =>
-            handleChangeForName("hi", e.target.value, setProductDetails)
-          }
-        />
-      </div>
+      <HindiName
+        englishName={productNameEng}
+        productDetails={productDetails}
+        setProductDetails={setProductDetails}
+      />
     </div>
   );
 };
