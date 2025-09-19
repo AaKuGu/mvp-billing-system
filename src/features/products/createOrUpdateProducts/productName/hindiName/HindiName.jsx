@@ -8,7 +8,9 @@ import toast from "react-hot-toast";
 
 const HindiName = ({ englishName, productDetails, setProductDetails }) => {
   const [loading, setLoading] = useState(false);
-  const [generatedHindiName, setGeneratedHindiName] = useState(null);
+  const [generatedHindiName, setGeneratedHindiName] = useState(
+    getValue("hi", productDetails) || ""
+  );
 
   useEffect(() => {
     handleChangeForName("hi", generatedHindiName, setProductDetails);
@@ -37,7 +39,6 @@ const HindiName = ({ englishName, productDetails, setProductDetails }) => {
           Get{"\u00A0"}Hindi{"\u00A0"}Name
         </>
       </BlueButton>
-
       <Input
         type="text"
         placeholder={`Type Hindi Name`}
