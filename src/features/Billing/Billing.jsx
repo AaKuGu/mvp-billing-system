@@ -36,6 +36,8 @@ const Billing = () => {
     }
   }, [billingItems]);
 
+  
+
   return (
     <div className={`w-full h-screen md:px-20 px-2 `}>
       {/* billingItems={JSON.stringify(billingItems[0])} */}
