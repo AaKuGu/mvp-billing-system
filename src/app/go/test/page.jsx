@@ -1,90 +1,258 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { GreenButton } from "@/shared/components/Button";
+import Header from "@/shared/components/ui/Header";
 
-const HindiNameGenerator = () => {
-  const [englishName, setEnglishName] = useState("");
-  const [hindiName, setHindiName] = useState("");
-  const [loading, setLoading] = useState(false);
+const Page = () => {
+  const [products, setProducts] = useState([
+    {
+      name: "",
+      quantity: 0,
+      unit: "",
+      cost: 0,
+      unitCost: 0,
+      subUnits: [],
+    },
+  ]);
 
-  const generateHindiName = async () => {
-    if (!englishName.trim()) return;
- 
-    const open_ai_sk =
-      "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";
+  const handleProductChange = (index, field, value) => {
+    const newProducts = [...products];
+    newProducts[index][field] = value;
+    setProducts(newProducts);
+  };
 
-    setLoading(true);
-    setHindiName("");
+  const addSubUnit = (productIndex) => {
+    const newProducts = [...products];
+    newProducts[productIndex].subUnits.push({
+      quantity: 0,
+      unit: "",
+      unitCost: 0,
+      subUnits: [],
+    });
+    setProducts(newProducts);
+  };
 
-    try {
-      const response = await fetch(
-        "https://api.openai.com/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${open_ai_sk}`,
-          },
-          body: JSON.stringify({
-            model: "gpt-4o-mini",
-            messages: [
-              {
-                role: "system",
-                content:
-                  "You are a helpful assistant that transliterates English product names into natural Hindi names used in Indian shops.",
-              },
-              {
-                role: "user",
-                content: `Transliterate this product name into Hindi: ${englishName}`,
-              },
-            ],
-            max_tokens: 50,
-          }),
-        }
+  const handleSubUnitChange = (productIndex, subIndex, field, value) => {
+    const newProducts = [...products];
+    newProducts[productIndex].subUnits[subIndex][field] = value;
+
+    // Auto calculate sub-unit cost based on its lowest units if present
+    const subUnit = newProducts[productIndex].subUnits[subIndex];
+    if (field === "quantity" && subUnit.subUnits.length > 0) {
+      const totalLowestCost = subUnit.subUnits.reduce(
+        (sum, lowest) => sum + lowest.unitCost * lowest.quantity,
+        0
       );
-
-      const data = await response.json();
-      if (data.choices && data.choices.length > 0) {
-        setHindiName(data.choices[0].message.content.trim());
-      } else {
-        setHindiName("❌ API Error or limit reached");
-        console.error("OpenAI response:", data);
-      }
-    } catch (error) {
-      console.error("Error generating Hindi name:", error);
-      setHindiName("Error occurred!");
+      subUnit.unitCost = totalLowestCost / value;
     }
 
-    setLoading(false);
+    setProducts(newProducts);
+  };
+
+  const addLowestUnit = (productIndex, subIndex) => {
+    const newProducts = [...products];
+    newProducts[productIndex].subUnits[subIndex].subUnits.push({
+      quantity: 0,
+      unit: "",
+      unitCost: 0,
+    });
+    setProducts(newProducts);
+  };
+
+  const handleLowestUnitChange = (
+    productIndex,
+    subIndex,
+    lowestIndex,
+    field,
+    value
+  ) => {
+    const newProducts = [...products];
+    newProducts[productIndex].subUnits[subIndex].subUnits[lowestIndex][field] =
+      value;
+
+    // Auto update sub-unit cost when lowest unit cost or quantity changes
+    const subUnit = newProducts[productIndex].subUnits[subIndex];
+    if (subUnit.quantity > 0) {
+      const totalLowestCost = subUnit.subUnits.reduce(
+        (sum, lowest) => sum + lowest.unitCost * lowest.quantity,
+        0
+      );
+      subUnit.unitCost = totalLowestCost / subUnit.quantity;
+    }
+
+    setProducts(newProducts);
+  };
+
+  const addProduct = () => {
+    setProducts([
+      ...products,
+      { name: "", quantity: 0, unit: "", cost: 0, unitCost: 0, subUnits: [] },
+    ]);
   };
 
   return (
-    <div className="p-4 border rounded-md w-96 mx-auto">
-      <h2 className="text-xl font-bold mb-2">Product Name to Hindi</h2>
+    <div className="w-full h-full flex flex-col px-10 my-5">
+      <Header>Products</Header>
 
-      <input
-        type="text"
-        placeholder="Enter English Product Name"
-        value={englishName}
-        onChange={(e) => setEnglishName(e.target.value)}
-        className="w-full p-2 border rounded mb-2"
-      />
+      {products.map((product, pIdx) => (
+        <div key={pIdx} className="border p-4 mb-4">
+          <h2 className="font-semibold mb-2">Bulk Unit</h2>
+          Name:{" "}
+          <input
+            type="text"
+            className="border border-black mb-2"
+            value={product.name}
+            onChange={(e) => handleProductChange(pIdx, "name", e.target.value)}
+          />
+          <br />
+          Quantity:{" "}
+          <input
+            type="number"
+            className="border border-black mb-2"
+            value={product.quantity}
+            onChange={(e) =>
+              handleProductChange(pIdx, "quantity", Number(e.target.value))
+            }
+          />
+          <br />
+          Unit:{" "}
+          <input
+            type="text"
+            className="border border-black mb-2"
+            value={product.unit}
+            onChange={(e) => handleProductChange(pIdx, "unit", e.target.value)}
+          />
+          <br />
+          Cost:{" "}
+          <input
+            type="number"
+            className="border border-black mb-2"
+            value={product.cost}
+            onChange={(e) =>
+              handleProductChange(pIdx, "cost", Number(e.target.value))
+            }
+          />
+          <br />
+          Unit Cost:{" "}
+          <input
+            type="number"
+            className="border border-black mb-2"
+            value={product.unitCost}
+            onChange={(e) =>
+              handleProductChange(pIdx, "unitCost", Number(e.target.value))
+            }
+          />
+          <br />
+          <GreenButton onClick={() => addSubUnit(pIdx)}>
+            Add Sub Unit
+          </GreenButton>
+          {product.subUnits.map((sub, sIdx) => (
+            <div key={sIdx} className="ml-6 mt-4 border p-2">
+              <h3 className="font-semibold">Sub Unit</h3>
+              Quantity:{" "}
+              <input
+                type="number"
+                className="border border-black mb-2"
+                value={sub.quantity}
+                onChange={(e) =>
+                  handleSubUnitChange(
+                    pIdx,
+                    sIdx,
+                    "quantity",
+                    Number(e.target.value)
+                  )
+                }
+              />
+              <br />
+              Unit:{" "}
+              <input
+                type="text"
+                className="border border-black mb-2"
+                value={sub.unit}
+                onChange={(e) =>
+                  handleSubUnitChange(pIdx, sIdx, "unit", e.target.value)
+                }
+              />
+              <br />
+              Unit Cost:{" "}
+              <input
+                type="number"
+                className="border border-black mb-2"
+                value={sub.unitCost}
+                readOnly
+              />
+              <br />
+              <GreenButton onClick={() => addLowestUnit(pIdx, sIdx)}>
+                Add Lowest Unit
+              </GreenButton>
+              {sub.subUnits.map((lowest, lIdx) => (
+                <div key={lIdx} className="ml-6 mt-2 border p-2">
+                  <h4 className="font-semibold">Lowest Unit</h4>
+                  Quantity:{" "}
+                  <input
+                    type="number"
+                    className="border border-black mb-2"
+                    value={lowest.quantity}
+                    onChange={(e) =>
+                      handleLowestUnitChange(
+                        pIdx,
+                        sIdx,
+                        lIdx,
+                        "quantity",
+                        Number(e.target.value)
+                      )
+                    }
+                  />
+                  <br />
+                  Unit:{" "}
+                  <input
+                    type="text"
+                    className="border border-black mb-2"
+                    value={lowest.unit}
+                    onChange={(e) =>
+                      handleLowestUnitChange(
+                        pIdx,
+                        sIdx,
+                        lIdx,
+                        "unit",
+                        e.target.value
+                      )
+                    }
+                  />
+                  <br />
+                  Unit Cost:{" "}
+                  <input
+                    type="number"
+                    className="border border-black mb-2"
+                    value={lowest.unitCost}
+                    onChange={(e) =>
+                      handleLowestUnitChange(
+                        pIdx,
+                        sIdx,
+                        lIdx,
+                        "unitCost",
+                        Number(e.target.value)
+                      )
+                    }
+                  />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      ))}
 
-      <button
-        onClick={generateHindiName}
-        className="bg-blue-500 text-white px-4 py-2 rounded disabled:bg-gray-400"
-        disabled={loading}
-      >
-        {loading ? "Generating..." : "Get Hindi Name"}
-      </button>
-
-      {hindiName && (
-        <p className="mt-3 text-lg font-medium">
-          Hindi Name: <span className="text-green-600">{hindiName}</span>
-        </p>
-      )}
+      <GreenButton onClick={addProduct}>Add New Product</GreenButton>
+      <br />
+      <br />
+      <pre>{JSON.stringify(products, null, 2)}</pre>
     </div>
   );
 };
 
-export default HindiNameGenerator;
+export default Page;
+
+
+
+	
