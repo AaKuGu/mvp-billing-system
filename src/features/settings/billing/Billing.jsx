@@ -1,6 +1,6 @@
 import React from "react";
 import { billingSettings } from "./constant";
-import SettingsCard from "../SettingsCard";
+import SettingsCard from "../settings_card/SettingsCard";
 
 const Billing = () => {
   return (

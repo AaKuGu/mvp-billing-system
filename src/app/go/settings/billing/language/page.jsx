@@ -1,4 +1,4 @@
-import Language from "@/features/settings/settings_card/billing/Language/Language";
+import Language from "@/features/settings/billing/Language/Language";
 import React from "react";
 
 const page = () => {

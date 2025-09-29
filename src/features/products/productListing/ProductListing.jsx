@@ -51,14 +51,14 @@ const ProductListing = () => {
           </Link>
         </div>
 
-        <MainListing
+        {/* <MainListing
           setLoading={setLoading}
           loading={loading}
           searchTerm={searchTerm}
           filteredProducts={filteredProducts}
           setProducts={setProducts}
           products={products}
-        />
+        /> */}
       </LoadingWrapper>
     </div>
   );

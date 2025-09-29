@@ -1,6 +1,13 @@
 import React from "react";
 
-export const Input = ({ type, value, onChange, onBlur, placeholder }) => {
+export const Input = ({
+  type = "text",
+  value,
+  onChange,
+  onBlur,
+  placeholder,
+  readOnly = false,
+}) => {
   console.log("value : ", type, value);
 
   // Prevent scroll increment/decrement for number inputs
@@ -18,6 +25,7 @@ export const Input = ({ type, value, onChange, onBlur, placeholder }) => {
       placeholder={placeholder}
       onBlur={onBlur}
       onWheel={handleWheel}
+      readOnly={readOnly}
       className={`w-full p-2 border border-gray-300 rounded-lg shadow-sm 
                    focus:outline-none focus:ring-2 focus:ring-blue-500 
                    focus:border-blue-500`}

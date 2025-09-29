@@ -1,4 +1,4 @@
-import Billing from "@/features/settings/settings_card/billing/Billing";
+import Billing from "@/features/settings/billing/Billing";
 import React from "react";
 
 const page = () => {
