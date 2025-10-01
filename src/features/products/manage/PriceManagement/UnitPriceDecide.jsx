@@ -5,11 +5,12 @@ import { onChangeHandler } from "./funcs";
 
 const UnitPriceDecide = ({ i, d, setProduct }) => {
   return (
-    <div key={i} className={`border border-[2px] border-black p-3`}>
+    <div key={i} className={`bg-white p-3`}>
       <h1>Per {d?.unitName}</h1>
       <div>
         <Label>Cost Price</Label> :&nbsp;&nbsp;
-        <span>{JSON.stringify(d.unitCost)}</span>
+        <span>{d?.totalCost / d?.totalQuantity}</span>
+        {/* <span>{JSON.stringify(d.unitCost)}</span> */}
       </div>
       <div>
         <Label>Margin %</Label>

@@ -1,31 +1,27 @@
 import mongoose from "mongoose";
-import { categoryEnum } from "./constant";
 
-const PricePointSchema = new mongoose.Schema({
-  unit: { type: String, required: true },
-  price: { type: Number, required: true },
+// Unit Schema (for each level of the product)
+const unitSchema = new mongoose.Schema({
+  level: { type: Number, required: true }, // 1, 2, 3, etc.
+  unitName: { type: String, required: true },
+  perParentQuantity: { type: Number, default: null }, // null for level 1
+  totalQuantity: { type: Number, default: 0 },
+  totalCost: { type: Number, default: 0 }, // usually only for level 1
+  unitCost: { type: Number, default: 0 }, // cost per unit
+  pointer: { type: Number, default: 0 }, // optional, for live calculations
+  unitSellingPrice: { type: Number, default: 0 }, // final selling price per unit
+  unitSellingPercentage: { type: Number, default: 0 }, // margin %
 });
 
-// New schema for multilingual product name
-const LocalizedNameSchema = new mongoose.Schema({
-  lang: { type: String, required: true }, // e.g. "en", "hi", "fr"
-  value: { type: String, required: true }, // actual name
-});
-
-const ProductSchema = new mongoose.Schema(
+// Product Schema
+const productSchema = new mongoose.Schema(
   {
-    productName: [LocalizedNameSchema], // [{ lang: "en", value: "Kaveri" }, { lang: "hi", value: "कावेरी" }]
-    cost: [PricePointSchema],
-    wholesale: [PricePointSchema],
-    retail: [PricePointSchema],
-    category: {
-      type: String,
-      enum: categoryEnum, // ✅ only allow these categories
-      required: true,
-    },
+    productName: { type: String, required: [true, "Product Name is required"] },
+    units: [unitSchema],
   },
-  { timestamps: true }
+  { timestamps: true } // createdAt, updatedAt
 );
 
+// Export model
 export default mongoose.models.Product ||
-  mongoose.model("Product", ProductSchema);
+  mongoose.model("Product", productSchema);

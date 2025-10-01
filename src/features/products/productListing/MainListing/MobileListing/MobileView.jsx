@@ -11,7 +11,7 @@ const MobileView = ({
 }) => {
   return (
     <div className="sm:hidden space-y-4 h-full">
-      {filteredProducts.map((p, i) => (
+      {/* {filteredProducts.map((p, i) => (
         <div key={p._id} className="border rounded-lg p-4 shadow-sm bg-white">
           <div className="mb-5 flex">
             <p className="font-medium">S.No:</p>
@@ -54,7 +54,7 @@ const MobileView = ({
             </RedButton>
           </div>
         </div>
-      ))}
+      ))} */}
     </div>
   );
 };

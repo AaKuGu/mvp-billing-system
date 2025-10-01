@@ -1,4 +1,4 @@
-export const onChangeHandler = (e,i, item, setProduct) => {
+export const onChangeHandler = (e, i, item, setProduct) => {
   if (item === "unitSellingPercentage") {
     const percentage = Number(e.target.value);
 
@@ -31,4 +31,11 @@ export const onChangeHandler = (e,i, item, setProduct) => {
       return { ...prev, units: newUnits };
     });
   }
+
+
+
 };
+
+export const savePricing = (setLoading) => {
+    
+}

@@ -6,10 +6,11 @@ import Header from "@/shared/components/ui/Header";
 import React, { useState } from "react";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { product as product_seed } from "../seed";
-import { saveProduct } from "./funcs";
+import { saveProduct } from "../funcs";
+import useLoadingStore from "@/store/loading";
 
-const StockManagement = () => {
-  const [product, setProduct] = useState(product_seed);
+const StockManagement = ({ product, setProduct }) => {
+  const { setLoading } = useLoadingStore();
 
   // Add Level 1 unit (buying unit)
   const setLevel1Unit = (field, value) => {
@@ -84,7 +85,7 @@ const StockManagement = () => {
   };
 
   return (
-    <div className="p-6 w-full mx-auto bg-gray-100 rounded-lg shadow">
+    <div className=" w-full mx-auto rounded-lg ">
       <Header>Manage Stock</Header>
 
       <h2 className="text-xl font-bold mb-4">Create Product</h2>
@@ -93,7 +94,7 @@ const StockManagement = () => {
       <div className="mb-3">
         <Label>Product Name</Label>
         <Input
-          value={product.productName}
+          value={product?.productName}
           onChange={(e) =>
             setProduct({ ...product, productName: e.target.value })
           }
@@ -101,7 +102,7 @@ const StockManagement = () => {
       </div>
 
       {/* Level 1 Unit */}
-      {product.units.length > 0 && (
+      {product?.units.length > 0 && (
         <>
           <div className="mb-3">
             <Label>Buying Unit Name</Label>
@@ -116,8 +117,11 @@ const StockManagement = () => {
             <Input
               type="number"
               value={product.units[0].totalQuantity}
-              onChange={(e) => setLevel1Unit("totalQuantity", e.target.value)}
+              onChange={(e) => {
+                setLevel1Unit("totalQuantity", e.target.value);
+              }}
             />
+            "hallo"
           </div>
 
           <div className="mb-3">
@@ -131,14 +135,14 @@ const StockManagement = () => {
         </>
       )}
 
-      {product.units.length === 0 && (
+      {product?.units.length === 0 && (
         <GreenButton onClick={() => setLevel1Unit("unitName", "")}>
           Add Main Unit
         </GreenButton>
       )}
 
       {/* Sub Units */}
-      {product.units.slice(1).map((su, idx) => (
+      {product?.units.slice(1).map((su, idx) => (
         <div
           key={idx + 1}
           className="mb-3 p-3 py-4 border rounded bg-white relative"
@@ -167,7 +171,7 @@ const StockManagement = () => {
         </div>
       ))}
 
-      {product.units.length > 0 && (
+      {product?.units.length > 0 && (
         <button
           onClick={addSubUnit}
           className="bg-green-500 text-white px-4 py-2 rounded"
@@ -176,7 +180,7 @@ const StockManagement = () => {
         </button>
       )}
 
-      {product.units.length > 0 && (
+      {product?.units.length > 0 && (
         <div className="mt-6">
           <h3 className="font-semibold mb-2">लाइव प्रीव्यू</h3>
           <table className="w-full border-collapse border border-gray-400 bg-white">
@@ -201,16 +205,6 @@ const StockManagement = () => {
           </table>
         </div>
       )}
-
-      {/* Save */}
-      <div className="mt-5">
-        <button
-          onClick={() => saveProduct(product, setProduct)}
-          className="bg-blue-600 text-white px-5 py-2 rounded"
-        >
-          Save Now
-        </button>
-      </div>
     </div>
   );
 };

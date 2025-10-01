@@ -4,4 +4,9 @@ export const systemSettings = [
     label: "Language",
     link: "/go/settings/system/language",
   },
+  {
+    name: "systemLogs",
+    label: "System Logs",
+    link: "/go/settings/system/systemLogs",
+  },
 ];

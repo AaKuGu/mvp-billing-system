@@ -1,10 +1,12 @@
 import CreateOrUpdateProducts from "@/features/products/createOrUpdateProducts/createOrUpdateProducts";
+import Manage from "@/features/products/manage/Manage";
 import React from "react";
 
 const page = ({ params }) => {
   const { productId } = params;
   return (
-    <CreateOrUpdateProducts createOrUpdate="update" productId={productId} />
+    <Manage createOrUpdate="update" productId={productId} />
+    // <CreateOrUpdateProducts createOrUpdate="update" productId={productId} />
   );
 };
 

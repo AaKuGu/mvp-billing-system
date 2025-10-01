@@ -3,7 +3,6 @@ import Product from "@/models/Product";
 import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
 import CustomError from "@/shared/backend/utils/error/CustomError";
 import successResponse from "@/shared/backend/utils/success/successResponse";
-import { allowedCategories } from "../constant";
 import System_logs from "@/models/System_logs";
 
 export const GET = controllerFunc(async (req, { params }) => {
@@ -32,21 +31,16 @@ export const PUT = controllerFunc(async (req, { params }) => {
   const { id } = params;
   const body = await req.json();
 
-  const { productName, cost, wholesale, retail, category } = body;
+  const { productName, units } = body;
 
-  // ✅ Build update object only with provided fields
-  const updateFields = {};
-  if (productName !== undefined) updateFields.productName = productName;
-  if (typeof category === "string" && allowedCategories.includes(category))
-    updateFields.category = category;
-  if (Array.isArray(cost)) updateFields.cost = cost;
-  if (Array.isArray(wholesale)) updateFields.wholesale = wholesale;
-  if (Array.isArray(retail)) updateFields.retail = retail;
-
-  const updatedProduct = await Product.findByIdAndUpdate(id, updateFields, {
-    new: true,
-    runValidators: true,
-  });
+  const updatedProduct = await Product.findByIdAndUpdate(
+    id,
+    { productName, units },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   console.log(`updatedProduct: ${updatedProduct}`);
 
@@ -59,10 +53,7 @@ export const PUT = controllerFunc(async (req, { params }) => {
     payload: JSON.stringify({
       productId: updatedProduct._id,
       productName: updatedProduct.productName,
-      category: updatedProduct.category,
-      cost: updatedProduct.cost,
-      wholesale: updatedProduct.wholesale,
-      retail: updatedProduct.retail,
+      units: updatedProduct.units,
     }),
   });
 

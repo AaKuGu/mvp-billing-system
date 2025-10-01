@@ -4,18 +4,26 @@ import { Input } from "@/shared/components/form/Input";
 import Label from "@/shared/components/form/Label";
 import React, { useState } from "react";
 import UnitPriceDecide from "./UnitPriceDecide";
-import { product as product_seed } from "../seed";
+import { GreenButton } from "@/shared/components/Button";
+import { savePricing } from "./funcs";
+import useLoadingStore from "@/store/loading";
+import Header from "@/shared/components/ui/Header";
 
-const PriceManagement = () => {
-  const [product, setProduct] = useState(product_seed);
+const PriceManagement = ({ product, setProduct }) => {
+  const { setLoading, loading } = useLoadingStore();
 
   return (
-    <div className={`w-full h-full `}>
-      <Label>Product Name</Label>
-      <Input readOnly={true} value={product?.productName} />
-      {product.units.map((d, i) => {
-        return <UnitPriceDecide i={i} d={d} setProduct={setProduct} />;
-      })}
+    <div className={`w-full h-full my-10 `}>
+      <Header>Manage Pricing</Header>
+      <div className={`flex flex-col gap-5 w-full `}>
+        {product?.units.map((d, i) => {
+          return <UnitPriceDecide i={i} d={d} setProduct={setProduct} />;
+        })}
+      </div>
+
+      {/* <GreenButton loading={loading} onClick={() => savePricing(setLoading)}>
+        Save
+      </GreenButton> */}
     </div>
   );
 };
