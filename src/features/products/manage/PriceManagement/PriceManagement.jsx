@@ -16,7 +16,7 @@ const PriceManagement = ({ product, setProduct }) => {
     <div className={`w-full h-full my-10 `}>
       <Header>Manage Pricing</Header>
       <div className={`flex flex-col gap-5 w-full `}>
-        {product?.units.map((d, i) => {
+        {product?.units?.map((d, i) => {
           return <UnitPriceDecide i={i} d={d} setProduct={setProduct} />;
         })}
       </div>

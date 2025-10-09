@@ -5,9 +5,12 @@ export const apiCallWrapper = async (
   errorContext = "API call error"
 ) => {
   try {
+    // alert("api call wrapper called");
+
     const data = await apiFunc();
 
     if (data.success) {
+      // alert("data.success")
       return data; // ✅ return success data
     } else {
       // API returned failure response

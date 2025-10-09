@@ -4,13 +4,16 @@ import React from "react";
 import { onChangeHandler } from "./funcs";
 
 const UnitPriceDecide = ({ i, d, setProduct }) => {
+  const profit =
+    (parseFloat(d?.unitSellingPrice) || 0) - (parseFloat(d?.unitCost) || 0);
+
   return (
     <div key={i} className={`bg-white p-3`}>
       <h1>Per {d?.unitName}</h1>
       <div>
         <Label>Cost Price</Label> :&nbsp;&nbsp;
-        <span>{d?.totalCost / d?.totalQuantity}</span>
-        {/* <span>{JSON.stringify(d.unitCost)}</span> */}
+        {/* <span>{d?.totalCost / d?.totalQuantity}</span> */}
+        <span>{d.unitCost}</span>
       </div>
       <div>
         <Label>Margin %</Label>
@@ -30,6 +33,14 @@ const UnitPriceDecide = ({ i, d, setProduct }) => {
           }
         />
       </div>
+
+      {/* ✅ New profit display */}
+      {d?.unitSellingPrice && (
+        <div>
+          <Label>Profit</Label>:&nbsp;
+          <Input value={profit.toFixed(2)} readOnly={true} />
+        </div>
+      )}
     </div>
   );
 };

@@ -62,8 +62,10 @@ export const POST = controllerFunc(async (req) => {
   await dbConnect(); // connect to DB
 
   const errorContext = "Error in POST /products";
-  const body = await req.json(); // parse request body
+  const body = await req.json();
   const { productName, units } = body;
+
+  console.log("post is working and body data is : ", body);
 
   if (
     !productName ||

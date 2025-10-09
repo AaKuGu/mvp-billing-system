@@ -4,15 +4,19 @@ import React, { useEffect, useState } from "react";
 import StockManagement from "./StockManagement/StockManagement";
 import PriceManagement from "./PriceManagement/PriceManagement";
 import { product as product_seed } from "./seed";
-import { saveProduct, udpateAProduct } from "./funcs";
+import { saveProduct, udpateAProduct, unitCostSettingToProduct } from "./funcs";
 import { GreenButton } from "@/shared/components/Button";
 import useLoadingStore from "@/store/loading";
 import { useProductsStore } from "../store";
 import { getAProductDetails } from "../viewDetails/funcs";
 import { useRouter } from "next/navigation";
 
-const Manage = ({ createOrUpdate, productId }) => {
+const Manage = ({ createOrUpdate = "create", productId }) => {
   const [product, setProduct] = useState(product_seed);
+
+  console.log("Manage.jsx : product : ", JSON.stringify(product));
+  console.log("Manage.jsx : product : ", product);
+
   const { setLoading } = useLoadingStore();
 
   const { getOneProductByProductId } = useProductsStore();
@@ -41,16 +45,17 @@ const Manage = ({ createOrUpdate, productId }) => {
 
   return (
     <div
-      className={`w-full h-screen overflow-y-auto bg-gray-100 flex flex-col  p-6 `}
+      className={`w-full min-h-screen overflow-y-auto bg-gray-100 flex flex-col p-6 `}
     >
-      {/* {JSON.stringify(product)} */}
       <StockManagement product={product} setProduct={setProduct} />
       <PriceManagement product={product} setProduct={setProduct} />
-
       <GreenButton
-        onClick={() => {
+        onClick={async () => {
+          // alert("product to save : " + JSON.stringify(product));
+
           if (createOrUpdate === "create") {
-            saveProduct(product, setProduct, setLoading);
+            // alert("create is active");
+            await saveProduct(product, setLoading);
           } else if (createOrUpdate === "update") {
             udpateAProduct(productId, product, router, setLoading);
           }

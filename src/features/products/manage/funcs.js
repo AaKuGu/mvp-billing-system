@@ -1,26 +1,34 @@
 import toast from "react-hot-toast";
 import { saveAProductStock, updateAProduct_api } from "./apiCalls";
 
-const unitCostSettingToProduct = (product) => {
+//following is the helper function to set unitCost for each unit before saving or updating a product
+export const unitCostSettingToProduct = (product) => {
   let _product = { ...product };
-  _product.units.forEach((d, i) => {
+  _product?.units?.forEach((d, i) => {
     if (i === 0) {
-      d.unitCost = d.totalCost / d.totalQuantity;
+      if (d?.totalCost && d?.totalQuantity)
+        d.unitCost = parseFloat((d?.totalCost / d?.totalQuantity).toFixed(2));
     } else {
       const parentUnit = _product.units[i - 1];
-      d.unitCost = parentUnit.unitCost / d.perParentQuantity;
+      d.unitCost = parseFloat(
+        (parentUnit?.unitCost / d?.perParentQuantity).toFixed(2)
+      );
     }
   });
+
+  console.log("After unitCost setting _product : ", _product);
+
   return _product;
 };
 
-export const saveProduct = async (product, setProduct, setLoading) => {
+export const saveProduct = async (product, setLoading) => {
   setLoading(true);
-  const _product = unitCostSettingToProduct(product);
-  setProduct(_product);
-  //   alert(JSON.stringify(_product));
-  const data = await saveAProductStock(_product);
-  //   alert(JSON.stringify(data));
+  // const _product = unitCostSettingToProduct(product);
+  // setProduct(_product);
+  // alert("save a product " + JSON.stringify(product));
+  const data = await saveAProductStock(product);
+  console.log("save a product data : ", data);
+  // alert("data " + JSON.stringify(data));
   if (data?.success) {
     toast.success(data?.message);
   }
@@ -34,8 +42,8 @@ export const udpateAProduct = async (
   setLoading
 ) => {
   setLoading(true);
-  const _product = unitCostSettingToProduct(product);
-  const data = await updateAProduct_api(productId, _product);
+  // const _product = unitCostSettingToProduct(product);
+  const data = await updateAProduct_api(productId, product);
   if (data.success) {
     toast.success(data?.message);
     // ✅ Update localStorage
