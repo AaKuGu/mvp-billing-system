@@ -217,14 +217,11 @@
 
 // export default Page;
 
-"use client";
-import CreateOrUpdateProducts from "@/features/products/createOrUpdateProducts/createOrUpdateProducts";
 import Manage from "@/features/products/manage/Manage";
-import React, { useState } from "react";
+import React from "react";
 
 const page = () => {
-  return <Manage createOrUpdate={"create"} />;
-  // return <CreateOrUpdateProducts createOrUpdate={"create"} />;
+  return <Manage />;
 };
 
 export default page;
