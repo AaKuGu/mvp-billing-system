@@ -14,9 +14,6 @@ import { useRouter } from "next/navigation";
 const Manage = ({ createOrUpdate = "create", productId }) => {
   const [product, setProduct] = useState(product_seed);
 
-  console.log("Manage.jsx : product : ", JSON.stringify(product));
-  console.log("Manage.jsx : product : ", product);
-
   const { setLoading } = useLoadingStore();
 
   const { getOneProductByProductId } = useProductsStore();
