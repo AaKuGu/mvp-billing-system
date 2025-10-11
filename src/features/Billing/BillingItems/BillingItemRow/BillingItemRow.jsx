@@ -53,20 +53,29 @@ const BillingItemRow = ({
       }
     } else {
       if (unit && quantity && rowData.dataFromDB) {
-        const data = rowData.dataFromDB.wholesale.find((d) => d.unit === unit);
-        if (data) {
-          const dbUnitPrice = data.price;
-          setUnitPrice(dbUnitPrice);
-          setTotalPrice(dbUnitPrice * quantity);
-          const _billingItems = [...billingItems];
-          _billingItems[index].itemDetails = {
-            ..._billingItems[index].itemDetails,
-            quantity: quantity,
-            unitPrice: dbUnitPrice,
-            totalPrice: dbUnitPrice * quantity,
-          };
-          setBillingItems(_billingItems);
-        }
+        // alert("unit changes to this will run");
+        // const data = rowData.dataFromDB.wholesale.find((d) => d.unit === unit);
+        // if (data) {
+        //   const dbUnitPrice = data.price;
+        //   setUnitPrice(dbUnitPrice);
+        //   setTotalPrice(dbUnitPrice * quantity);
+        //   const _billingItems = [...billingItems];
+        //   _billingItems[index].itemDetails = {
+        //     ..._billingItems[index].itemDetails,
+        //     quantity: quantity,
+        //     unitPrice: dbUnitPrice,
+        //     totalPrice: dbUnitPrice * quantity,
+        //   };
+        //   setBillingItems(_billingItems);
+        // }
+        setTotalPrice(unitPrice * quantity);
+        const _billingItems = [...billingItems];
+        _billingItems[index].itemDetails = {
+          ..._billingItems[index].itemDetails,
+          quantity: quantity,
+          totalPrice: unitPrice * quantity,
+        };
+        setBillingItems(_billingItems);
       }
     }
   }, [unitPrice, quantity, unit, customProduct, rowData.dataFromDB]);
@@ -82,6 +91,20 @@ const BillingItemRow = ({
       setBillingItems(_billingItems);
     }
   }, [unitPrice]);
+
+  useEffect(() => {
+    if (!customProduct) {
+      // alert("unit changed to : " + unit + " and this is not custom product");
+      // alert("rowData : " + JSON.stringify(rowData?.dataFromDB?.units));
+      rowData?.dataFromDB?.units?.find((d) => {
+        if (d.unitName === unit) {
+          // alert("found unit : " + JSON.stringify(d));
+          setUnitPrice(d.unitSellingPrice);
+          return true;
+        }
+      });
+    }
+  }, [unit]);
 
   useEffect(() => {
     if (unit && quantity && totalPrice) {
@@ -101,10 +124,11 @@ const BillingItemRow = ({
       const itemDetails = rowData.itemDetails;
       const qty = itemDetails.quantity; // ✅ no shadowing
 
-      const _unit = units.find((d) => d.hiLabel === itemDetails.unit);
+      // const _unit = units.find((d) => d.hiLabel === itemDetails.unit);
+      // const _unit = units.find((d) => d.hiLabel === itemDetails.unit);
       setQuantity(qty);
       setName(itemDetails.productName);
-      setUnit(_unit.engLabel);
+      // setUnit(_unit.engLabel);
       setUnitPrice(itemDetails.unitPrice);
       setTotalPrice(itemDetails.totalPrice);
     }
@@ -143,6 +167,10 @@ const BillingItemRow = ({
           setUnitPrice={setUnitPrice}
           setTotalPrice={setTotalPrice}
         />
+      </div>
+      <div className={`w-[500px]`}>
+        {/* row data = {JSON.stringify(rowData?.dataFromDB?.units)} */}
+        {/* item details = {JSON.stringify(rowData)} */}
       </div>
       <div className="flex flex-col md:flex-row w-full text-black p-2 gap-4 relative items-center border-b">
         <Quantity

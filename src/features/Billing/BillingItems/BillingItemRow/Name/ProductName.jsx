@@ -26,6 +26,9 @@ const ProductName = ({
         value={name}
         onChange={(e) => {
           setName(e.target.value);
+
+          // alert("custom product true : " + e.target.value);
+
           setCustomProduct(true);
 
           setTotalPrice(null);

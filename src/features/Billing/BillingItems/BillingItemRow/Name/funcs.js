@@ -3,18 +3,23 @@ export const onSuggestionClick = (
   setBillingItems,
   index,
   dataFromDB,
-  hiLabel
+  productName,
+  setUnitPrice
 ) => {
+  // alert("Unit cost : " + JSON.stringify(dataFromDB.units[0].unitSellingPrice));
+
   const _billingItems = [...billingItems];
   _billingItems[index] = {
     ..._billingItems[index],
     itemDetails: {
       ..._billingItems[index].itemDetails,
-      productName: hiLabel,
+      productName,
+      unitPrice: dataFromDB.units[0].unitSellingPrice,
     },
     dataFromDB: { ...dataFromDB },
   };
   setBillingItems(_billingItems);
+  setUnitPrice(dataFromDB.units[0].unitSellingPrice);
 };
 
 export const productNameChangeHandler = (

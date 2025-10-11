@@ -16,11 +16,9 @@ const Billing = () => {
   const [billingItems, setBillingItems] = useState();
   const [viewPrintableBill, setViewPrintableBill] = useState(false);
 
-  // ✅ Load from localStorage on mount
   useEffect(() => {
     const savedItems = localStorage.getItem("billingItems");
     if (savedItems) {
-      // alert(JSON.stringify(JSON.parse(savedItems)));
       try {
         setBillingItems(JSON.parse(savedItems));
       } catch (err) {
@@ -29,18 +27,15 @@ const Billing = () => {
     }
   }, []);
 
-  // ✅ Save whenever billingItems changes
   useEffect(() => {
     if (billingItems?.length) {
       localStorage.setItem("billingItems", JSON.stringify(billingItems));
     }
   }, [billingItems]);
 
-  
-
   return (
     <div className={`w-full h-screen md:px-20 px-2 `}>
-      {/* billingItems={JSON.stringify(billingItems[0])} */}
+      {/* billingItems={JSON.stringify(billingItems[0]?.itemDetails)} */}
       <Header>Billing</Header>
       <div className={`flex justify-center `}>
         <BillEye setViewPrintableBill={setViewPrintableBill} />

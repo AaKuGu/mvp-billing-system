@@ -12,7 +12,6 @@ const UnitPriceDecide = ({ i, d, setProduct }) => {
       <h1>Per {d?.unitName}</h1>
       <div>
         <Label>Cost Price</Label> :&nbsp;&nbsp;
-        {/* <span>{d?.totalCost / d?.totalQuantity}</span> */}
         <span>{d.unitCost}</span>
       </div>
       <div>
@@ -25,7 +24,7 @@ const UnitPriceDecide = ({ i, d, setProduct }) => {
         />
       </div>
       <div>
-        <Label>Final Selling Price</Label>
+        <Label>Unit Selling Price</Label>
         <Input
           value={d?.unitSellingPrice}
           onChange={(e) =>
@@ -37,7 +36,7 @@ const UnitPriceDecide = ({ i, d, setProduct }) => {
       {/* ✅ New profit display */}
       {d?.unitSellingPrice && (
         <div>
-          <Label>Profit</Label>:&nbsp;
+          <Label>Unit Profit</Label>:&nbsp;
           <Input value={profit.toFixed(2)} readOnly={true} />
         </div>
       )}

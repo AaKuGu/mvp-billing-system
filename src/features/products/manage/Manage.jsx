@@ -52,9 +52,9 @@ const Manage = ({ createOrUpdate = "create", productId }) => {
 
           if (createOrUpdate === "create") {
             // alert("create is active");
-            await saveProduct(product, setLoading);
+            await saveProduct(product, setLoading, setProduct, product_seed);
           } else if (createOrUpdate === "update") {
-            udpateAProduct(productId, product, router, setLoading);
+            await udpateAProduct(productId, product, router, setLoading);
           }
         }}
         className="bg-blue-600 text-white px-5 py-2 rounded"

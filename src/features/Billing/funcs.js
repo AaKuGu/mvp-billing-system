@@ -10,10 +10,11 @@ export const fetchProducts = async (setFuse) => {
       const fuseInstance = new Fuse(products, {
         keys: [
           {
-            name: "productNameEng",
+            name: "productName",
             getFn: (product) => {
-              const eng = product.productName?.find((p) => p.lang === "eng");
-              return eng ? eng.value : "";
+              // const eng = product.productName?.find((p) => p.lang === "eng");
+              // return eng ? eng.value : "";
+              return product.productName
             },
           },
         ],

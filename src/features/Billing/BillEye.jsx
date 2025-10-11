@@ -10,11 +10,11 @@ const BillEye = ({ setViewPrintableBill, viewPrintableBill }) => {
     >
       {viewPrintableBill ? (
         <div className={`flex`}>
-          <FiEyeOff className="text-lg" />
+          <FiEyeOff className="text-sm" />
         </div>
       ) : (
         <div className={`flex`}>
-          <FiEye className="text-lg" />
+          <FiEye className="text-sm" />
         </div>
       )}
     </GreenButton>

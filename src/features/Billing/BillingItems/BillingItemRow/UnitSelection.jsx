@@ -12,38 +12,40 @@ const UnitSelection = ({
   index,
   customProduct,
 }) => {
+  const handleChange = (value) => {
+    setUnit(value);
+    const updated = [...billingItems];
+    updated[index] = {
+      ...updated[index],
+      itemDetails: {
+        ...updated[index].itemDetails,
+        unit: value,
+      },
+    };
+    setBillingItems(updated);
+  };
+
   return (
     <div className="flex-1 w-full">
       <Label>Unit</Label>
-      <Select
-        value={unit}
-        onChange={(e) => {
-          setUnit(e.target.value);
-          const hiValue = units.find((d) => d.engLabel === e.target.value);
-          const updated = [...billingItems];
-          updated[index] = {
-            ...updated[index],
-            itemDetails: {
-              ...updated[index].itemDetails,
-              unit: hiValue.hiLabel,
-            },
-            unit: { engLabel: e.target.value, hiLabel: hiValue.hiLabel },
-          };
-          setBillingItems(updated);
-        }}
-      >
-        {customProduct
-          ? units?.map((item, idx) => (
-              <option key={idx} value={item.engLabel} className="text-black">
-                {item.engLabel}
-              </option>
-            ))
-          : rowData.dataFromDB?.wholesale?.map((item, idx) => (
-              <option key={idx} value={item.unit}>
-                {item.unit}
+      {customProduct ? (
+        <input
+          type="text"
+          value={unit}
+          onChange={(e) => handleChange(e.target.value)}
+          className="border px-2 py-1 w-full"
+          placeholder="Enter custom unit"
+        />
+      ) : (
+        <Select value={unit} onChange={(e) => handleChange(e.target.value)}>
+          {rowData?.dataFromDB?.units?.length &&
+            rowData.dataFromDB.units.map((item, idx) => (
+              <option key={idx} value={item.unitName} className="text-black">
+                {item.unitName}
               </option>
             ))}
-      </Select>
+        </Select>
+      )}
     </div>
   );
 };

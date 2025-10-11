@@ -7,7 +7,7 @@ export const GreenButton = ({
   return (
     <button
       type={type}
-      className="bg-green-800 text-white px-5 py-2"
+      className="bg-green-800 text-white px-3 py-1"
       onClick={onClick}
       disabled={loading}
     >
@@ -47,7 +47,7 @@ export const RedButton = ({ onClick, children }) => {
   return (
     <button
       type="button"
-      className="bg-red-600 text-white px-5 py-2 flex items-center justify-center gap-2"
+      className="bg-red-600 text-white px-3 py-1 flex items-center justify-center gap-2 text-sm"
       onClick={onClick}
     >
       {children}

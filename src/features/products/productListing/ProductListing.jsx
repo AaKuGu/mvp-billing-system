@@ -35,7 +35,7 @@ const ProductListing = () => {
   }, [searchTerm, products]);
 
   return (
-    <div className="w-full h-full p-4 sm:p-6 text-black border-[2px] border-black relative">
+    <div className="w-full h-full p-4 sm:p-6 text-black relative">
       <LoadingWrapper loading={loading}>
         <Header>Products</Header>
         <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 mb-4">

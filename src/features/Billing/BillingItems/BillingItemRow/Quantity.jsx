@@ -21,7 +21,7 @@ const Quantity = ({
         type="number"
         value={quantity}
         onChange={(e) => {
-          setQuantity(e.target.value);
+          setQuantity(Number(e.target.value));
         }}
       />
     </div>

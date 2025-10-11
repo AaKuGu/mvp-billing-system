@@ -21,16 +21,20 @@ export const unitCostSettingToProduct = (product) => {
   return _product;
 };
 
-export const saveProduct = async (product, setLoading) => {
+export const saveProduct = async (
+  product,
+  setLoading,
+  setProduct,
+  product_seed
+) => {
   setLoading(true);
-  // const _product = unitCostSettingToProduct(product);
-  // setProduct(_product);
-  // alert("save a product " + JSON.stringify(product));
   const data = await saveAProductStock(product);
-  console.log("save a product data : ", data);
-  // alert("data " + JSON.stringify(data));
   if (data?.success) {
     toast.success(data?.message);
+    const storedProducts = JSON.parse(localStorage.getItem("products")) || [];
+    const updatedProducts = [data?.newProduct, ...storedProducts];
+    localStorage.setItem("products", JSON.stringify(updatedProducts));
+    setProduct(product_seed);
   }
   setLoading(false);
 };

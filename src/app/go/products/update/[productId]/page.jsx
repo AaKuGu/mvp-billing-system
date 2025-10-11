@@ -1,4 +1,3 @@
-import CreateOrUpdateProducts from "@/features/products/createOrUpdateProducts/createOrUpdateProducts";
 import Manage from "@/features/products/manage/Manage";
 import React from "react";
 

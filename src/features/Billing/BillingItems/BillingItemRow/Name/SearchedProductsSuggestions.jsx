@@ -9,6 +9,7 @@ const SearchedProductsSuggestions = ({
   index,
   name,
   setName,
+  setUnitPrice,
 }) => {
   return (
     <div className={`w-full flex flex-wrap gap-2`}>
@@ -18,22 +19,26 @@ const SearchedProductsSuggestions = ({
             key={idx}
             className="p-2 hover:bg-gray-200 cursor-pointer px-5 py-2 border "
             onMouseDown={() => {
-              const engLabel = p.productName.find((d) => d.lang === "eng");
-              const hiLabel = p.productName.find((d) => d.lang === "hi");
-              setName(engLabel?.value);
+              // const engLabel = p.productName.find((d) => d.lang === "eng");
+              // const hiLabel = p.productName.find((d) => d.lang === "hi");
+              // setName(engLabel?.value);
+
+              setName(p.productName);
 
               onSuggestionClick(
                 billingItems,
                 setBillingItems,
                 index,
                 p,
-                hiLabel.value
+                p.productName,
+                setUnitPrice
               );
               setSearchedProducts([]);
             }}
           >
-            {p.productName.find((n) => n.lang === "eng")?.value || ""}&nbsp;
-            {p.productName.find((n) => n.lang === "hi")?.value || ""}
+            {/* {p.productName.find((n) => n.lang === "eng")?.value || ""}&nbsp; */}
+            {/* {p.productName.find((n) => n.lang === "hi")?.value || ""} */}
+            {p.productName}
           </div>
         );
       })}

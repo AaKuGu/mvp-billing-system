@@ -1,5 +1,6 @@
 "use client";
 
+import Back from "@/shared/components/Back";
 import Loading from "@/shared/components/Loading/Loading";
 import LoadingWrapper from "@/shared/components/Loading/LoadingWrapper";
 import Sidebar from "@/shared/components/sidebar/Sidebar";
@@ -15,8 +16,11 @@ const Layout = ({ children }) => {
       {/* Sidebar */}
       <Sidebar />
       {/* Main content */}
-      <main className="flex-1 w-full h-full">{children}</main>
-      {loading && <Loading /> }
+      <main className="flex-1 w-full h-full border border-gray-700 border-[2px] relative pt-5 ">
+        <Back />
+        {children}
+      </main>
+      {loading && <Loading />}
       {/* </LoadingWrapper> */}
     </div>
   );

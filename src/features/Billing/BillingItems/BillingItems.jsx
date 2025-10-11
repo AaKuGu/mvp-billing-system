@@ -30,7 +30,6 @@ const BillingItems = ({ billingItems, setBillingItems }) => {
         ))}
       </div>
       <PlusMinusButtons setBillingItems={setBillingItems} />
-      
     </div>
   );
 };

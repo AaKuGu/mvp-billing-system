@@ -13,7 +13,7 @@ const CustomerDetails = ({
   return (
     <>
       <div>
-        <Label>Name</Label>
+        <Label>Customer Name</Label>
         <Input
           type="text"
           value={customerName}
