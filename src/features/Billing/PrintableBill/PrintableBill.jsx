@@ -3,9 +3,10 @@ import {
   GreenButton,
   RoundButtonClose,
 } from "@/shared/components/Button";
-import React from "react";
+import React, { useState } from "react";
 import {
   calculateGrandTotal,
+  finalizeHandler,
   generateCleanPdf,
   whatsappRedirect,
 } from "./funcs";
@@ -22,10 +23,12 @@ const PrintableBill = ({
 }) => {
   const grandTotal = calculateGrandTotal(billingItems);
 
-  const [finalClicked, setFinalClicked] = React.useState(false);
+  const [finalized, setFinalized] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className="mt-6 overflow-x-auto text-black">
+      {/* billingItems={JSON.stringify(billingItems[0]?.itemDetails)} */}
       <div className="w-full max-w-lg mx-auto bg-white p-2 ">
         <div className="w-full flex justify-end">
           <RoundButtonClose onClick={() => setViewPrintableBill(false)} />
@@ -65,32 +68,39 @@ const PrintableBill = ({
             </div>
           </div>
         </div>
-        <BlueButton
-          onClick={() => {
-            setFinalClicked(true);
-          }}
-        >
-          Final
-        </BlueButton>
-        &nbsp;
-        {/* <BlueButton onClick={() => generateCleanPdf()}>Download</BlueButton>
-        <GreenButton
-          onClick={() => {
-            if (!whatsappNum) {
-              toast.error(`Whatsapp Number Jaruri Hai`);
-              return;
-            } else if (!customerName) {
-              toast.error(`Customer Name Jaruri Hai`);
-              return;
-            }
-            whatsappRedirect(
-              whatsappNum,
-              `Hello ${customerName},\nYour bill has been generated. Please see the attached PDF.`
-            );
-          }}
-        >
-          Whatsapp
-        </GreenButton> */}
+        {!finalized ? (
+          <BlueButton
+            onClick={() => {
+              const preparedData = billingItems.map((item) => item.itemDetails);
+              // alert("final data : " + JSON.stringify(preparedData));
+              finalizeHandler(preparedData, setFinalized, setLoading);
+            }}
+            loading={loading}
+          >
+            {loading ? "Processing..." : "Finalize"}
+          </BlueButton>
+        ) : (
+          <>
+            <BlueButton onClick={() => generateCleanPdf()}>Download</BlueButton>
+            <GreenButton
+              onClick={() => {
+                if (!whatsappNum) {
+                  toast.error(`Whatsapp Number Jaruri Hai`);
+                  return;
+                } else if (!customerName) {
+                  toast.error(`Customer Name Jaruri Hai`);
+                  return;
+                }
+                whatsappRedirect(
+                  whatsappNum,
+                  `Hello ${customerName},\nYour bill has been generated. Please see the attached PDF.`
+                );
+              }}
+            >
+              Whatsapp
+            </GreenButton>
+          </>
+        )}
       </div>
     </div>
   );

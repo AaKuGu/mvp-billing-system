@@ -1,3 +1,5 @@
+import { product } from "@/features/products/manage/seed";
+
 export const onSuggestionClick = (
   billingItems,
   setBillingItems,
@@ -14,6 +16,7 @@ export const onSuggestionClick = (
     itemDetails: {
       ..._billingItems[index].itemDetails,
       productName,
+      productId: dataFromDB._id,
       unitPrice: dataFromDB.units[0].unitSellingPrice,
     },
     dataFromDB: { ...dataFromDB },

@@ -28,6 +28,7 @@ const UnitSelection = ({
   return (
     <div className="flex-1 w-full">
       <Label>Unit</Label>
+      {unit}
       {customProduct ? (
         <input
           type="text"
@@ -40,7 +41,7 @@ const UnitSelection = ({
         <Select value={unit} onChange={(e) => handleChange(e.target.value)}>
           {rowData?.dataFromDB?.units?.length &&
             rowData.dataFromDB.units.map((item, idx) => (
-              <option key={idx} value={item.unitName} className="text-black">
+              <option key={idx} value={item.unit} className="text-black">
                 {item.unitName}
               </option>
             ))}

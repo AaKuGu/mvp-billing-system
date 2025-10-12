@@ -121,6 +121,8 @@ const BillingItemRow = ({
 
   useEffect(() => {
     if (rowData) {
+      // alert("row data changed : " + JSON.stringify(rowData?.itemDetails));
+
       const itemDetails = rowData.itemDetails;
       const qty = itemDetails.quantity; // ✅ no shadowing
 
@@ -128,6 +130,7 @@ const BillingItemRow = ({
       // const _unit = units.find((d) => d.hiLabel === itemDetails.unit);
       setQuantity(qty);
       setName(itemDetails.productName);
+      setUnit(itemDetails.unit);
       // setUnit(_unit.engLabel);
       setUnitPrice(itemDetails.unitPrice);
       setTotalPrice(itemDetails.totalPrice);
