@@ -37,20 +37,20 @@
 // };
 
 export const product = {
-  productId: "",
-  productName: "",
+  productId: "dsd",
+  productName: "First_Product",
   units: [
-    // {
-    //   level: 1,
-    //   unitName: "Bag",
-    //   perParentQuantity: null,
-    //   totalQuantity: 50, // 50 Bags
-    //   totalCost: 25000, // ₹25,000 for all bags
-    //   unitCost: 500,
-    //   pointer: null,
-    //   unitSellingPrice: 0,
-    //   unitSellingPercentage: 0,
-    // },
+    {
+      level: 1,
+      unitName: "Bag",
+      perParentQuantity: null,
+      totalQuantity: 50, // 50 Bags
+      totalCost: 25000, // ₹25,000 for all bags
+      unitCost: 500,
+      pointer: null,
+      // unitSellingPrice: 0,
+      // unitSellingPercentage: 0,
+    },
     // {
     //   level: 2,
     //   unitName: "Packet",

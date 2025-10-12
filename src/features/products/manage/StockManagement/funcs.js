@@ -89,3 +89,12 @@ export const addSubUnit = (setProduct) => {
     return { ...prev, units };
   });
 };
+
+export const clearSellingPriceAndPercentage = (units) => {
+  if (!units || units.length === 0) return units;
+  return units.map((unit) => ({
+    ...unit,
+    unitSellingPrice: 0,
+    unitSellingPercentage: 0,
+  }));
+};

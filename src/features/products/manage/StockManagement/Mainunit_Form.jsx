@@ -1,9 +1,9 @@
 import { Input } from "@/shared/components/form/Input";
 import Label from "@/shared/components/form/Label";
 import React from "react";
-import { setLevel1Unit } from "./funcs";
+import { clearSellingPriceAndPercentage, setLevel1Unit } from "./funcs";
 
-const Mainunit_Form = ({product, setProduct}) => {
+const Mainunit_Form = ({ product, setProduct }) => {
   return (
     <>
       {product?.units?.length > 0 && (
@@ -25,6 +25,11 @@ const Mainunit_Form = ({product, setProduct}) => {
               value={product.units[0].totalQuantity}
               onChange={(e) => {
                 setLevel1Unit("totalQuantity", e.target.value, setProduct);
+                //since change in quantity can affect pricing, reset those fields
+                setProduct((prev) => ({
+                  ...prev,
+                  units: clearSellingPriceAndPercentage(prev.units),
+                }));
               }}
             />
           </div>
@@ -34,9 +39,14 @@ const Mainunit_Form = ({product, setProduct}) => {
             <Input
               type="number"
               value={product.units[0].totalCost}
-              onChange={(e) =>
-                setLevel1Unit("totalCost", e.target.value, setProduct)
-              }
+              onChange={(e) => {
+                setLevel1Unit("totalCost", e.target.value, setProduct);
+                //since change in cost can affect pricing, reset those fields
+                setProduct((prev) => ({
+                  ...prev,
+                  units: clearSellingPriceAndPercentage(prev.units),
+                }));
+              }}
             />
           </div>
         </>

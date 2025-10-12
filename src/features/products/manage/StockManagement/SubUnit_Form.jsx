@@ -2,7 +2,11 @@ import { RoundButtonClose } from "@/shared/components/Button";
 import { Input } from "@/shared/components/form/Input";
 import Label from "@/shared/components/form/Label";
 import React from "react";
-import { unitCloseHandler, updateSubUnit } from "./funcs";
+import {
+  clearSellingPriceAndPercentage,
+  unitCloseHandler,
+  updateSubUnit,
+} from "./funcs";
 
 const SubUnit_Form = ({ product, setProduct }) => {
   return (
@@ -25,7 +29,7 @@ const SubUnit_Form = ({ product, setProduct }) => {
               updateSubUnit(idx + 1, "unitName", e.target.value, setProduct)
             }
           />
-          
+
           <Label>
             How many {su.unitName || "sub-units"} in 1{" "}
             {product.units[idx].unitName}
@@ -33,14 +37,19 @@ const SubUnit_Form = ({ product, setProduct }) => {
           <Input
             type="number"
             value={su.perParentQuantity}
-            onChange={(e) =>
+            onChange={(e) => {
               updateSubUnit(
                 idx + 1,
                 "perParentQuantity",
                 e.target.value,
                 setProduct
-              )
-            }
+              );
+              //since change in perParentQuantity can affect pricing, reset those fields
+              setProduct((prev) => ({
+                ...prev,
+                units: clearSellingPriceAndPercentage(prev.units),
+              }));
+            }}
           />
         </div>
       ))}

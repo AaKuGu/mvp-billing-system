@@ -17,6 +17,7 @@ const UnitPriceDecide = ({ i, d, setProduct }) => {
       <div>
         <Label>Margin %</Label>
         <Input
+          type="number"
           value={d?.unitSellingPercentage}
           onChange={(e) =>
             onChangeHandler(e, i, "unitSellingPercentage", setProduct)
@@ -26,6 +27,7 @@ const UnitPriceDecide = ({ i, d, setProduct }) => {
       <div>
         <Label>Unit Selling Price</Label>
         <Input
+          type="number"
           value={d?.unitSellingPrice}
           onChange={(e) =>
             onChangeHandler(e, i, "unitSellingPrice", setProduct)
