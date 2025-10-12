@@ -1,9 +1,7 @@
-"use client";
-
-import Billing from "@/features/Billing/Billing";
+import React from "react";
 
 const page = () => {
-  return <Billing />;
+  return <div>Dashboard</div>;
 };
 
 export default page;

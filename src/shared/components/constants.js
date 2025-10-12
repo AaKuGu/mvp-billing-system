@@ -1,6 +1,7 @@
 export const sidebarMenus = [
+  { label: "Dashboard", link: "/go", name: "dashboard" },
   { label: "Products", link: "/go/products", name: "products" },
-  { label: "Bills", link: "/go", name: "bills" },
+  { label: "Bills", link: "/go/bills", name: "bills" },
   { label: "Sytem Logs", link: "/go/system_logs", name: "system_logs" },
   { label: "Settings", link: "/go/settings", name: "settings" },
 ];

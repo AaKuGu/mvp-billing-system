@@ -4,7 +4,7 @@ import CustomerDetails from "./CustomerDetails";
 import BillingItems from "./BillingItems/BillingItems";
 import Header from "@/shared/components/ui/Header";
 import Form from "@/shared/components/form/Form";
-import BillEye from "./BillEye";
+import BillEye from "./PrintableBill/BillEye";
 import PrintableBill from "./PrintableBill/PrintableBill";
 import Modal from "@/shared/components/Modal";
 import { RedButton } from "@/shared/components/Button";

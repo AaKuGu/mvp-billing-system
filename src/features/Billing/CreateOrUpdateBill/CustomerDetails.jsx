@@ -1,5 +1,5 @@
 import React from "react";
-import Label from "../../shared/components/form/Label";
+import Label from "../../../shared/components/form/Label";
 import { Input } from "@/shared/components/form/Input";
 
 const CustomerDetails = ({

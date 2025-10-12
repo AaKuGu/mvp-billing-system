@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createEmptyBillData } from "./constant";
 import Header from "@/shared/components/ui/Header";
+// import { fetchProducts } from "./api";
 import { fetchProducts } from "../funcs";
 import BillingItemRow from "./BillingItemRow/BillingItemRow";
 import PlusMinusButtons from "./PlusMinusButtons";

@@ -21,7 +21,7 @@ const Back = () => {
   return (
     <button
       onClick={() => router.back()}
-      className="bg-black text-white px-5 py-2 absolute top-2 left-2 "
+      className="bg-black text-white px-3 py-1 absolute top-2 left-2 text-[10px]"
     >
       Back
     </button>

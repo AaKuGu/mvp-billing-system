@@ -35,3 +35,9 @@ export const POST = controllerFunc(async (req) => {
 
   return successResponse({}, "Bill Finalized Successfully!");
 }, "Error in POST /bills");
+
+export const GET = controllerFunc(async (req) => {
+  await dbConnect();
+  const bills = await Bill.find().sort({ createdAt: -1 });
+  return successResponse({ bills }, "Bills fetched successfully");
+}, "Error in GET /bills");
