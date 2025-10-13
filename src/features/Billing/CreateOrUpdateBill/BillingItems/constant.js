@@ -1,7 +1,7 @@
 const emptyBillProduct = {
   productName: "",
   quantity: null,
-  unit: "Pcs",
+  unitName: "Pcs",
   unitPrice: null,
   totalPrice: null,
 };

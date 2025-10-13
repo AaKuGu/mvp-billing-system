@@ -20,6 +20,7 @@ const Main = ({ billingItems }) => {
 
       <span className={`text-sm`}>
         {/* {JSON.stringify(billingItems[0].itemDetails.unit)} */}
+        {/* {JSON.stringify(billingItems[0].itemDetails)} */}
       </span>
 
       <table className="w-full border-collapse text-sm">
@@ -28,8 +29,9 @@ const Main = ({ billingItems }) => {
             const _itemDetails = item.itemDetails;
             const unitPrice = _itemDetails.unitPrice;
             const quantity = Number(_itemDetails?.quantity) || 0;
-            const unit = _itemDetails.unit;
+            const unit = _itemDetails.unitName;
             const totalPrice = Number(_itemDetails.totalPrice) || 0;
+            const productName = _itemDetails.productName;
 
             return (
               <TableData
@@ -39,6 +41,7 @@ const Main = ({ billingItems }) => {
                 quantity={quantity}
                 unit={unit}
                 totalPrice={totalPrice}
+                productName={productName}
               />
             );
           })}

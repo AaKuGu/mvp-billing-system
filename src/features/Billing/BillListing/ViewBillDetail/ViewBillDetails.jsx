@@ -2,17 +2,26 @@
 
 import React, { useEffect, useState } from "react";
 import { useBillsStore } from "../../CreateOrUpdateBill/store";
+import useOneBillDetailStore from "./store";
 
 const ViewBillDetails = ({ id }) => {
   const [data, setData] = useState(null);
-  const { getOneBillByBillId } = useBillsStore();
+  const { getOneBillByBillId, bills } = useBillsStore();
+  const { oneBillDetail } = useOneBillDetailStore();
 
   useEffect(() => {
-    if (id) {
-      const bill = getOneBillByBillId(id);
-      if (bill) {
-        const parsed = JSON.parse(bill.stringifiedBill);
-        setData({ ...bill, parsedBill: parsed });
+    if (oneBillDetail) {
+      // alert("Using oneBillDetail from store" + JSON.stringify(oneBillDetail));
+      const parsed = JSON.parse(oneBillDetail.stringifiedBill);
+      setData({ ...oneBillDetail, parsedBill: parsed });
+    } else if (bills.length > 0) {
+      alert("Bills available in store: " + JSON.stringify(bills));
+      if (id) {
+        const bill = getOneBillByBillId(id);
+        if (bill) {
+          const parsed = JSON.parse(bill.stringifiedBill);
+          setData({ ...bill, parsedBill: parsed });
+        }
       }
     }
   }, [id, getOneBillByBillId]);

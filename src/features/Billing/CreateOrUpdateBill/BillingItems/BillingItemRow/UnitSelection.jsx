@@ -4,8 +4,8 @@ import Select from "@/shared/components/form/Select";
 import React from "react";
 
 const UnitSelection = ({
-  unit,
-  setUnit,
+  unitName,
+  setUnitName,
   rowData,
   billingItems,
   setBillingItems,
@@ -13,13 +13,13 @@ const UnitSelection = ({
   customProduct,
 }) => {
   const handleChange = (value) => {
-    setUnit(value);
+    setUnitName(value);
     const updated = [...billingItems];
     updated[index] = {
       ...updated[index],
       itemDetails: {
         ...updated[index].itemDetails,
-        unit: value,
+        unitName: value,
       },
     };
     setBillingItems(updated);
@@ -28,21 +28,20 @@ const UnitSelection = ({
   return (
     <div className="flex-1 w-full">
       <Label>Unit</Label>
-      {unit}
       {customProduct ? (
         <input
           type="text"
-          value={unit}
+          value={unitName}
           onChange={(e) => handleChange(e.target.value)}
           className="border px-2 py-1 w-full"
           placeholder="Enter custom unit"
         />
       ) : (
-        <Select value={unit} onChange={(e) => handleChange(e.target.value)}>
+        <Select value={unitName} onChange={(e) => handleChange(e.target.value)}>
           {rowData?.dataFromDB?.units?.length &&
             rowData.dataFromDB.units.map((item, idx) => (
-              <option key={idx} value={item.unit} className="text-black">
-                {item.unitName}
+              <option key={idx} value={item.unitName} className="text-black">
+                {item.unitName + `-` + item.totalQuantity}
               </option>
             ))}
         </Select>

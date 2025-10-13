@@ -18,8 +18,23 @@ const Billing = () => {
 
   useEffect(() => {
     const savedItems = localStorage.getItem("billingItems");
+    const savedCustomerDetails = localStorage.getItem("customerDetails");
+    if (savedCustomerDetails) {
+      // alert("saved customer details : " + savedCustomerDetails);
+
+      try {
+        const parsedDetails = JSON.parse(savedCustomerDetails);
+        setCustomerName(parsedDetails.customerName || "");
+        setWhatsappNum(parsedDetails.whatsappNum || "");
+        setCustomerAddressArea(parsedDetails.customerAddressArea || "");
+      } catch (err) {
+        console.error("Error parsing customerDetails:", err);
+      }
+    }
     if (savedItems) {
       try {
+        // alert("yes");
+        // alert("saved items : " + savedItems);
         setBillingItems(JSON.parse(savedItems));
       } catch (err) {
         console.error("Error parsing billingItems:", err);
@@ -32,6 +47,22 @@ const Billing = () => {
       localStorage.setItem("billingItems", JSON.stringify(billingItems));
     }
   }, [billingItems]);
+
+  useEffect(() => {
+    // alert("customerDetailsChange useEffect ran");
+
+    // alert(customerName);
+
+    localStorage.setItem(
+      "customerDetails",
+      JSON.stringify({
+        customerName,
+        whatsappNum,
+        customerAddressArea,
+      })
+    );
+    // setCustomerDetailsChange((prev) => !prev);
+  }, [customerName, whatsappNum, customerAddressArea]);
 
   return (
     <div className={`w-full h-screen md:px-20 px-2 `}>

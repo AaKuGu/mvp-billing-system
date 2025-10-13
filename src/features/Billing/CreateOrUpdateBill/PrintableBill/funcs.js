@@ -70,7 +70,9 @@ export const whatsappRedirect = async (phone, text) => {
 export const finalizeHandler = async (
   preparedData,
   setFinalized,
-  setLoading
+  setLoading,
+  router,
+  setOneBillDetail
 ) => {
   setLoading(true);
   const data = await finalizeBill_apiCall(preparedData);
@@ -78,6 +80,9 @@ export const finalizeHandler = async (
   if (data?.success) {
     toast.success(data?.message);
     setFinalized(true);
+    // alert("Bill finalized successfully!" + JSON.stringify(data?.Bill));
+    setOneBillDetail(data?.Bill);
+    router.push(`/go/bills/${data?.Bill?._id}`);
   }
-  setLoading(false);
+  // setLoading(false);
 };

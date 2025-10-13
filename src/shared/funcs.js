@@ -11,3 +11,7 @@ export const generateHindiName = async (
   if (data.hindiText) setHindiName(data.hindiText);
   setLoading(false);
 };
+
+export const roundTo = (num, digits = 2) => {
+  return Number(num.toFixed(digits));
+};

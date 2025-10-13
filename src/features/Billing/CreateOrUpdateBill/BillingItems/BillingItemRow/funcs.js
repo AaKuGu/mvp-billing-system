@@ -20,4 +20,4 @@ export const onChangeHandler = (
   //   "updated itemDetails: " + JSON.stringify(_billingItems[index].itemDetails)
   // );
   setBillingItems(_billingItems);
-};
+};  

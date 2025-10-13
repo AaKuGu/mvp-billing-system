@@ -13,7 +13,7 @@ export const POST = controllerFunc(async (req) => {
 
   const stringifiedBill = JSON.stringify(data);
 
-  await Bill.create({ stringifiedBill });
+  const bill_created = await Bill.create({ stringifiedBill });
 
   await Promise.all(
     data.map(async (item) => {
@@ -23,7 +23,7 @@ export const POST = controllerFunc(async (req) => {
       const updatedStock = calculateStock(
         productData,
         item.quantity,
-        item.unit
+        item.unitName
       );
 
       return Product.updateOne(
@@ -33,7 +33,10 @@ export const POST = controllerFunc(async (req) => {
     })
   );
 
-  return successResponse({}, "Bill Finalized Successfully!");
+  return successResponse(
+    { Bill: bill_created },
+    "Bill Finalized Successfully!"
+  );
 }, "Error in POST /bills");
 
 export const GET = controllerFunc(async (req) => {

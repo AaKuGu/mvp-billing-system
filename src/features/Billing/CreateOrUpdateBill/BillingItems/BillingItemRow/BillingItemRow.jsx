@@ -7,6 +7,7 @@ import TotalPrice from "./totalPrice/TotalPrice";
 import RemoveButton from "./remove/RemoveButton";
 import UnitPrice from "./unitPrice/UnitPrice";
 import { units } from "@/shared/components/constants";
+import { roundTo } from "@/shared/funcs";
 
 const BillingItemRow = ({
   key,
@@ -18,7 +19,7 @@ const BillingItemRow = ({
 }) => {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState();
-  const [unit, setUnit] = useState("pcs");
+  const [unitName, setUnitName] = useState("pcs");
   const [unitPrice, setUnitPrice] = useState();
   const [totalPrice, setTotalPrice] = useState();
   const [searchedProducts, setSearchedProducts] = useState([]);
@@ -39,98 +40,90 @@ const BillingItemRow = ({
   // }, [name]);
 
   useEffect(() => {
+    // alert("one runs" + JSON.stringify(billingItems));
+
     if (customProduct) {
-      if (unit && quantity && unitPrice) {
+      if (unitName && quantity && unitPrice) {
         // If unitPrice changes → update totalPrice
-        setTotalPrice(Number(unitPrice) * Number(quantity));
+        setTotalPrice(roundTo(unitPrice * quantity));
         const _billingItems = [...billingItems];
         _billingItems[index].itemDetails = {
           ..._billingItems[index].itemDetails,
           quantity: quantity,
-          totalPrice: Number(unitPrice) * quantity,
+          totalPrice: roundTo(unitPrice * quantity),
+          // totalPrice: Number(unitPrice) * quantity,
         };
         setBillingItems(_billingItems);
       }
     } else {
-      if (unit && quantity && rowData.dataFromDB) {
-        // alert("unit changes to this will run");
-        // const data = rowData.dataFromDB.wholesale.find((d) => d.unit === unit);
-        // if (data) {
-        //   const dbUnitPrice = data.price;
-        //   setUnitPrice(dbUnitPrice);
-        //   setTotalPrice(dbUnitPrice * quantity);
-        //   const _billingItems = [...billingItems];
-        //   _billingItems[index].itemDetails = {
-        //     ..._billingItems[index].itemDetails,
-        //     quantity: quantity,
-        //     unitPrice: dbUnitPrice,
-        //     totalPrice: dbUnitPrice * quantity,
-        //   };
-        //   setBillingItems(_billingItems);
-        // }
-        setTotalPrice(unitPrice * quantity);
+      if (unitName && quantity && rowData.dataFromDB) {
+        let totalPrice = roundTo(unitPrice * quantity);
+
+        // alert(totalPrice);
+
+        setTotalPrice(totalPrice);
         const _billingItems = [...billingItems];
         _billingItems[index].itemDetails = {
           ..._billingItems[index].itemDetails,
           quantity: quantity,
-          totalPrice: unitPrice * quantity,
+          totalPrice,
         };
         setBillingItems(_billingItems);
       }
     }
-  }, [unitPrice, quantity, unit, customProduct, rowData.dataFromDB]);
+  }, [unitPrice, quantity, unitName, customProduct, rowData.dataFromDB]);
 
   useEffect(() => {
-    if (unit && quantity && unitPrice) {
-      setTotalPrice(unitPrice * quantity);
+    // alert("unit price change" + JSON.stringify(billingItems));
+    if (unitName && quantity && unitPrice) {
+      setTotalPrice(roundTo(unitPrice * quantity));
       const _billingItems = [...billingItems];
       _billingItems[index].itemDetails = {
         ..._billingItems[index].itemDetails,
-        totalPrice: unitPrice * quantity,
+        // totalPrice: unitPrice * quantity,
+        totalPrice: roundTo(unitPrice * quantity),
       };
       setBillingItems(_billingItems);
     }
   }, [unitPrice]);
 
   useEffect(() => {
+    // alert("unit changed to : " + JSON.stringify(billingItems));
     if (!customProduct) {
-      // alert("unit changed to : " + unit + " and this is not custom product");
-      // alert("rowData : " + JSON.stringify(rowData?.dataFromDB?.units));
       rowData?.dataFromDB?.units?.find((d) => {
-        if (d.unitName === unit) {
-          // alert("found unit : " + JSON.stringify(d));
-          setUnitPrice(d.unitSellingPrice);
+        if (d.unitName === unitName) {
+          setUnitPrice(roundTo(d.unitSellingPrice));
           return true;
         }
       });
     }
-  }, [unit]);
+  }, [unitName]);
 
   useEffect(() => {
-    if (unit && quantity && totalPrice) {
-      setUnitPrice(totalPrice / quantity);
-
+    // alert("total price change" + JSON.stringify(billingItems));
+    if (unitName && quantity && totalPrice) {
+      setUnitPrice(roundTo(totalPrice / quantity));
       const _billingItems = [...billingItems];
       _billingItems[index].itemDetails = {
         ..._billingItems[index].itemDetails,
-        unitPrice: totalPrice / quantity,
+        unitPrice: roundTo(totalPrice / quantity),
       };
       setBillingItems(_billingItems);
     }
   }, [totalPrice]);
 
   useEffect(() => {
+    // alert("row data changed" + JSON.stringify(billingItems));
     if (rowData) {
-      // alert("row data changed : " + JSON.stringify(rowData?.itemDetails));
-
       const itemDetails = rowData.itemDetails;
+
+      // alert("item details : " + JSON.stringify(itemDetails));
+
       const qty = itemDetails.quantity; // ✅ no shadowing
 
-      // const _unit = units.find((d) => d.hiLabel === itemDetails.unit);
-      // const _unit = units.find((d) => d.hiLabel === itemDetails.unit);
       setQuantity(qty);
       setName(itemDetails.productName);
-      setUnit(itemDetails.unit);
+      setUnitName(itemDetails.unitName);
       // setUnit(_unit.engLabel);
       setUnitPrice(itemDetails.unitPrice);
       setTotalPrice(itemDetails.totalPrice);
@@ -142,6 +135,8 @@ const BillingItemRow = ({
       className="flex flex-col  w-full text-black p-2 gap-4 relative items-center border-b"
       key={key}
     >
+      {totalPrice}
+      {/* rowDAta = {JSON.stringify(rowData?.itemDetails)} */}
       <div>{index + 1}.</div>
       <div className="relative flex-1 w-full">
         <ProductName
@@ -150,7 +145,7 @@ const BillingItemRow = ({
           fuse={fuse}
           name={name}
           setName={setName}
-          setUnit={setUnit}
+          setUnitName={setUnitName}
           setTotalPrice={setTotalPrice}
           setUnitPrice={setUnitPrice}
           index={index}
@@ -165,15 +160,11 @@ const BillingItemRow = ({
           index={index}
           name={name}
           setName={setName}
-          setUnit={setUnit}
+          setUnitName={setUnitName}
           setQuantity={setQuantity}
           setUnitPrice={setUnitPrice}
           setTotalPrice={setTotalPrice}
         />
-      </div>
-      <div className={`w-[500px]`}>
-        {/* row data = {JSON.stringify(rowData?.dataFromDB?.units)} */}
-        {/* item details = {JSON.stringify(rowData)} */}
       </div>
       <div className="flex flex-col md:flex-row w-full text-black p-2 gap-4 relative items-center border-b">
         <Quantity
@@ -183,14 +174,16 @@ const BillingItemRow = ({
           setBillingItems={setBillingItems}
           setQuantity={setQuantity}
           quantity={quantity}
+          unitName={unitName}
+          customProduct={customProduct}
         />
         <UnitSelection
           rowData={rowData}
           billingItems={billingItems}
           setBillingItems={setBillingItems}
           index={index}
-          setUnit={setUnit}
-          unit={unit}
+          setUnitName={setUnitName}
+          unitName={unitName}
           customProduct={customProduct}
         />
         <UnitPrice

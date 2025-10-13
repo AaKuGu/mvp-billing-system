@@ -17,7 +17,9 @@ const CustomerDetails = ({
         <Input
           type="text"
           value={customerName}
-          onChange={(e) => setCustomerName(e.target.value)}
+          onChange={(e) => {
+            setCustomerName(e.target.value);
+          }}
         />
       </div>
       <div>
@@ -25,7 +27,9 @@ const CustomerDetails = ({
         <Input
           type="number"
           value={whatsappNum}
-          onChange={(e) => setWhatsappNum(e.target.value)}
+          onChange={(e) => {
+            setWhatsappNum(e.target.value);
+          }}
         />
       </div>
       <div>
@@ -33,7 +37,9 @@ const CustomerDetails = ({
         <Input
           type="text"
           value={customerAddressArea}
-          onChange={(e) => setCustomerAddressArea(e.target.value)}
+          onChange={(e) => {
+            setCustomerAddressArea(e.target.value);
+          }}
         />
       </div>
     </>

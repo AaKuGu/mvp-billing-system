@@ -1,6 +1,6 @@
 import { Input } from "@/shared/components/form/Input";
 import Label from "@/shared/components/form/Label";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { onChangeHandler } from "./funcs";
 
 const Quantity = ({
@@ -10,18 +10,45 @@ const Quantity = ({
   index,
   quantity,
   setQuantity,
+  unitName,
+  customProduct,
 }) => {
+  const [max, setMax] = useState(0);
+
   useEffect(() => {
     onChangeHandler("quantity", quantity, billingItems, setBillingItems, index);
   }, [quantity]);
+
+  useEffect(() => {
+    if (unitName && rowData?.dataFromDB?.units?.length) {
+      rowData?.dataFromDB?.units?.find((d) => {
+        if (d.unitName === unitName) {
+          setMax(d.totalQuantity);
+        }
+      });
+    }
+  }, [unitName]);
+
   return (
     <div className="flex-1 w-full">
       <Label>Quantity</Label>
       <Input
         type="number"
+        max={customProduct ? null : max}
+        min={0}
         value={quantity}
         onChange={(e) => {
-          setQuantity(Number(e.target.value));
+          let inputValue = Number(e.target.value);
+
+          if (customProduct) {
+            setQuantity(inputValue);
+          } else {
+            // Clamp value to min/max range
+            if (inputValue > max) inputValue = max;
+            if (inputValue < 0) inputValue = 0;
+
+            setQuantity(inputValue);
+          }
         }}
       />
     </div>

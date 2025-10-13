@@ -13,6 +13,8 @@ import {
 import toast from "react-hot-toast";
 import TableData from "./TableData";
 import Main from "./Main";
+import { useRouter } from "next/navigation";
+import useOneBillDetailStore from "../../BillListing/ViewBillDetail/store";
 // import { dataStyle, srStyle } from "./css";
 
 const PrintableBill = ({
@@ -25,6 +27,10 @@ const PrintableBill = ({
 
   const [finalized, setFinalized] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const { setOneBillDetail } = useOneBillDetailStore();
+
+  const router = useRouter();
 
   return (
     <div className="mt-6 overflow-x-auto text-black">
@@ -71,9 +77,23 @@ const PrintableBill = ({
         {!finalized ? (
           <BlueButton
             onClick={() => {
+              const _confirm = confirm(
+                `Are you sure you want to finalize this bill? You won’t be able to make changes afterward.`
+              );
+
+              if (!_confirm) {
+                return;
+              }
+
               const preparedData = billingItems.map((item) => item.itemDetails);
               // alert("final data : " + JSON.stringify(preparedData));
-              finalizeHandler(preparedData, setFinalized, setLoading);
+              finalizeHandler(
+                preparedData,
+                setFinalized,
+                setLoading,
+                router,
+                setOneBillDetail
+              );
             }}
             loading={loading}
           >
@@ -81,7 +101,7 @@ const PrintableBill = ({
           </BlueButton>
         ) : (
           <>
-            <BlueButton onClick={() => generateCleanPdf()}>Download</BlueButton>
+            {/* <BlueButton onClick={() => generateCleanPdf()}>Download</BlueButton>
             <GreenButton
               onClick={() => {
                 if (!whatsappNum) {
@@ -98,7 +118,7 @@ const PrintableBill = ({
               }}
             >
               Whatsapp
-            </GreenButton>
+            </GreenButton> */}
           </>
         )}
       </div>

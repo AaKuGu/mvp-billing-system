@@ -6,9 +6,10 @@ export const onSuggestionClick = (
   index,
   dataFromDB,
   productName,
-  setUnitPrice
+  setUnitPrice,
+  setUnitName
 ) => {
-  // alert("Unit cost : " + JSON.stringify(dataFromDB.units[0].unitSellingPrice));
+  // alert("Unit cost : " + JSON.stringify(dataFromDB.units[0].unitName));
 
   const _billingItems = [...billingItems];
   _billingItems[index] = {
@@ -18,11 +19,13 @@ export const onSuggestionClick = (
       productName,
       productId: dataFromDB._id,
       unitPrice: dataFromDB.units[0].unitSellingPrice,
+      unitName: dataFromDB.units[0].unitName,
     },
     dataFromDB: { ...dataFromDB },
   };
   setBillingItems(_billingItems);
   setUnitPrice(dataFromDB.units[0].unitSellingPrice);
+  setUnitName(dataFromDB.units[0].unitName);
 };
 
 export const productNameChangeHandler = (
@@ -39,7 +42,7 @@ export const productNameChangeHandler = (
     itemDetails: {
       productName,
       quantity: 0,
-      unit: "पीस",
+      unitName: "Pcs",
       unitPrice: 0,
       totalPrice: 0,
     },

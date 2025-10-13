@@ -26,7 +26,9 @@ const BillListing = () => {
           <Link href={`bills/create`}>Create Billing</Link>
         </div>
         <div>Bill Listing</div>
-        <div className={`w-full flex flex-col gap-2`}>
+        <div
+          className={`w-full flex flex-col gap-2 h-[600px] overflow-y-auto `}
+        >
           {bills.length > 0 &&
             bills.map((data, i) => (
               <BillingCard data={data} key={i} index={i} />

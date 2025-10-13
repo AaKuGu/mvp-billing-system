@@ -20,28 +20,37 @@ const transliterateToHindi = async (englishName, setLoading, setHindiName) => {
     .join(generateHindiName(englishName, setLoading, setHindiName)); // replace with GPT API
 };
 
-const TableData = ({ item, i, quantity, unit, unitPrice, totalPrice }) => {
-  const [hindiName, setHindiName] = useState(item.itemDetails?.productName);
-  const [loading, setLoading] = useState(false);
+const TableData = ({
+  item,
+  i,
+  quantity,
+  unit,
+  unitPrice,
+  totalPrice,
+  productName,
+}) => {
+  // const [hindiName, setHindiName] = useState(item.itemDetails?.productName);
+  // const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const isEnglish = /[a-zA-Z]/.test(item.itemDetails?.productName); // check if English
-    if (isEnglish) {
-      setLoading(true);
-      transliterateToHindi(
-        item.itemDetails.productName,
-        setLoading,
-        setHindiName
-      ).then((res) => {
-        setHindiName(res);
-      });
-    }
-  }, [item.itemDetails?.productName]);
+  // useEffect(() => {
+  //   const isEnglish = /[a-zA-Z]/.test(item.itemDetails?.productName); // check if English
+  //   if (isEnglish) {
+  //     setLoading(true);
+  //     transliterateToHindi(
+  //       item.itemDetails.productName,
+  //       setLoading,
+  //       setHindiName
+  //     ).then((res) => {
+  //       setHindiName(res);
+  //     });
+  //   }
+  // }, [item.itemDetails?.productName]);
 
   return (
     <tr key={item.id || i}>
       <td className={srStyle}>{i + 1}</td>
-      <td className={dataStyle}>{loading ? "Loading..." : hindiName}</td>
+      {/* <td className={dataStyle}>{loading ? "Loading..." : hindiName}</td> */}
+      <td className={dataStyle}>{productName}</td>
       <td className={dataStyle}>
         {quantity} {unit} × ₹{unitPrice}
       </td>

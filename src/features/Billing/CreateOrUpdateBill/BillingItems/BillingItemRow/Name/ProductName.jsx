@@ -14,7 +14,7 @@ const ProductName = ({
   index,
   setCustomProduct,
   setTotalPrice,
-  setUnit,
+  setUnitName,
   setUnitPrice,
 }) => {
   return (
@@ -33,7 +33,7 @@ const ProductName = ({
 
           setTotalPrice(null);
           setUnitPrice(null);
-          setUnit("pcs");
+          setUnitName("Pcs");
 
           productNameChangeHandler(
             billingItems,

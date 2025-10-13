@@ -7,6 +7,8 @@ export const Input = ({
   onBlur,
   placeholder,
   readOnly = false,
+  min = null,
+  max=null,
 }) => {
   console.log("value : ", type, value);
 
@@ -19,6 +21,8 @@ export const Input = ({
 
   return (
     <input
+      min={min}
+      max={max}
       type={type}
       value={value}
       onChange={onChange}

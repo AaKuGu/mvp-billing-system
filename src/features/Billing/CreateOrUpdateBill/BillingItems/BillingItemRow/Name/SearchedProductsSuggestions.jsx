@@ -10,6 +10,7 @@ const SearchedProductsSuggestions = ({
   name,
   setName,
   setUnitPrice,
+  setUnitName,
 }) => {
   return (
     <div className={`w-full flex flex-wrap gap-2`}>
@@ -31,7 +32,8 @@ const SearchedProductsSuggestions = ({
                 index,
                 p,
                 p.productName,
-                setUnitPrice
+                setUnitPrice,
+                setUnitName
               );
               setSearchedProducts([]);
             }}
