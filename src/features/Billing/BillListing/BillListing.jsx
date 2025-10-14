@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { fetchBills } from "./funcs";
 import LoadingWrapper from "@/shared/components/Loading/LoadingWrapper";
 import BillingCard from "./BillingCard";
-import { useBillsStore } from "../CreateOrUpdateBill/store";
+import { useBillsStore } from "../shared/store";
 import Link from "next/link";
 
 const BillListing = () => {

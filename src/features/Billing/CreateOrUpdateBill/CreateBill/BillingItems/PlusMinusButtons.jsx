@@ -1,5 +1,5 @@
 import React from "react";
-import { createEmptyBillData } from "./constant";
+import { createEmptyBillData } from "./funcs";
 
 const PlusMinusButtons = ({ setBillingItems }) => {
   return (

@@ -16,7 +16,7 @@ export const POST = controllerFunc(async (req) => {
   const bill_created = await Bill.create({ stringifiedBill });
 
   await Promise.all(
-    data.map(async (item) => {
+    data.itemDetails.map(async (item) => {
       const productData = await Product.findById(item.productId);
       if (!productData) return null;
 

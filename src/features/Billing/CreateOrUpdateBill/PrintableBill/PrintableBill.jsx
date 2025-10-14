@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 import TableData from "./TableData";
 import Main from "./Main";
 import { useRouter } from "next/navigation";
-import useOneBillDetailStore from "../../BillListing/ViewBillDetail/store";
+import useOneBillDetailStore from "../../BillListing/BillSummary/store";
 // import { dataStyle, srStyle } from "./css";
 
 const PrintableBill = ({
@@ -74,53 +74,6 @@ const PrintableBill = ({
             </div>
           </div>
         </div>
-        {!finalized ? (
-          <BlueButton
-            onClick={() => {
-              const _confirm = confirm(
-                `Are you sure you want to finalize this bill? You won’t be able to make changes afterward.`
-              );
-
-              if (!_confirm) {
-                return;
-              }
-
-              const preparedData = billingItems.map((item) => item.itemDetails);
-              // alert("final data : " + JSON.stringify(preparedData));
-              finalizeHandler(
-                preparedData,
-                setFinalized,
-                setLoading,
-                router,
-                setOneBillDetail
-              );
-            }}
-            loading={loading}
-          >
-            {loading ? "Processing..." : "Finalize"}
-          </BlueButton>
-        ) : (
-          <>
-            {/* <BlueButton onClick={() => generateCleanPdf()}>Download</BlueButton>
-            <GreenButton
-              onClick={() => {
-                if (!whatsappNum) {
-                  toast.error(`Whatsapp Number Jaruri Hai`);
-                  return;
-                } else if (!customerName) {
-                  toast.error(`Customer Name Jaruri Hai`);
-                  return;
-                }
-                whatsappRedirect(
-                  whatsappNum,
-                  `Hello ${customerName},\nYour bill has been generated. Please see the attached PDF.`
-                );
-              }}
-            >
-              Whatsapp
-            </GreenButton> */}
-          </>
-        )}
       </div>
     </div>
   );

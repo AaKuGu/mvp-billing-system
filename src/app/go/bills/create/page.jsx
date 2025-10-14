@@ -1,8 +1,8 @@
-import Billing from "@/features/Billing/CreateOrUpdateBill/Billing";
+import CreateBillPage from "@/features/Billing/CreateOrUpdateBill/CreateBill/CreateBillPage";
 import React from "react";
 
 const page = () => {
-  return <Billing />;
+  return <CreateBillPage />;
 };
 
 export default page;

@@ -1,6 +1,6 @@
 "use client";
 
-import Billing from "@/features/Billing/CreateOrUpdateBill/Billing";
+import Billing from "@/features/Billing/CreateOrUpdateBill/CreateBill/CreateBillPage";
 import BillListing from "@/features/Billing/BillListing/BillListing";
 
 const page = () => {

@@ -2,16 +2,9 @@
 
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import { finalizeBill_apiCall } from "./apiCalls";
 import toast from "react-hot-toast";
 
-export const calculateGrandTotal = (billingItems) => {
-  const grandTotal = billingItems?.reduce((acc, item) => {
-    const totalPrice = Number(item?.itemDetails?.totalPrice) || 0;
-    return acc + totalPrice;
-  }, 0);
-  return grandTotal;
-};
+
 
 export const generateCleanPdf = async () => {
   const billElement = document.getElementById("bill-printable");
@@ -65,24 +58,4 @@ export const whatsappRedirect = async (phone, text) => {
   const message = encodeURIComponent(text);
 
   window.open(`https://wa.me/${formattedPhone}?text=${message}`, "_blank");
-};
-
-export const finalizeHandler = async (
-  preparedData,
-  setFinalized,
-  setLoading,
-  router,
-  setOneBillDetail
-) => {
-  setLoading(true);
-  const data = await finalizeBill_apiCall(preparedData);
-  // alert("Bill finalized!" + JSON.stringify(data));
-  if (data?.success) {
-    toast.success(data?.message);
-    setFinalized(true);
-    // alert("Bill finalized successfully!" + JSON.stringify(data?.Bill));
-    setOneBillDetail(data?.Bill);
-    router.push(`/go/bills/${data?.Bill?._id}`);
-  }
-  // setLoading(false);
 };

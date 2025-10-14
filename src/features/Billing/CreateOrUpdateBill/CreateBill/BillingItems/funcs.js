@@ -1,12 +1,6 @@
-const emptyBillProduct = {
-  productName: "",
-  quantity: null,
-  unitName: "Pcs",
-  unitPrice: null,
-  totalPrice: null,
-};
-
 //above one can be deleted any time
+
+import { emptyBillProduct } from "./constant";
 
 export const createEmptyBillData = () => ({
   id: crypto.randomUUID(), // ✅ new ID every call

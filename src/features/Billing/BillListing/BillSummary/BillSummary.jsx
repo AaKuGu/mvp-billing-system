@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useBillsStore } from "../../CreateOrUpdateBill/store";
+import { useBillsStore } from "@/features/Billing/shared/store";
 import useOneBillDetailStore from "./store";
+import BillSummery from "../../shared/BillSummery/BillSummery";
 
 const ViewBillDetails = ({ id }) => {
   const [data, setData] = useState(null);
+  console.log("data : ", data);
   const { getOneBillByBillId, bills } = useBillsStore();
   const { oneBillDetail } = useOneBillDetailStore();
 
@@ -15,7 +17,7 @@ const ViewBillDetails = ({ id }) => {
       const parsed = JSON.parse(oneBillDetail.stringifiedBill);
       setData({ ...oneBillDetail, parsedBill: parsed });
     } else if (bills.length > 0) {
-      alert("Bills available in store: " + JSON.stringify(bills));
+      // alert("Bills available in store: " + JSON.stringify(bills));
       if (id) {
         const bill = getOneBillByBillId(id);
         if (bill) {
@@ -33,8 +35,12 @@ const ViewBillDetails = ({ id }) => {
 
   return (
     <div className="w-full max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-6">
-      {/* Header */}
-      <div className="flex items-center justify-between border-b pb-3 mb-4">
+      {/* data = {JSON.stringify(data?.parsedBill?.itemDetails)} */}
+      <BillSummery
+        customerDetails={data?.parsedBill?.customerDetails}
+        itemDetails={data?.parsedBill?.itemDetails}
+      />
+      {/* <div className="flex items-center justify-between border-b pb-3 mb-4">
         <div>
           <h2 className="text-xl font-semibold text-gray-800">
             Bill ID: {data._id.slice(-6)}
@@ -46,7 +52,6 @@ const ViewBillDetails = ({ id }) => {
         </span>
       </div>
 
-      {/* Bill Items */}
       <div className="space-y-3">
         {data.parsedBill.map((item, index) => (
           <div
@@ -66,7 +71,6 @@ const ViewBillDetails = ({ id }) => {
         ))}
       </div>
 
-      {/* Footer */}
       <div className="flex justify-between items-center border-t mt-4 pt-3">
         <span className="text-lg font-semibold text-gray-800">Total</span>
         <span className="text-lg font-bold text-blue-600">
@@ -76,7 +80,7 @@ const ViewBillDetails = ({ id }) => {
             0
           )}
         </span>
-      </div>
+      </div> */}
     </div>
   );
 };

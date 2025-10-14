@@ -30,8 +30,9 @@ const BillingCard = ({ data, index }) => {
       </div>
 
       {/* Right Section */}
-      <div>
-        <Link href={`/go/bills/${data?._id}`}> View</Link>
+      <div className={`gap-2 flex`}>
+        <Link href={`/go/bills/summary/${data?._id}`}>View Summary</Link>
+        <Link href={`/go/bills/finalBill/${data?._id}`}>View Bill</Link>
         {/* <BlueButton onClick={() => {}}>View</BlueButton> */}
       </div>
     </div>

@@ -1,20 +1,27 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import CustomerDetails from "./CustomerDetails";
-import BillingItems from "./BillingItems/BillingItems";
+// import BillingItems from "../BillingItems/BillingItems";
 import Header from "@/shared/components/ui/Header";
 import Form from "@/shared/components/form/Form";
-import BillEye from "./PrintableBill/BillEye";
-import PrintableBill from "./PrintableBill/PrintableBill";
+import BillEye from "../PrintableBill/BillEye";
+import PrintableBill from "../PrintableBill/PrintableBill";
 import Modal from "@/shared/components/Modal";
 import { RedButton } from "@/shared/components/Button";
+import BillSummery from "../../shared/BillSummery/BillSummery";
+import BillSummaryPage from "../BillSummaryPage/BillSummaryPage";
+import CustomerDetails from "./CustomerDetails";
+import BillingItems from "./BillingItems/BillingItems";
 
-const Billing = () => {
+const CreateBillPage = () => {
   const [customerName, setCustomerName] = useState(null);
   const [whatsappNum, setWhatsappNum] = useState(null);
   const [customerAddressArea, setCustomerAddressArea] = useState("");
   const [billingItems, setBillingItems] = useState();
   const [viewPrintableBill, setViewPrintableBill] = useState(false);
+
+  const onlyItemDetailsHandler = () => {
+    return billingItems?.map((d) => d?.itemDetails);
+  };
 
   useEffect(() => {
     const savedItems = localStorage.getItem("billingItems");
@@ -66,8 +73,7 @@ const Billing = () => {
 
   return (
     <div className={`w-full h-screen md:px-20 px-2 `}>
-      {/* billingItems={JSON.stringify(billingItems[0]?.itemDetails)} */}
-      <Header>Billing</Header>
+      <Header>Create Bill</Header>
       <div className={`flex justify-center `}>
         <BillEye setViewPrintableBill={setViewPrintableBill} />
         <RedButton
@@ -75,6 +81,7 @@ const Billing = () => {
             if (window.confirm("आप यह बिल साफ़ करना चाहते हैं क्या?")) {
               setBillingItems([]);
               window.localStorage.removeItem("billingItems");
+              window.localStorage.removeItem("customerDetails");
             }
           }}
         >
@@ -99,12 +106,21 @@ const Billing = () => {
           />
           {viewPrintableBill && (
             <Modal>
-              <PrintableBill
+              <BillSummaryPage
+                customerDetails={{
+                  customerName,
+                  whatsappNum,
+                  customerAddressArea,
+                }}
+                itemDetails={onlyItemDetailsHandler()}
+                setViewPrintableBill={setViewPrintableBill}
+              />
+              {/* <PrintableBill
                 customerName={customerName}
                 whatsappNum={whatsappNum}
                 billingItems={billingItems}
                 setViewPrintableBill={setViewPrintableBill}
-              />
+              /> */}
             </Modal>
           )}
         </Form>
@@ -113,4 +129,4 @@ const Billing = () => {
   );
 };
 
-export default Billing;
+export default CreateBillPage;

@@ -1,4 +1,4 @@
-import ViewBillDetails from "@/features/Billing/BillListing/ViewBillDetail/ViewBillDetails";
+import ViewBillDetails from "@/features/Billing/BillListing/BillSummary/BillSummary";
 import React from "react";
 
 const page = ({ params }) => {
