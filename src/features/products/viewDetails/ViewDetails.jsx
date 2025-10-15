@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { useProductsStore } from "../store";
 import { initialApiCall } from "./funcs";
 import useLoadingStore from "@/store/loading";
+import MobileView from "./MobileView";
+import DesktopView from "./DesktopView";
 
 const ViewDetails = ({ productId }) => {
   const { getOneProductByProductId } = useProductsStore();
@@ -41,37 +43,8 @@ const ViewDetails = ({ productId }) => {
       {/* Product Name */}
       <h1 className="text-2xl font-bold">{product.productName}</h1>
 
-      {/* Units Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full border border-gray-300 text-sm sm:text-base">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="p-2 border">Level</th>
-              <th className="p-2 border">Unit</th>
-              <th className="p-2 border">Per Parent Qty</th>
-              <th className="p-2 border">Total Qty</th>
-              <th className="p-2 border">Total Cost</th>
-              <th className="p-2 border">Unit Cost</th>
-              <th className="p-2 border">Selling Price</th>
-              <th className="p-2 border">Selling %</th>
-            </tr>
-          </thead>
-          <tbody>
-            {product.units?.map((u) => (
-              <tr key={u._id} className="text-center hover:bg-gray-50">
-                <td className="p-2 border">{u.level}</td>
-                <td className="p-2 border">{u.unitName}</td>
-                <td className="p-2 border">{u.perParentQuantity ?? "-"}</td>
-                <td className="p-2 border">{u.totalQuantity}</td>
-                <td className="p-2 border">{u.totalCost}</td>
-                <td className="p-2 border">{u.unitCost}</td>
-                <td className="p-2 border">{u.unitSellingPrice}</td>
-                <td className="p-2 border">{u.unitSellingPercentage}%</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <MobileView product={product} />
+      <DesktopView product={product} />
 
       {/* Metadata */}
       <div className="text-xs text-gray-500">

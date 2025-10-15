@@ -132,12 +132,12 @@ const BillingItemRow = ({
 
   return (
     <div
-      className="flex flex-col  w-full text-black p-2 gap-4 relative items-center border-b"
+      className="flex flex-col border w-full text-black p-2 gap-4 relative items-center border-b"
       key={key}
     >
-      {totalPrice}
+      {/* {totalPrice} */}
       {/* rowDAta = {JSON.stringify(rowData?.itemDetails)} */}
-      <div>{index + 1}.</div>
+      <div className={`w-full`}>{index + 1}.</div>
       <div className="relative flex-1 w-full">
         <ProductName
           setSearchedProducts={setSearchedProducts}
@@ -175,6 +175,7 @@ const BillingItemRow = ({
           setQuantity={setQuantity}
           quantity={quantity}
           unitName={unitName}
+          name={name}
           customProduct={customProduct}
         />
         <UnitSelection

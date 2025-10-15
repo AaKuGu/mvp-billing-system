@@ -5,7 +5,7 @@ import { useBillsStore } from "@/features/Billing/shared/store";
 import useOneBillDetailStore from "./store";
 import BillSummery from "../../shared/BillSummery/BillSummery";
 
-const ViewBillDetails = ({ id }) => {
+const BillSummary = ({ id }) => {
   const [data, setData] = useState(null);
   console.log("data : ", data);
   const { getOneBillByBillId, bills } = useBillsStore();
@@ -85,4 +85,4 @@ const ViewBillDetails = ({ id }) => {
   );
 };
 
-export default ViewBillDetails;
+export default BillSummary;

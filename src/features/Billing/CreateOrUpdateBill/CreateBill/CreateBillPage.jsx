@@ -72,7 +72,7 @@ const CreateBillPage = () => {
   }, [customerName, whatsappNum, customerAddressArea]);
 
   return (
-    <div className={`w-full h-screen md:px-20 px-2 `}>
+    <div className={`w-full h-screen md:px-4 px-2 `}>
       <Header>Create Bill</Header>
       <div className={`flex justify-center `}>
         <BillEye setViewPrintableBill={setViewPrintableBill} />
@@ -81,6 +81,9 @@ const CreateBillPage = () => {
             if (window.confirm("आप यह बिल साफ़ करना चाहते हैं क्या?")) {
               setBillingItems([]);
               window.localStorage.removeItem("billingItems");
+              setCustomerName("");
+              setCustomerAddressArea("");
+              setWhatsappNum("");
               window.localStorage.removeItem("customerDetails");
             }
           }}
@@ -89,7 +92,7 @@ const CreateBillPage = () => {
         </RedButton>
       </div>
       <div
-        className={`w-full h-[600px] overflow-y-auto md:px-10 px-2  flex flex-col items-center justify-start gap-4`}
+        className={`w-full h-[600px] overflow-y-auto md:px-10 px-2  flex flex-col items-center justify-start gap-4 `}
       >
         <Form style="w-full">
           <CustomerDetails

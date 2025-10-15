@@ -2,14 +2,15 @@
 
 import { fetchProducts } from "@/features/products/productListing/funcs";
 import LoadingWrapper from "@/shared/components/Loading/LoadingWrapper";
-import Header from "@/shared/components/ui/Header";
+import Header, { MainHeader } from "@/shared/components/ui/Header";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import MainListing from "./MainListing/MainListing";
 import { Input } from "@/shared/components/form/Input";
 import { useProductsStore } from "../store";
+import { CreateButton } from "@/shared/components/Button";
 
-const ProductListing = () => {
+const ProductListingPage = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -26,9 +27,7 @@ const ProductListing = () => {
     } else {
       const lowerSearch = searchTerm.toLowerCase();
       const filtered = products.filter((product) =>
-        product.productName.some(
-          (d) => d.lang === "eng" && d.value.toLowerCase().includes(lowerSearch)
-        )
+        product.productName.toLowerCase().includes(lowerSearch)
       );
       setFilteredProducts(filtered);
     }
@@ -37,7 +36,8 @@ const ProductListing = () => {
   return (
     <div className="w-full h-full p-4 sm:p-6 text-black relative">
       <LoadingWrapper loading={loading}>
-        <Header>Products</Header>
+        <MainHeader>Products</MainHeader>
+        {/* <Header>Products</Header> */}
         <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 mb-4">
           <Input
             type="text"
@@ -45,12 +45,9 @@ const ProductListing = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <Link
-            href={`products/create`}
-            className="w-full bg-green-700 hover:bg-green-800 px-5 py-2 text-white rounded-lg transition w-full sm:w-auto text-center"
-          >
+          <CreateButton href={`products/create`}>
             Create&nbsp;Product
-          </Link>
+          </CreateButton>
         </div>
 
         {/* {JSON.stringify(products)} */}
@@ -68,4 +65,4 @@ const ProductListing = () => {
   );
 };
 
-export default ProductListing;
+export default ProductListingPage;

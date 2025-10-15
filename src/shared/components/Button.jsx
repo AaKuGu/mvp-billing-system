@@ -55,6 +55,7 @@ export const RedButton = ({ onClick, children }) => {
   );
 };
 
+import Link from "next/link";
 import { FiX } from "react-icons/fi"; // Feather close icon
 
 export const RoundButtonClose = ({ onClick }) => {
@@ -69,5 +70,16 @@ export const RoundButtonClose = ({ onClick }) => {
     >
       <FiX size={16} />
     </button>
+  );
+};
+
+export const CreateButton = ({ href, children }) => {
+  return (
+    <Link
+      href={href}
+      className="w-full border border-[2px] border-teal-800 rounded-full hover:bg-teal-800 hover:text-white px-5 py-2 text-teal-800 transition w-full sm:w-auto text-center"
+    >
+      {children}
+    </Link>
   );
 };

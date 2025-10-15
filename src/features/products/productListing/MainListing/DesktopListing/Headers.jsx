@@ -1,15 +1,26 @@
 import React from "react";
 
+const headerTitles = [
+  "No.",
+  "Product Name",
+  "Main Unit",
+  "Stock",
+  "Cost Price",
+  "Selling Price",
+  "Actions",
+];
+
 const Headers = () => {
   return (
-    <tr className="bg-gray-100 text-sm sm:text-base">
-      <th className="p-2 border">No.</th>
-      <th className="p-2 border">Product Name</th>
-      <th className="p-2 border">Main Unit</th>
-      <th className="p-2 border">Stock</th>
-      <th className="p-2 border">Cost Price</th>
-      <th className="p-2 border">Selling Price</th>
-      <th className="p-2 border">Actions</th>
+    <tr className="bg-gray-100 text-sm text-gray-700 uppercase tracking-wider ">
+      {headerTitles.map((title, index) => (
+        <th
+          key={index}
+          className="px-4 py-3 text-left font-semibold whitespace-nowrap"
+        >
+          {title}
+        </th>
+      ))}
     </tr>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import Headers from "./Headers";
-import ListingCard from "./ListingCard";
+import ListingCard from "./ListingCard/ListingCard";
 
 const DesktopListing = ({
   //   filteredProducts,
@@ -10,8 +10,8 @@ const DesktopListing = ({
   filteredProducts,
 }) => {
   return (
-    <div className="hidden sm:block overflow-x-auto rounded-lg border border-gray-300">
-      <table className="w-full min-w-[800px] border-collapse">
+    <div className="hidden sm:block overflow-x-auto rounded-lg text-normal">
+      <table className="w-full min-w-[800px] border-none">
         <thead>
           <Headers />
         </thead>

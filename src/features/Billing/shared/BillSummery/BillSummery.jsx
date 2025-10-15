@@ -1,7 +1,6 @@
 import React from "react";
 import Main from "../../CreateOrUpdateBill/PrintableBill/Main";
 import { calculateGrandTotal } from "@/features/Billing/shared/func";
-// import { calculateGrandTotal } from "../../PrintableBill/funcs";
 
 const BillSummery = ({
   customerDetails: { customerName, whatsappNum, customerAddressArea },
@@ -10,15 +9,33 @@ const BillSummery = ({
   const grandTotal = calculateGrandTotal(itemDetails);
 
   return (
-    <>
-      <div className="mb-4 text-3xl w-full">
-        <strong>Customer:</strong> {customerName || "N/A"} <br />
-        <strong>WhatsApp:</strong> {whatsappNum || "N/A"} <br />
-        <strong>Address/Area:</strong> {customerAddressArea || "N/A"} <br />
+    <div className="w-full px-4 py-5 bg-white rounded-md shadow-md space-y-6">
+      {/* Customer Info */}
+      <div className="text-sm sm:text-base space-y-2">
+        <div>
+          <span className="font-semibold text-gray-700">Customer:</span>{" "}
+          {customerName || <span className="text-gray-500">N/A</span>}
+        </div>
+        <div>
+          <span className="font-semibold text-gray-700">WhatsApp:</span>{" "}
+          {whatsappNum || <span className="text-gray-500">N/A</span>}
+        </div>
+        <div>
+          <span className="font-semibold text-gray-700">Address/Area:</span>{" "}
+          {customerAddressArea || <span className="text-gray-500">N/A</span>}
+        </div>
       </div>
-      <Main itemDetails={itemDetails} />
-      <div className="text-right mt-4 font-bold w-full  ">₹{grandTotal}</div>
-    </>
+
+      {/* Bill Table */}
+      <div>
+        <Main itemDetails={itemDetails} />
+      </div>
+
+      {/* Grand Total */}
+      <div className="text-right text-lg sm:text-xl font-bold text-green-700 border-t pt-4">
+        Grand Total: ₹{grandTotal}
+      </div>
+    </div>
   );
 };
 

@@ -16,8 +16,8 @@ const Layout = ({ children }) => {
       {/* Sidebar */}
       <Sidebar />
       {/* Main content */}
-      <main className="flex-1 w-full h-full border border-gray-700 border-[2px] relative pt-5 ">
-        <Back />
+      <main className="flex-1 w-full h-full  relative ">
+        {/* <Back /> */}
         {children}
       </main>
       {loading && <Loading />}

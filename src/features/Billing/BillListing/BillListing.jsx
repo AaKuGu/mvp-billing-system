@@ -1,5 +1,5 @@
-import { GreenButton } from "@/shared/components/Button";
-import Header from "@/shared/components/ui/Header";
+import { CreateButton, GreenButton } from "@/shared/components/Button";
+import { ListHeader, MainHeader } from "@/shared/components/ui/Header";
 import React, { useEffect } from "react";
 import { fetchBills } from "./funcs";
 import LoadingWrapper from "@/shared/components/Loading/LoadingWrapper";
@@ -19,13 +19,13 @@ const BillListing = () => {
 
   return (
     <div className={`w-full h-full px-2`}>
-      {/* {JSON.stringify(bills[0])} */}
       <LoadingWrapper loading={loading}>
-        <Header>Billing</Header>
+        <MainHeader>Billing</MainHeader>
         <div className={`w-full flex justify-end`}>
-          <Link href={`bills/create`}>Create Billing</Link>
+          <CreateButton href={`bills/create`}>Create New Bill</CreateButton>
+          {/* <Link href={`bills/create`}>Create Billing</Link> */}
         </div>
-        <div>Bill Listing</div>
+        <ListHeader>Bill Listing</ListHeader>
         <div
           className={`w-full flex flex-col gap-2 h-[600px] overflow-y-auto `}
         >

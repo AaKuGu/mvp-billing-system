@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "@/shared/components/ui/Header";
+import { ListHeader } from "@/shared/components/ui/Header";
 import MobileView from "./MobileListing/MobileView";
 import DesktopListing from "./DesktopListing/DesktopListing";
 
@@ -13,7 +13,7 @@ const MainListing = ({
 }) => {
   return (
     <div className="w-full ">
-      <Header>List of Products</Header>
+      <ListHeader>List of Products</ListHeader>
       <div className={`h-[400px] md:h-[500px] overflow-y-auto`}>
         <DesktopListing
           // filteredProducts={filteredProducts}

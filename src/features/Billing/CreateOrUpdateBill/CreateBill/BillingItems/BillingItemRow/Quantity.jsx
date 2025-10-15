@@ -12,6 +12,7 @@ const Quantity = ({
   setQuantity,
   unitName,
   customProduct,
+  name,
 }) => {
   const [max, setMax] = useState(0);
 
@@ -27,11 +28,12 @@ const Quantity = ({
         }
       });
     }
-  }, [unitName]);
+  }, [unitName, name]);
 
   return (
     <div className="flex-1 w-full">
       <Label>Quantity</Label>
+      {max}
       <Input
         type="number"
         max={customProduct ? null : max}

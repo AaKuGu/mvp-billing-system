@@ -1,4 +1,5 @@
 import { BlueButton } from "@/shared/components/Button";
+import ViewUpdateDelete from "@/shared/components/ViewUpdateDelete";
 import Link from "next/link";
 import React from "react";
 
@@ -30,11 +31,22 @@ const BillingCard = ({ data, index }) => {
       </div>
 
       {/* Right Section */}
-      <div className={`gap-2 flex`}>
+      <div className={`flex flex-col lg:flex-row gap-2`}>
+        <Link 
+          className="flex items-center gap-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded text-sm transition"
+          href={`/go/bills/summary/${data?._id}`}
+        >
+          Summary
+        </Link>
+        <ViewUpdateDelete
+          actions={{ view: `/go/bills/finalBill/${data?._id}` }}
+        />
+      </div>
+
+      {/* <div className={`gap-2 flex`}>
         <Link href={`/go/bills/summary/${data?._id}`}>View Summary</Link>
         <Link href={`/go/bills/finalBill/${data?._id}`}>View Bill</Link>
-        {/* <BlueButton onClick={() => {}}>View</BlueButton> */}
-      </div>
+      </div> */}
     </div>
   );
 };
