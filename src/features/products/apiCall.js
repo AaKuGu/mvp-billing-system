@@ -1,7 +1,7 @@
 import { apiCallWrapper } from "@/shared/apiCall/apiCallWrapper";
 import axios from "axios";
 
-export const fetchAllProducts = (searchTerm, onlyNames) =>
+export const fetchAllProducts = async (searchTerm, onlyNames) =>
   apiCallWrapper(async () => {
     let res;
     if (searchTerm) {
@@ -13,6 +13,7 @@ export const fetchAllProducts = (searchTerm, onlyNames) =>
         res = await axios.get(`/api/products?productName=${searchTerm}`);
       }
     } else {
+      // alert("yo");
       res = await axios.get(`/api/products`);
     }
     console.log("ores : ", res);

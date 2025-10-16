@@ -33,7 +33,6 @@ const Quantity = ({
   return (
     <div className="flex-1 w-full">
       <Label>Quantity</Label>
-      {max}
       <Input
         type="number"
         max={customProduct ? null : max}

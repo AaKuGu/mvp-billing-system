@@ -23,12 +23,14 @@ const CreateBillPage = () => {
     return billingItems?.map((d) => d?.itemDetails);
   };
 
+  //==================== get the product data into localstorage =======================================
+
   useEffect(() => {
     const savedItems = localStorage.getItem("billingItems");
+    console.log("saved items ; ", savedItems);
     const savedCustomerDetails = localStorage.getItem("customerDetails");
     if (savedCustomerDetails) {
       // alert("saved customer details : " + savedCustomerDetails);
-
       try {
         const parsedDetails = JSON.parse(savedCustomerDetails);
         setCustomerName(parsedDetails.customerName || "");
@@ -51,6 +53,7 @@ const CreateBillPage = () => {
 
   useEffect(() => {
     if (billingItems?.length) {
+      console.log("billing items useffect : ", billingItems);
       localStorage.setItem("billingItems", JSON.stringify(billingItems));
     }
   }, [billingItems]);
@@ -118,12 +121,6 @@ const CreateBillPage = () => {
                 itemDetails={onlyItemDetailsHandler()}
                 setViewPrintableBill={setViewPrintableBill}
               />
-              {/* <PrintableBill
-                customerName={customerName}
-                whatsappNum={whatsappNum}
-                billingItems={billingItems}
-                setViewPrintableBill={setViewPrintableBill}
-              /> */}
             </Modal>
           )}
         </Form>

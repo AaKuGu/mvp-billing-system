@@ -9,6 +9,8 @@ import { createEmptyBillData } from "./funcs";
 const BillingItems = ({ billingItems, setBillingItems }) => {
   const [fuse, setFuse] = useState(null);
 
+  console.log("fuse : ", fuse);
+
   // Fetch products
   useEffect(() => {
     setBillingItems([createEmptyBillData()]);

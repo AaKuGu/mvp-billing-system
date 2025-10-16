@@ -3,7 +3,7 @@ import Bill from "@/models/Bill";
 import Product from "@/models/Product";
 import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
 import successResponse from "@/shared/backend/utils/success/successResponse";
-import { calculateStock } from "./funcs";
+import { calculateStock } from "./funcs/funcs";
 
 export const POST = controllerFunc(async (req) => {
   await dbConnect();
@@ -18,6 +18,9 @@ export const POST = controllerFunc(async (req) => {
   await Promise.all(
     data.itemDetails.map(async (item) => {
       const productData = await Product.findById(item.productId);
+
+      console.log("product Data find by id : ", productData);
+
       if (!productData) return null;
 
       const updatedStock = calculateStock(
