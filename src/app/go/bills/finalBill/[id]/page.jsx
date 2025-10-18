@@ -1,4 +1,4 @@
-import FinalBill from "@/features/Billing/BillListing/finalBill/FinalBill";
+import FinalBill from "@/features/Billing/BillListing/finalBillPage/FinalBillPage";
 import React from "react";
 
 const page = ({ params }) => {

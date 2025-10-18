@@ -1,4 +1,4 @@
-import ViewDetails from "@/features/products/viewDetails/ViewDetails";
+import ViewDetails from "@/features/products/productListing/viewDetails/ViewDetails";
 
 const page = ({ params }) => {
   const { productId } = params;

@@ -17,6 +17,10 @@ const unitSchema = new mongoose.Schema({
 const productSchema = new mongoose.Schema(
   {
     productName: { type: String, required: [true, "Product Name is required"] },
+    //firstTime will decide when the bill will be made , so if first time this product is used to make the bill or not
+    //this is because only first time for any unit sold for this product , we will have to reduce its parent
+    //total quantity by 1 and this will happen only once for this prodcut
+    firstTime: { type: Boolean, default: true },
     units: [unitSchema],
   },
   { timestamps: true } // createdAt, updatedAt

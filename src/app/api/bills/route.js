@@ -17,7 +17,7 @@ export const POST = controllerFunc(async (req) => {
 
   await Promise.all(
     data.itemDetails.map(async (item) => {
-      const productData = await Product.findById(item.productId);
+      const productData = await Product.findById(item.productId).lean();
 
       console.log("product Data find by id : ", productData);
 
@@ -31,7 +31,7 @@ export const POST = controllerFunc(async (req) => {
 
       return Product.updateOne(
         { _id: item.productId },
-        { units: updatedStock.units }
+        { units: updatedStock.units, firstTime: updatedStock.firstTime }
       );
     })
   );
@@ -44,6 +44,6 @@ export const POST = controllerFunc(async (req) => {
 
 export const GET = controllerFunc(async (req) => {
   await dbConnect();
-  const bills = await Bill.find().sort({ createdAt: -1 });
+  const bills = await Bill.find().sort({ createdAt: -1 }).limit(10);
   return successResponse({ bills }, "Bills fetched successfully");
 }, "Error in GET /bills");

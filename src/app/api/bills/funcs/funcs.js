@@ -1,8 +1,42 @@
+const firstTime = (productData, unit) => {
+  console.log("productData v: ", productData);
+  console.log("productData v ...: ", { ...productData });
+  const unitsData = productData.units;
+  const firstTime = productData.firstTime;
+  if (firstTime) {
+    console.log("first time");
+    let found = false;
+    const d = unitsData?.map((d, i) => {
+      if (d?.unitName !== unit) {
+        console.log("unit not equal to d?.unitName");
+        if (found === false) {
+          console.log("not found", d);
+          const toReturn = { ...d, totalQuantity: d.totalQuantity - 1 };
+          console.log("toReturn : ", toReturn);
+          return toReturn;
+        } else {
+          console.log("found ");
+          return d;
+        }
+      } else {
+        console.log("unit == d.unitName");
+        found = true;
+        return d;
+      }
+    });
+    console.log("d : duda : ", d);
+    return { ...productData, units: d, firstTime: false };
+  } else return productData;
+};
+
 export const calculateStock = (productData, totalQuantity, unit) => {
   console.log("Calculating stock for:", productData, totalQuantity, unit);
 
-  const updated = { ...productData._doc };
-  //   console.log("Initial stock:", updated);
+  const updated = {
+    productName: productData.productName,
+    units: productData.units,
+  };
+
   const soldQty = totalQuantity;
   // Find the index of the selected unit
   const unitIndex = updated.units.findIndex((u) => u.unitName === unit);
@@ -51,6 +85,42 @@ export const calculateStock = (productData, totalQuantity, unit) => {
     }
   };
   func(a, upperIndexStart);
+  // 🔄 Recalculate upper units based on remaining lower units
+  // 🔄 Recalculate upper units based on remaining lower units
+  for (let i = updated.units.length - 1; i > 0; i--) {
+    const lower = updated.units[i];
+    const upper = updated.units[i - 1];
+
+    if (
+      typeof lower.perParentQuantity === "number" &&
+      lower.perParentQuantity > 0
+    ) {
+      upper.totalQuantity = Math.floor(
+        lower.totalQuantity / lower.perParentQuantity
+      );
+
+      // ✅ Also update the pointer to match totalQuantity
+      if (
+        typeof upper.pointer !== "number" ||
+        isNaN(upper.pointer) ||
+        upper.pointer > upper.totalQuantity
+      ) {
+        upper.pointer = upper.totalQuantity;
+      }
+    } else {
+      console.warn(`Invalid perParentQuantity at unit ${lower.unitName}`);
+    }
+  }
+
+  // ✅ Finally, ensure all pointers are valid numbers
+  updated.units = updated.units.map((u) => ({
+    ...u,
+    pointer:
+      typeof u.pointer === "number" && !isNaN(u.pointer)
+        ? u.pointer
+        : u.totalQuantity,
+  }));
+
   console.log("Final updated stock:", updated);
   return updated;
 };

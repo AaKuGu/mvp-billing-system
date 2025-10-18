@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useProductsStore } from "../store";
+import { useProductsStore } from "../../store";
 import { initialApiCall } from "./funcs";
 import useLoadingStore from "@/store/loading";
 import MobileView from "./MobileView";

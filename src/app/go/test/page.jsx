@@ -1,169 +1,166 @@
 "use client";
-import React, { useState } from "react";
 
-const Page = () => {
-  const initialData = {
-    productName: "Fair-25",
-    units: [
-      {
-        level: 1,
-        unitName: "Truck",
-        perParentQuantity: null,
-        totalQuantity: 10,
-        totalCost: 1500000,
-        pointer: null,
-      },
-      {
-        level: 2,
-        unitName: "Peti",
-        perParentQuantity: 10,
-        totalQuantity: 100,
-        pointer: 100,
-      },
-      {
-        level: 3,
-        unitName: "Patta",
-        perParentQuantity: 10,
-        totalQuantity: 1000,
-        pointer: 1000,
-      },
-      {
-        level: 4,
-        unitName: "Pcs",
-        perParentQuantity: 10,
-        totalQuantity: 10000,
-        pointer: 10000,
-      },
+import React from "react";
+
+const TestPrintPage = () => {
+  const billData = {
+    companyName: "Awesome Company Pvt Ltd",
+    companyAddress: "123, Business Street, City, State, ZIP",
+    gstNumber: "GSTIN: 22AAAAA0000A1Z5",
+    customerName: "John Doe",
+    date: "2025-10-16",
+    items: [
+      { name: "Item A", quantity: 2, price: 10 },
+      { name: "Item B", quantity: 1, price: 20 },
+      { name: "Item C", quantity: 3, price: 5 },
+      { name: "Item C", quantity: 3, price: 5 },
+      { name: "Item C", quantity: 3, price: 5 },
+      { name: "Item C", quantity: 3, price: 5 },
+      { name: "Item C", quantity: 3, price: 5 },
     ],
+    total: 55,
+    taxPercent: 18,
   };
 
-  const [stock, setStock] = useState(initialData);
-  const [selectedUnit, setSelectedUnit] = useState("Peti");
-  const [userInputQuantity, setUserInputQuantity] = useState(0);
+  const calculateTax = () => {
+    return ((billData.total * billData.taxPercent) / 100).toFixed(2);
+  };
 
-  // Build units array for dropdown (level1Unit + subUnits)
-  // Build units array for dropdown
-  const unitsArray = stock.units.map((u, idx) => ({
-    level: u.level,
-    key: `unit-${idx}`,
-    unit: u.unitName,
-    quantity: u.totalQuantity,
-  }));
+  const calculateGrandTotal = () => {
+    return (billData.total + parseFloat(calculateTax())).toFixed(2);
+  };
 
-  const calculateStock = () => {
-    setStock((prev) => {
-      const updated = { ...prev };
-      const soldQty = userInputQuantity;
-
-      // Find the index of the selected unit
-      const unitIndex = updated.units.findIndex(
-        (u) => u.unitName === selectedUnit
-      );
-      if (unitIndex === -1) return prev;
-
-      const currentUnit = updated.units[unitIndex];
-      if (soldQty > currentUnit.totalQuantity) {
-        alert("Not enough stock!");
-        return prev;
-      }
-
-      // 🔹 Reduce current unit
-      currentUnit.totalQuantity -= soldQty;
-
-      const difference = currentUnit.pointer - currentUnit.totalQuantity;
-      const a = Math.floor(difference / currentUnit.perParentQuantity);
-
-      if (a >= 1) {
-        currentUnit.pointer -= currentUnit.perParentQuantity * a;
-      }
-
-      let t = 1; // start with 1 for multiplication
-
-      for (let i = unitIndex + 1; i <= updated.units.length - 1; i++) {
-        t *= updated.units[i].perParentQuantity;
-
-        updated.units[i] = {
-          ...updated.units[i],
-          totalQuantity: updated.units[i].totalQuantity - soldQty * t,
-        };
-
-        const currentUnit = updated.units[i];
-
-        const difference = currentUnit.pointer - currentUnit.totalQuantity;
-
-        const a = Math.floor(difference / currentUnit.perParentQuantity);
-
-        if (a >= 1) {
-          currentUnit.pointer -= currentUnit.perParentQuantity * a;
-        }
-      }
-      const upperIndexStart = unitIndex - 1;
-
-      const func = (a, index) => {
-        if (index < 0) {
-          return;
-        }
-
-        const current = updated.units[index];
-        current.totalQuantity -= a;
-        const difference = current.pointer - current.totalQuantity;
-        const b = Math.floor(difference / current.perParentQuantity);
-
-        if (b >= 1) {
-          current.pointer -= b * current.perParentQuantity;
-          func(b, index - 1);
-        }
-      };
-      func(a, upperIndexStart);
-
-      // alert("updated : " + JSON.stringify(updated));
-
-      return updated;
-    });
+  const handlePrint = () => {
+    window.print();
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">{stock.productName} - Units</h2>
-
-      <div className="mb-2">
-        Quantity:{" "}
-        <input
-          type="number"
-          min={0}
-          value={userInputQuantity}
-          onChange={(e) => setUserInputQuantity(Number(e.target.value))}
-          className="border-[2px] border-black px-2 py-1"
-        />
-      </div>
-
-      <div className="mb-2">
-        Select Unit:{" "}
-        <select
-          value={selectedUnit}
-          onChange={(e) => setSelectedUnit(e.target.value)}
-          className="border border-black px-2 py-1"
-        >
-          {unitsArray.map((u, idx) => (
-            <option key={idx} value={u.unit}>
-              {u.unit} (Qty: {u.quantity})
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <button
-        onClick={calculateStock}
-        className="bg-blue-500 text-white px-4 py-1 rounded"
+    <div className="p-6 font-sans  h-full ">
+      <div
+        id="printable-area"
+        className="max-w-3xl mx-auto bg-white p-8 shadow-lg border border-gray-300"
       >
-        Update Stock
-      </button>
+        <div className="mb-8 border-b border-gray-300 pb-4">
+          <h1 className="text-3xl font-bold">{billData.companyName}</h1>
+          <p className="text-sm text-gray-600">{billData.companyAddress}</p>
+          <p className="text-sm text-gray-600">{billData.gstNumber}</p>
+        </div>
 
-      <pre className="mt-4 p-2 bg-gray-100 border">
-        {JSON.stringify(stock, null, 2)}
-      </pre>
+        <div className="flex justify-between mb-6">
+          <div>
+            <p className="font-semibold">Bill To:</p>
+            <p>{billData.customerName}</p>
+          </div>
+          <div>
+            <p className="font-semibold">Date:</p>
+            <p>{billData.date}</p>
+          </div>
+        </div>
+
+        <table className="w-full border-collapse border border-gray-400 text-sm">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="border border-gray-400 px-4 py-2 text-left">
+                Item
+              </th>
+              <th className="border border-gray-400 px-4 py-2 text-right">
+                Quantity
+              </th>
+              <th className="border border-gray-400 px-4 py-2 text-right">
+                Price ($)
+              </th>
+              <th className="border border-gray-400 px-4 py-2 text-right">
+                Subtotal ($)
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {billData.items.map((item, i) => (
+              <tr key={i} className="even:bg-gray-50">
+                <td className="border border-gray-400 px-4 py-2">
+                  {item.name}
+                </td>
+                <td className="border border-gray-400 px-4 py-2 text-right">
+                  {item.quantity}
+                </td>
+                <td className="border border-gray-400 px-4 py-2 text-right">
+                  {item.price.toFixed(2)}
+                </td>
+                <td className="border border-gray-400 px-4 py-2 text-right">
+                  {(item.quantity * item.price).toFixed(2)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div className="mt-6 max-w-md ml-auto text-sm">
+          <div className="flex justify-between py-1 border-b border-gray-300">
+            <span>Subtotal</span>
+            <span>${billData.total.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between py-1 border-b border-gray-300">
+            <span>GST ({billData.taxPercent}%)</span>
+            <span>${calculateTax()}</span>
+          </div>
+          <div className="flex justify-between py-2 font-bold text-lg">
+            <span>Grand Total</span>
+            <span>${calculateGrandTotal()}</span>
+          </div>
+        </div>
+
+        <p className="mt-12 text-center text-xs text-gray-500">
+          Thank you for your business!
+        </p>
+      </div>
+
+      <div className="text-center mt-8">
+        <button
+          onClick={handlePrint}
+          className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition"
+        >
+          🖨️ Print Invoice
+        </button>
+      </div>
+
+      <style jsx global>{`
+        @page {
+          margin: 10mm;
+        }
+
+        @media print {
+          body * {
+            visibility: hidden;
+            font-size: 12pt;
+          }
+
+          #printable-area,
+          #printable-area * {
+            visibility: visible;
+          }
+
+          #printable-area {
+            /* Removed position absolute */
+            width: 100%;
+            padding: 10px !important;
+            box-shadow: none !important;
+            border: none !important;
+            background: white;
+          }
+
+          /* Allow rows to break naturally */
+          td,
+          th {
+            page-break-inside: avoid;
+          }
+
+          button {
+            display: none !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };
 
-export default Page;
+export default TestPrintPage;

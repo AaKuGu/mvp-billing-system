@@ -8,7 +8,7 @@ import { saveProduct, udpateAProduct, unitCostSettingToProduct } from "./funcs";
 import { GreenButton } from "@/shared/components/Button";
 import useLoadingStore from "@/store/loading";
 import { useProductsStore } from "../store";
-import { getAProductDetails } from "../viewDetails/funcs";
+import { getAProductDetails } from "../productListing/viewDetails/funcs";
 import { useRouter } from "next/navigation";
 
 const Manage = ({ createOrUpdate = "create", productId }) => {

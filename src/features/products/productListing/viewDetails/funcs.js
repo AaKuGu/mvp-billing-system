@@ -1,4 +1,4 @@
-import { fetchAProduct_api } from "../apiCall";
+import { fetchAProduct_api } from "../../apiCall";
 
 export const getAProductDetails = async (productId, setProduct, setLoading) => {
   const data = await fetchAProduct_api(productId);
