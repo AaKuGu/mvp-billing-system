@@ -49,3 +49,17 @@ export const productNameChangeHandler = (
   };
   setBillingItems(_billingItems);
 };
+
+//following func will help not listing the same product already added into billingItems also whose last unit stock is 0
+
+export const already_added_and_0_stock_product_filter_handler = (
+  suggestionProducts,
+  billingItems
+) =>
+  suggestionProducts.filter((p) => {
+    if (p.item.units[p.item.units.length - 1].totalQuantity === 0) return false;
+    else
+      return !billingItems.some(
+        (d) => d.itemDetails.productName === p.item.productName
+      );
+  });

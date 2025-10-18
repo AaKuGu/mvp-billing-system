@@ -13,8 +13,8 @@ const ListingCard = ({ p, index, setLoading, setProducts, products }) => {
     <tr key={p._id} className="text-start hover:bg-gray-50 transition">
       <TableData>{index + 1}.</TableData>
       <TableData>{p.productName}</TableData>
-      <TableData>{mainUnit?.unitName}</TableData>
-      <TableData>{mainUnit?.totalQuantity}</TableData>
+      <TableData align="right">{mainUnit?.totalQuantity}</TableData>
+      <TableData align="left">{mainUnit?.unitName}</TableData>
       <TableData>
         {mainUnit?.unitCost ? `₹${mainUnit.unitCost}` : "-"}
       </TableData>

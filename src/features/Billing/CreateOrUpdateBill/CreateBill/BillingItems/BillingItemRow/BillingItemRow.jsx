@@ -25,6 +25,8 @@ const BillingItemRow = ({
   const [searchedProducts, setSearchedProducts] = useState([]);
   const [customProduct, setCustomProduct] = useState(true);
 
+  console.log("billing items : billings items row : ", billingItems);
+
   useEffect(() => {
     console.log("always running");
     if (rowData.dataFromDB) {
@@ -137,6 +139,7 @@ const BillingItemRow = ({
     >
       {/* {totalPrice} */}
       {/* rowDAta = {JSON.stringify(rowData?.itemDetails)} */}
+      {}
       <div className={`w-full`}>{index + 1}.</div>
       <div className="relative flex-1 w-full">
         <ProductName

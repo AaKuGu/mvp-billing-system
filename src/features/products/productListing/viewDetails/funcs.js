@@ -22,3 +22,8 @@ export const initialApiCall = async (
     await getAProductDetails(productId, setProduct, setLoading);
   }
 };
+
+//currently being used into products/view details only
+
+export const is_stock_all_0_handler = (product) =>
+  product.units[product.units.length - 1].totalQuantity === 0;

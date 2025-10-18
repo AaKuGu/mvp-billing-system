@@ -2,7 +2,10 @@ import { Input } from "@/shared/components/form/Input";
 import Label from "@/shared/components/form/Label";
 import React, { useEffect } from "react";
 import { onChangeHandler } from "../funcs";
-import { productNameChangeHandler } from "./funcs";
+import {
+  already_added_and_0_stock_product_filter_handler,
+  productNameChangeHandler,
+} from "./funcs";
 
 const ProductName = ({
   setSearchedProducts,
@@ -47,7 +50,17 @@ const ProductName = ({
             return;
           }
           const results = fuse.search(e.target.value);
-          setSearchedProducts(results.map((r) => r.item));
+
+          //following func will help not listing the same product already added into billingItems also whose last unit stock is 0
+          const already_added_and_0_stock_product_filter =
+            already_added_and_0_stock_product_filter_handler(
+              results,
+              billingItems
+            );
+
+          setSearchedProducts(
+            already_added_and_0_stock_product_filter.map((r) => r.item)
+          );
         }}
         onBlur={() => {
           setSearchedProducts([]);

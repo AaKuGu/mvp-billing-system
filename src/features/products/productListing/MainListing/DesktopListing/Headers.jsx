@@ -3,8 +3,8 @@ import React from "react";
 const headerTitles = [
   "No.",
   "Product Name",
-  "Main Unit",
   "Stock",
+  "Main Unit",
   "Cost Price",
   "Selling Price",
   "Actions",
