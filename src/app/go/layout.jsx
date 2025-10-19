@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
       {/* Sidebar */}
       <Sidebar />
       {/* Main content */}
-      <main className="flex-1 w-full h-full  relative ">
+      <main className="flex-1 w-full max-h-screen relative overflow-y-auto ">
         {/* <Back /> */}
         {children}
       </main>

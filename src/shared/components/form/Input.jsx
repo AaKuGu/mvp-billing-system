@@ -8,7 +8,7 @@ export const Input = ({
   placeholder,
   readOnly = false,
   min = null,
-  max=null,
+  max = null,
 }) => {
   console.log("value : ", type, value);
 

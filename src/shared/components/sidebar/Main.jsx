@@ -1,8 +1,8 @@
 import React from "react";
-import { sidebarMenus } from "../constants";
 import Link from "next/link";
 import Logout from "./Logout";
 import Logo from "../Logo";
+import { sidebarMenus } from "./constant";
 
 const Main = ({ setIsOpen }) => {
   return (
