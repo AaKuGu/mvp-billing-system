@@ -1,21 +1,22 @@
-import Login from "@/features/auth/login/LoginPage";
 import { auth } from "@/lib/auth";
-import Sidebar from "@/shared/components/sidebar/Sidebar";
-import { headers } from "next/headers";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
+import { headers } from "next/headers";
 
-const page = async () => {
+const Layout = async ({ children }) => {
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
 
-  if (session) {
+  if (!session) {
+    redirect(`/`);
+  }
+
+  if (session?.user?.hasBusiness) {
     redirect(`/go/dashboard`);
   }
 
-  return <Login />;
+  return <>{children}</>;
 };
 
-export default page;
+export default Layout;

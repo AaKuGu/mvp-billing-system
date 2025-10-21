@@ -7,9 +7,9 @@ import { sidebarMenus } from "./constant";
 const Main = ({ setIsOpen }) => {
   return (
     <div className={`flex flex-col justify-center pl-2 h-full`}>
-      <div className={`mb-5 ml-3`}>
+      {/* <div className={`mb-5 ml-3`}>
         <Logo />
-      </div>
+      </div> */}
       <nav className="hidden lg:flex flex-col gap-4 flex-1 text-black">
         {sidebarMenus.map((menu) => (
           <Link

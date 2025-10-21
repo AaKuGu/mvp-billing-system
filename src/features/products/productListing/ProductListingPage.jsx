@@ -34,7 +34,7 @@ const ProductListingPage = () => {
   }, [searchTerm, products]);
 
   return (
-    <div className="w-full h-full p-4 sm:p-6 text-black relative">
+    <div className="w-full h-full p-4 sm:p-6 text-black relative flex flex-col">
       <LoadingWrapper loading={loading}>
         <MainHeader>Products</MainHeader>
         {/* <Header>Products</Header> */}

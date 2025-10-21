@@ -1,21 +1,24 @@
-import Login from "@/features/auth/login/LoginPage";
 import { auth } from "@/lib/auth";
-import Sidebar from "@/shared/components/sidebar/Sidebar";
+import Nav_Bar from "@/shared/components/Nav_Bar";
 import { headers } from "next/headers";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
-const page = async () => {
+const layout = async ({ children }) => {
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
 
-  if (session) {
-    redirect(`/go/dashboard`);
+  if (!session) {
+    redirect(`/`);
   }
 
-  return <Login />;
+  return (
+    <div className={`w-full h-full flex flex-col`}>
+      <Nav_Bar />
+      {children}
+    </div>
+  );
 };
 
-export default page;
+export default layout;

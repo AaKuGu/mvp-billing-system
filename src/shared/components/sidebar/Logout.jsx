@@ -3,14 +3,22 @@ import { FiLogOut } from "react-icons/fi";
 import { logout } from "./funcs";
 import { useRouter } from "next/navigation";
 import useLoadingStore from "@/store/loading";
+import { authClient } from "@/lib/auth-client";
 
 const Logout = () => {
   const router = useRouter();
   const { setLoading } = useLoadingStore();
 
-  const handleLogout = () => {
-    setLoading(true);
-    logout(router, setLoading);
+  const handleLogout = async () => {
+    // setLoading(true);
+    // logout(router, setLoading);
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/"); // redirect to login page
+        },
+      },
+    });
   };
 
   return (

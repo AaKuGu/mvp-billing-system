@@ -147,7 +147,7 @@ export const POST = controllerFunc(async (req) => {
 
   return successResponse({ newProduct }, "Stock Added Successfully!", 201);
 }, "Error in POST /products");
-
+  
 // GET - Fetch all products
 export const GET = controllerFunc(async (req) => {
   await dbConnect(); // connect to DB
