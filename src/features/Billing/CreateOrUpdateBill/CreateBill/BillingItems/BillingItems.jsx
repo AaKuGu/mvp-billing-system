@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Header from "@/shared/components/ui/Header";
+import Header from "@/re_usables/components/ui/Header";
 // import { fetchProducts } from "./api";
 import { fetchProducts } from "../funcs";
 import BillingItemRow from "./BillingItemRow/BillingItemRow";

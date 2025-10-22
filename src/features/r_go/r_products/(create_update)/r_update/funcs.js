@@ -1,0 +1,25 @@
+import { updateAProduct_api } from "./apiCalls";
+
+export const udpateAProduct = async (
+  productId,
+  product,
+  router,
+  setLoading
+) => {
+  setLoading(true);
+  // const _product = unitCostSettingToProduct(product);
+  const data = await updateAProduct_api(productId, product);
+  if (data.success) {
+    toast.success(data?.message);
+    // ✅ Update localStorage
+    const storedProducts = JSON.parse(localStorage.getItem("products")) || [];
+    const updatedProducts = storedProducts.map((p) => {
+      if (p?._id === productId) {
+        return { ...p, ...data.updatedProduct };
+      } else return p;
+    });
+    localStorage.setItem("products", JSON.stringify(updatedProducts));
+    router.push(`/go/products`);
+  }
+  setLoading(false);
+};

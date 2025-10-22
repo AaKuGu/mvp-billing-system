@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BillSummery from "../../shared/BillSummery/BillSummery";
-import { BlueButton, RoundButtonClose } from "@/shared/components/Button";
-import Header from "@/shared/components/ui/Header";
+import { BlueButton, RoundButtonClose } from "@/re_usables/components/Button";
+import Header from "@/re_usables/components/ui/Header";
 import Finalized from "./Finalized/Finalized";
 
 const BillSummaryPage = ({

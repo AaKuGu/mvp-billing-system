@@ -1,8 +1,8 @@
 import { dbConnect } from "@/db/connectDB";
 import Customer from "@/models/Customer";
-import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
-import CustomError from "@/shared/backend/utils/error/CustomError";
-import successResponse from "@/shared/backend/utils/success/successResponse";
+import { controllerFunc } from "@/re_usables/backend/utils/ControllerFunc";
+import CustomError from "@/re_usables/backend/utils/error/CustomError";
+import successResponse from "@/re_usables/backend/utils/success/successResponse";
 import System_logs from "@/models/System_logs";
 
 // POST - Create a new customer

@@ -6,8 +6,8 @@ import UnitSelection from "./UnitSelection";
 import TotalPrice from "./totalPrice/TotalPrice";
 import RemoveButton from "./remove/RemoveButton";
 import UnitPrice from "./unitPrice/UnitPrice";
-import { units } from "@/shared/components/constants";
-import { roundTo } from "@/shared/funcs";
+import { units } from "@/re_usables/components/constants";
+import { roundTo } from "@/re_usables/funcs";
 
 const BillingItemRow = ({
   key,

@@ -1,4 +1,4 @@
-import Account_Page from "@/features/account/Account_Page";
+import Account_Page from "@/features/r_account/account_page/Account_Page";
 import React from "react";
 
 const page = () => {

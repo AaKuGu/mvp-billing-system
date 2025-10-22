@@ -1,4 +1,4 @@
-import LayoutPage from "@/features/go/LayoutPage";
+import LayoutPage from "@/features/r_go/LayoutPage";
 import React from "react";
 
 const layout = ({ children }) => {

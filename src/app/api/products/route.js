@@ -1,8 +1,8 @@
 import { dbConnect } from "@/db/connectDB";
 import Product from "@/models/Product";
-import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
-import CustomError from "@/shared/backend/utils/error/CustomError";
-import successResponse from "@/shared/backend/utils/success/successResponse";
+import { controllerFunc } from "@/re_usables/backend/utils/ControllerFunc";
+import CustomError from "@/re_usables/backend/utils/error/CustomError";
+import successResponse from "@/re_usables/backend/utils/success/successResponse";
 import { finalProductsToSend, queryToSearch } from "./funcs";
 import System_logs from "@/models/System_logs";
 
@@ -147,7 +147,7 @@ export const POST = controllerFunc(async (req) => {
 
   return successResponse({ newProduct }, "Stock Added Successfully!", 201);
 }, "Error in POST /products");
-  
+
 // GET - Fetch all products
 export const GET = controllerFunc(async (req) => {
   await dbConnect(); // connect to DB

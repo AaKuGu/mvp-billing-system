@@ -1,4 +1,4 @@
-import { apiCallWrapper } from "@/shared/apiCall/apiCallWrapper";
+import { apiCallWrapper } from "@/re_usables/apiCall/apiCallWrapper";
 import axios from "axios";
 
 export const finalizeBill_apiCall = (data) =>

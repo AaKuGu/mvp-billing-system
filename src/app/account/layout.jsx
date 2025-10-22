@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import Nav_Bar from "@/shared/components/Nav_Bar";
+import Nav_Bar from "@/re_usables/components/Nav_Bar/Nav_Bar";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import React from "react";

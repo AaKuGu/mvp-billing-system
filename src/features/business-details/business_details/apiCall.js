@@ -1,4 +1,4 @@
-import { serverApiCallWrapper } from "@/shared/apiCall/apiCallWrapper";
+import { serverApiCallWrapper } from "@/re_usables/apiCall/apiCallWrapper";
 import axios from "axios";
 
 export const fetchBusinessDetails_api = (userId) =>
@@ -9,4 +9,3 @@ export const fetchBusinessDetails_api = (userId) =>
     // console.log("fetchBusinessDetails_api : res?.data : ", res?.data);
     return res.data;
   }, "/features/go");
-

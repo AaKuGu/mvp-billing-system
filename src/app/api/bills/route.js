@@ -1,8 +1,8 @@
 import { dbConnect } from "@/db/connectDB";
 import Bill from "@/models/Bill";
 import Product from "@/models/Product";
-import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
-import successResponse from "@/shared/backend/utils/success/successResponse";
+import { controllerFunc } from "@/re_usables/backend/utils/ControllerFunc";
+import successResponse from "@/re_usables/backend/utils/success/successResponse";
 import { calculateStock } from "./funcs/funcs";
 
 export const POST = controllerFunc(async (req) => {

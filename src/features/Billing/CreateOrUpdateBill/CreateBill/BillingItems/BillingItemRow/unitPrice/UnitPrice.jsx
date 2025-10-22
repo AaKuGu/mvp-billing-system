@@ -1,7 +1,7 @@
-import Label from "@/shared/components/form/Label";
+import Label from "@/re_usables/components/form/Label";
 import React from "react";
 import { handleUnitPriceChange } from "./funcs";
-import { Input } from "@/shared/components/form/Input";
+import { Input } from "@/re_usables/components/form/Input";
 
 const UnitPrice = ({ unitPrice, customProduct, setUnitPrice }) => {
   return (

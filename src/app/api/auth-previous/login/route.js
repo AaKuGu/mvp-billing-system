@@ -1,6 +1,6 @@
 import { dbConnect } from "@/db/connectDB";
-import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
-import CustomError from "@/shared/backend/utils/error/CustomError";
+import { controllerFunc } from "@/re_usables/backend/utils/ControllerFunc";
+import CustomError from "@/re_usables/backend/utils/error/CustomError";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 

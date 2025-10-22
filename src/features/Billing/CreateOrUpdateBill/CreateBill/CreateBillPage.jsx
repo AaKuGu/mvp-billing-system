@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 // import BillingItems from "../BillingItems/BillingItems";
-import Header from "@/shared/components/ui/Header";
-import Form from "@/shared/components/form/Form";
+import Header from "@/re_usables/components/ui/Header";
+import Form from "@/re_usables/components/form/Form";
 import BillEye from "../PrintableBill/BillEye";
 import PrintableBill from "../PrintableBill/PrintableBill";
-import Modal from "@/shared/components/Modal";
-import { RedButton } from "@/shared/components/Button";
+import Modal from "@/re_usables/components/Modal";
+import { RedButton } from "@/re_usables/components/Button";
 import BillSummery from "../../shared/BillSummery/BillSummery";
 import BillSummaryPage from "../BillSummaryPage/BillSummaryPage";
 import CustomerDetails from "./CustomerDetails";

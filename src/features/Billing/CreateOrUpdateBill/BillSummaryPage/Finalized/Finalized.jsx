@@ -1,4 +1,4 @@
-import { BlueButton } from "@/shared/components/Button";
+import { BlueButton } from "@/re_usables/components/Button";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import useOneBillDetailStore from "@/features/Billing/BillListing/BillSummary/store";

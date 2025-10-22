@@ -1,11 +1,11 @@
 "use client";
 
-import Header from "@/shared/components/ui/Header";
+import Header from "@/re_usables/components/ui/Header";
 import React, { useEffect, useState } from "react";
 import Filters from "./Filters/Filters";
 import LogsList from "./LogsList/LogsList";
 import { fetchSystemLogs } from "./funcs";
-import LoadingWrapper from "@/shared/components/Loading/LoadingWrapper";
+import LoadingWrapper from "@/re_usables/components/Loading/LoadingWrapper";
 
 const SystemLogs = () => {
   const [logsList, setLogsList] = useState([]);

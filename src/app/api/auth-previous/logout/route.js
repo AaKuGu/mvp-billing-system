@@ -1,6 +1,6 @@
 // app/api/logout/route.js
 import { dbConnect } from "@/db/connectDB";
-import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
+import { controllerFunc } from "@/re_usables/backend/utils/ControllerFunc";
 import { NextResponse } from "next/server";
 
 export const POST = controllerFunc(async () => {

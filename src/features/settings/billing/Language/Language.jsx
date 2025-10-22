@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "@/shared/components/ui/Header";
+import Header from "@/re_usables/components/ui/Header";
 import React, { useState } from "react";
 
 const Language = () => {

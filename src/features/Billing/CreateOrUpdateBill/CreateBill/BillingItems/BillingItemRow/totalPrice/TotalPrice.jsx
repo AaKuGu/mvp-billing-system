@@ -1,5 +1,5 @@
-import { Input } from "@/shared/components/form/Input";
-import Label from "@/shared/components/form/Label";
+import { Input } from "@/re_usables/components/form/Input";
+import Label from "@/re_usables/components/form/Label";
 import React from "react";
 
 const TotalPrice = ({ customProduct, totalPrice, setTotalPrice }) => {

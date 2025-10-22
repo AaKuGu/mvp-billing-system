@@ -69,7 +69,7 @@
 
 // export default Login;
 
-import Logo from "@/shared/components/Logo";
+import Logo from "@/re_usables/components/Logo";
 import React from "react";
 import RightSide from "./right-side/RightSide";
 

@@ -1,6 +1,6 @@
 import Login from "@/features/auth/login/LoginPage";
 import { auth } from "@/lib/auth";
-import Sidebar from "@/shared/components/sidebar/Sidebar";
+import Sidebar from "@/re_usables/components/sidebar/Sidebar";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { authClient } from "@/lib/auth-client"; //import the auth client
 import { redirect, useRouter } from "next/navigation";
-import { BlueButton } from "@/shared/components/Button";
+import { BlueButton } from "@/re_usables/components/Button";
 
 const RightSide = () => {
   const [isSignup, setIsSignup] = useState(false); // Toggle between signup & signin

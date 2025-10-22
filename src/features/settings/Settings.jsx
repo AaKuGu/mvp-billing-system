@@ -1,4 +1,4 @@
-import Header from "@/shared/components/ui/Header";
+import Header from "@/re_usables/components/ui/Header";
 import React from "react";
 import { settings } from "./constant";
 import SettingsCard from "./settings_card/SettingsCard";

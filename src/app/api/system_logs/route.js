@@ -1,8 +1,8 @@
 // app/api/logs/route.js (Next.js App Router)
 import { dbConnect } from "@/db/connectDB";
 import System_logs from "@/models/System_logs";
-import { controllerFunc } from "@/shared/backend/utils/ControllerFunc";
-import successResponse from "@/shared/backend/utils/success/successResponse";
+import { controllerFunc } from "@/re_usables/backend/utils/ControllerFunc";
+import successResponse from "@/re_usables/backend/utils/success/successResponse";
 
 // GET - Fetch logs (default filter: today)
 export const GET = controllerFunc(async (req) => {

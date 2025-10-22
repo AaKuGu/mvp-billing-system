@@ -1,4 +1,4 @@
-import Update from "@/features/account/business_details/business_details_update/Business_Details_Update_Page";
+import Update from "@/features/r_account/r_business_details/r_update/Business_Details_Update_Page";
 import React from "react";
 
 const page = () => {

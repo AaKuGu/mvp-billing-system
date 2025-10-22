@@ -1,5 +1,5 @@
-import { BlueButton } from "@/shared/components/Button";
-import ViewUpdateDelete from "@/shared/components/ViewUpdateDelete";
+import { BlueButton } from "@/re_usables/components/Button";
+import ViewUpdateDelete from "@/re_usables/components/ViewUpdateDelete";
 import Link from "next/link";
 import React from "react";
 
@@ -32,7 +32,7 @@ const BillingCard = ({ data, index }) => {
 
       {/* Right Section */}
       <div className={`flex flex-col lg:flex-row gap-2`}>
-        <Link 
+        <Link
           className="flex items-center gap-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded text-sm transition"
           href={`/go/bills/summary/${data?._id}`}
         >

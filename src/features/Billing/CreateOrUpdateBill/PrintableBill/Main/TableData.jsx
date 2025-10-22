@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { generateHindiName } from "@/shared/funcs";
+import { generateHindiName } from "@/re_usables/funcs";
 import { dataStyle, srStyle } from "../css";
 
 // Simulated transliteration function (replace with GPT or local mapping)

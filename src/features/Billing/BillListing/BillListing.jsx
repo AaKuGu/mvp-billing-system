@@ -1,8 +1,8 @@
-import { CreateButton, GreenButton } from "@/shared/components/Button";
-import { ListHeader, MainHeader } from "@/shared/components/ui/Header";
+import { CreateButton, GreenButton } from "@/re_usables/components/Button";
+import { ListHeader, MainHeader } from "@/re_usables/components/ui/Header";
 import React, { useEffect } from "react";
 import { fetchBills } from "./funcs";
-import LoadingWrapper from "@/shared/components/Loading/LoadingWrapper";
+import LoadingWrapper from "@/re_usables/components/Loading/LoadingWrapper";
 import BillingCard from "./BillingCard";
 import { useBillsStore } from "../shared/store";
 import Link from "next/link";

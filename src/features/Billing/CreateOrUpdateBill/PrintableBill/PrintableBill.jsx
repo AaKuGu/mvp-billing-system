@@ -1,4 +1,4 @@
-import { RoundButtonClose } from "@/shared/components/Button";
+import { RoundButtonClose } from "@/re_usables/components/Button";
 import React, { useState } from "react";
 import { calculateGrandTotal } from "./funcs";
 import Main from "./Main/Main";
@@ -14,7 +14,6 @@ const PrintableBill = async ({
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
-
 
   return (
     <div className="mt-6 overflow-x-auto text-black">

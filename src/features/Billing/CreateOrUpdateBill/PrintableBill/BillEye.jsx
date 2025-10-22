@@ -1,4 +1,4 @@
-import { GreenButton } from "@/shared/components/Button";
+import { GreenButton } from "@/re_usables/components/Button";
 import React from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
