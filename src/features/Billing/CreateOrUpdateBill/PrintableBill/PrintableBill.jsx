@@ -1,23 +1,9 @@
-import {
-  BlueButton,
-  GreenButton,
-  RoundButtonClose,
-} from "@/shared/components/Button";
+import { RoundButtonClose } from "@/shared/components/Button";
 import React, { useState } from "react";
-import {
-  calculateGrandTotal,
-  finalizeHandler,
-  generateCleanPdf,
-  whatsappRedirect,
-} from "./funcs";
-import toast from "react-hot-toast";
-import TableData from "./TableData";
-import Main from "./Main";
-import { useRouter } from "next/navigation";
-import useOneBillDetailStore from "../../BillListing/BillSummary/store";
-// import { dataStyle, srStyle } from "./css";
+import { calculateGrandTotal } from "./funcs";
+import Main from "./Main/Main";
 
-const PrintableBill = ({
+const PrintableBill = async ({
   customerName,
   whatsappNum,
   billingItems,
@@ -25,12 +11,10 @@ const PrintableBill = ({
 }) => {
   const grandTotal = calculateGrandTotal(billingItems);
 
-  const [finalized, setFinalized] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const session = await auth.api.getSession({
+    headers: await headers(), // you need to pass the headers object.
+  });
 
-  const { setOneBillDetail } = useOneBillDetailStore();
-
-  const router = useRouter();
 
   return (
     <div className="mt-6 overflow-x-auto text-black">

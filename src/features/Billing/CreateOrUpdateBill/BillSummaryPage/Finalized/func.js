@@ -18,6 +18,7 @@ export const finalizeHandler = async (
     setOneBillDetail(data?.Bill);
     window.localStorage.removeItem("customerDetails");
     window.localStorage.removeItem("billingItems");
+    window.localStorage.removeItem("bill_discount");
 
     //the reason to remove products is that since this handler will do stock updation and in localstorage stale data
     //of stock would remain, but since stock got updated hence i will remove the staled products data

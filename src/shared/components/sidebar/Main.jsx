@@ -10,7 +10,7 @@ const Main = ({ setIsOpen }) => {
       {/* <div className={`mb-5 ml-3`}>
         <Logo />
       </div> */}
-      <nav className="hidden lg:flex flex-col gap-4 flex-1 text-black">
+      {/* <nav className="hidden lg:flex flex-col gap-4 flex-1 text-black">
         {sidebarMenus.map((menu) => (
           <Link
             key={menu.name}
@@ -21,8 +21,8 @@ const Main = ({ setIsOpen }) => {
             <span>{menu.label}</span>
           </Link>
         ))}
-      </nav>
-      <nav className="lg:hidden flex flex-col gap-8 flex-1 text-black">
+      </nav> */}
+      <nav className="flex flex-col gap-8 flex-1 text-black">
         {sidebarMenus.map((menu) => (
           <Link
             key={menu.name}

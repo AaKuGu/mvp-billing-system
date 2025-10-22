@@ -30,7 +30,7 @@ export const Input = ({
       onBlur={onBlur}
       onWheel={handleWheel}
       readOnly={readOnly}
-      className={`w-full p-2 border border-gray-300 outline-none border-none shadow-lg shadow-purple-50 font-mono`}
+      className={`w-full p-1 border border-[1px] border-black outline-none  font-mono`}
     />
   );
 };

@@ -7,6 +7,7 @@ const billSchema = new mongoose.Schema(
   {
     timestamps: true,
   }
-);
+);  
 
 export default mongoose.models.Bill || mongoose.model("Bill", billSchema);
+ 

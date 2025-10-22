@@ -1,4 +1,5 @@
 import { units } from "@/shared/components/constants";
+import { Input } from "@/shared/components/form/Input";
 import Label from "@/shared/components/form/Label";
 import Select from "@/shared/components/form/Select";
 import React from "react";
@@ -29,7 +30,7 @@ const UnitSelection = ({
     <div className="flex-1 w-full">
       <Label>Unit</Label>
       {customProduct ? (
-        <input
+        <Input
           type="text"
           value={unitName}
           onChange={(e) => handleChange(e.target.value)}

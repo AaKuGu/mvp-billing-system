@@ -17,11 +17,13 @@ const LayoutPage = async ({ children }) => {
     headers: await headers(), // you need to pass the headers object.
   });
 
+  console.log(`session fix /go/layoutpage : `, session);
+
   if (!session) {
     redirect(`/`);
   }
 
-  if (!session?.user?.hasBusiness) {
+  if (!session?.businessDetails) {
     redirect(`/account/business_details/register`);
   }
 
@@ -30,7 +32,7 @@ const LayoutPage = async ({ children }) => {
       <Nav_Bar />
       <div className={`w-full flex flex-row flex-1 overflow-hidden`}>
         <Sidebar />
-        <main className="w-full h-full relative overflow-y-auto ">
+        <main className="w-full h-full relative overflow-y-auto p-1">
           {children}
         </main>
       </div>

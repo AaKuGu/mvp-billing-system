@@ -5,6 +5,8 @@ import { fetchProducts } from "../funcs";
 import BillingItemRow from "./BillingItemRow/BillingItemRow";
 import PlusMinusButtons from "./PlusMinusButtons";
 import { createEmptyBillData } from "./funcs";
+import FinalPrice from "./FinalPrice";
+import { onlyItemDetailsHandler } from "@/features/Billing/shared/func";
 
 const BillingItems = ({ billingItems, setBillingItems }) => {
   const [fuse, setFuse] = useState(null);
@@ -18,8 +20,8 @@ const BillingItems = ({ billingItems, setBillingItems }) => {
   }, []);
 
   return (
-    <div>
-      <Header>Billing Items</Header>
+    <div className={`flex w-full flex-col`}>
+      {/* <Header>Billing Items</Header> */}
       <div className="flex flex-col gap-2 mt-2">
         {billingItems?.map((d, i) => (
           <BillingItemRow
@@ -32,6 +34,10 @@ const BillingItems = ({ billingItems, setBillingItems }) => {
           />
         ))}
       </div>
+      <FinalPrice
+        itemDetails={onlyItemDetailsHandler(billingItems)}
+        setBillingItems={setBillingItems}
+      />
       <PlusMinusButtons setBillingItems={setBillingItems} />
     </div>
   );

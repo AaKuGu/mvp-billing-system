@@ -1,9 +1,17 @@
 import React from "react";
 import { fetchBusinessDetails_Handler } from "./funcs";
 import Link from "next/link";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const Business_Details_Show = async ({ user_id }) => {
-  const data = await fetchBusinessDetails_Handler(user_id);
+  // const data = await fetchBusinessDetails_Handler(user_id);
+
+  const session = await auth.api.getSession({
+    headers: await headers(), // you need to pass the headers object.
+  });
+
+  const data = session?.businessDetails;
 
   if (!data) {
     return (

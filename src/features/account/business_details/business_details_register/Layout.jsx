@@ -12,7 +12,7 @@ const Layout = async ({ children }) => {
     redirect(`/`);
   }
 
-  if (session?.user?.hasBusiness) {
+  if (session?.businessDetails) {
     redirect(`/go/dashboard`);
   }
 

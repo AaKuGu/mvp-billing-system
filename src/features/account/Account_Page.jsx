@@ -12,6 +12,8 @@ const Account_Page = async () => {
 
   const user_data = session.user;
 
+  // console.log("user_data : /features/account/Account_page.jsx : ", session);
+
   return (
     <div className={`w-full h-full flex flex-col gap-2`}>
       <MainHeader>Account</MainHeader>

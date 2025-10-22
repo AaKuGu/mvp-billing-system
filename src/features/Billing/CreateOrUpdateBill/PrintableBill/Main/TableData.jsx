@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { dataStyle, srStyle } from "./css";
 import { generateHindiName } from "@/shared/funcs";
+import { dataStyle, srStyle } from "../css";
 
 // Simulated transliteration function (replace with GPT or local mapping)
 const transliterateToHindi = async (englishName, setLoading, setHindiName) => {

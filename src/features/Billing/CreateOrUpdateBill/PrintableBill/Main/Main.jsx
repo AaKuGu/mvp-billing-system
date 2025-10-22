@@ -1,6 +1,6 @@
 import React from "react";
+import { dataStyle, srStyle } from "../css";
 import TableData from "./TableData";
-import { dataStyle, srStyle } from "./css";
 
 const Main = ({ itemDetails }) => {
   return (

@@ -11,7 +11,7 @@ const CustomerDetails = ({
   setCustomerAddressArea,
 }) => {
   return (
-    <>
+    <div className={`w-full flex flex-col md:flex-row gap-2`}>
       <div>
         <Label>Customer Name</Label>
         <Input
@@ -42,7 +42,7 @@ const CustomerDetails = ({
           }}
         />
       </div>
-    </>
+    </div>
   );
 };
 

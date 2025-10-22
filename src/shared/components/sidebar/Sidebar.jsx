@@ -19,7 +19,7 @@ const Sidebar = () => {
   return (
     <div className="lg:static absolute h-auto z-[200] bg-white w-fit">
       <SmallScr isOpen={isOpen} setIsOpen={setIsOpen} />
-      <DesktopScr />
+      {/* <DesktopScr /> */}
 
       {/* <div
         className={`fixed top-0 left-0 h-full w-[150px] md:w-[200px] bg-black text-black transform transition-transform duration-300 z-50 

@@ -51,18 +51,16 @@ export const auth = betterAuth({
       try {
         await dbConnect(); // Ensure MongoDB/Mongoose connection is live
 
-        const businessExists = await BusinessDetails.exists({
+        const businessDetails = await BusinessDetails.findOne({
           user_id: user.id,
         });
 
-        console.log(`businessExists : /lib/auth.js : `, businessExists);
+        console.log(`businessDetails : /lib/auth.js : `, businessDetails);
 
         const to_return = {
           ...session,
-          user: {
-            ...user,
-            hasBusiness: !!businessExists,
-          },
+          user,
+          businessDetails,
         };
 
         console.log("to_return : /lib/auth.js : ", to_return);

@@ -27,17 +27,17 @@ const FinalBillPage = ({ id }) => {
   if (!data)
     return <div className="p-4 text-gray-500">Loading bill details...</div>;
 
-  const { customerDetails, itemDetails } = data.parsedBill;
+  const { customerDetails, itemDetails, bill_discount } = data.parsedBill;
   const createdDate = new Date(data.createdAt).toLocaleString();
 
   return (
-    <div className={`w-full h-full bg-red-500 `}>
-     
+    <div className={`w-full h-full `}>
       <FinalBill
         data={data}
         createdDate={createdDate}
         customerDetails={customerDetails}
         itemDetails={itemDetails}
+        bill_discount={bill_discount}
       />
       {/* <div className={`text-black`}>pipe</div> */}
       {/* Print button */}

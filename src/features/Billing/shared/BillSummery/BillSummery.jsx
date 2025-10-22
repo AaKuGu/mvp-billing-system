@@ -1,12 +1,28 @@
-import React from "react";
-import Main from "../../CreateOrUpdateBill/PrintableBill/Main";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import Main from "../../CreateOrUpdateBill/PrintableBill/Main/Main";
 import { calculateGrandTotal } from "@/features/Billing/shared/func";
 
 const BillSummery = ({
   customerDetails: { customerName, whatsappNum, customerAddressArea },
   itemDetails,
 }) => {
-  const grandTotal = calculateGrandTotal(itemDetails);
+  const [bill_discount, set_bill_discount] = useState(0);
+
+  const { price_after_discount, price_before_discount } = calculateGrandTotal(
+    itemDetails,
+    bill_discount
+  );
+
+  const discountApplied = price_before_discount - price_after_discount;
+
+  useEffect(() => {
+    const bill_discount = window.localStorage.getItem("bill_discount");
+    if (bill_discount !== null) {
+      set_bill_discount(parseFloat(bill_discount));
+    }
+  }, []);
 
   return (
     <div className="w-full px-4 py-5 bg-white rounded-md shadow-md space-y-6">
@@ -25,15 +41,26 @@ const BillSummery = ({
           {customerAddressArea || <span className="text-gray-500">N/A</span>}
         </div>
       </div>
-
-      {/* Bill Table */}
       <div>
         <Main itemDetails={itemDetails} />
       </div>
-
-      {/* Grand Total */}
-      <div className="text-right text-lg sm:text-xl font-bold text-green-700 border-t pt-4">
-        Grand Total: ₹{grandTotal}
+      {/* Summary Section */}
+      <div className="text-right text-sm sm:text-base border-t pt-4 space-y-1">
+        <div>
+          <span className="text-gray-600 font-medium">Subtotal:</span>{" "}
+          <span className="text-gray-800 font-semibold">
+            ₹{price_before_discount.toFixed(2)}
+          </span>
+        </div>
+        <div>
+          <span className="text-gray-600 font-medium">Discount:</span>{" "}
+          <span className="text-red-600 font-semibold">
+            - ₹{discountApplied.toFixed(2)}
+          </span>
+        </div>
+        <div className="text-lg sm:text-xl font-bold text-green-700 pt-2">
+          Grand Total: ₹{price_after_discount.toFixed(2)}
+        </div>
       </div>
     </div>
   );

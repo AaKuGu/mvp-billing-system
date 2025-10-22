@@ -134,42 +134,42 @@ const BillingItemRow = ({
 
   return (
     <div
-      className="flex flex-col border w-full text-black p-2 gap-4 relative items-center border-b"
+      className="flex flex-col md:flex-row  w-full text-black p-1 gap-4 relative items-center "
       key={key}
     >
-      {/* {totalPrice} */}
-      {/* rowDAta = {JSON.stringify(rowData?.itemDetails)} */}
-      {}
-      <div className={`w-full`}>{index + 1}.</div>
-      <div className="relative flex-1 w-full">
-        <ProductName
-          setSearchedProducts={setSearchedProducts}
-          billingItems={billingItems}
-          fuse={fuse}
-          name={name}
-          setName={setName}
-          setUnitName={setUnitName}
-          setTotalPrice={setTotalPrice}
-          setUnitPrice={setUnitPrice}
-          index={index}
-          setBillingItems={setBillingItems}
-          setCustomProduct={setCustomProduct}
-        />
-        <SearchedProductsSuggestions
-          searchedProducts={searchedProducts}
-          setBillingItems={setBillingItems}
-          setSearchedProducts={setSearchedProducts}
-          billingItems={billingItems}
-          index={index}
-          name={name}
-          setName={setName}
-          setUnitName={setUnitName}
-          setQuantity={setQuantity}
-          setUnitPrice={setUnitPrice}
-          setTotalPrice={setTotalPrice}
-        />
-      </div>
-      <div className="flex flex-col md:flex-row w-full text-black p-2 gap-4 relative items-center border-b">
+      <div>{index + 1}.</div>
+
+      <div className="flex flex-col md:flex-row w-full text-black gap-4 relative items-center border-b">
+        <div className="relative flex-1 w-full ">
+          <ProductName
+            setSearchedProducts={setSearchedProducts}
+            billingItems={billingItems}
+            fuse={fuse}
+            name={name}
+            setName={setName}
+            setUnitName={setUnitName}
+            setTotalPrice={setTotalPrice}
+            setUnitPrice={setUnitPrice}
+            index={index}
+            setBillingItems={setBillingItems}
+            setCustomProduct={setCustomProduct}
+          />
+          {/* {JSON.stringify(searchedProducts)} */}
+          <SearchedProductsSuggestions
+            searchedProducts={searchedProducts}
+            setBillingItems={setBillingItems}
+            setSearchedProducts={setSearchedProducts}
+            billingItems={billingItems}
+            index={index}
+            name={name}
+            setName={setName}
+            setUnitName={setUnitName}
+            setQuantity={setQuantity}
+            setUnitPrice={setUnitPrice}
+            setTotalPrice={setTotalPrice}
+          />
+        </div>
+
         <Quantity
           billingItems={billingItems}
           rowData={rowData}

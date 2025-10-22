@@ -11,6 +11,7 @@ import BillSummery from "../../shared/BillSummery/BillSummery";
 import BillSummaryPage from "../BillSummaryPage/BillSummaryPage";
 import CustomerDetails from "./CustomerDetails";
 import BillingItems from "./BillingItems/BillingItems";
+import { onlyItemDetailsHandler } from "../../shared/func";
 
 const CreateBillPage = () => {
   const [customerName, setCustomerName] = useState(null);
@@ -18,15 +19,17 @@ const CreateBillPage = () => {
   const [customerAddressArea, setCustomerAddressArea] = useState("");
   const [billingItems, setBillingItems] = useState();
   const [viewPrintableBill, setViewPrintableBill] = useState(false);
-
-  const onlyItemDetailsHandler = () => {
-    return billingItems?.map((d) => d?.itemDetails);
-  };
+  const [bill_discount, set_bill_discount] = useState(0);
 
   //==================== get the product data into localstorage =======================================
 
   useEffect(() => {
     const savedItems = localStorage.getItem("billingItems");
+    const bill_discount = window.localStorage.getItem("bill_discount");
+    if (bill_discount !== null) {
+      set_bill_discount(parseFloat(bill_discount));
+    }
+
     console.log("saved items ; ", savedItems);
     const savedCustomerDetails = localStorage.getItem("customerDetails");
     if (savedCustomerDetails) {
@@ -75,7 +78,7 @@ const CreateBillPage = () => {
   }, [customerName, whatsappNum, customerAddressArea]);
 
   return (
-    <div className={`w-full h-screen md:px-4 px-2 `}>
+    <div className={`w-full h-full bg-green-100 px-2 flex flex-col `}>
       <Header>Create Bill</Header>
       <div className={`flex justify-center `}>
         <BillEye setViewPrintableBill={setViewPrintableBill} />
@@ -95,9 +98,9 @@ const CreateBillPage = () => {
         </RedButton>
       </div>
       <div
-        className={`w-full h-[600px] overflow-y-auto md:px-10 px-2  flex flex-col items-center justify-start gap-4 `}
+        className={`w-full h-[600px] overflow-y-auto px-2  flex flex-col items-center justify-start gap-4 `}
       >
-        <Form style="w-full">
+        <Form style="w-full ">
           <CustomerDetails
             customerName={customerName}
             setCustomerName={setCustomerName}
@@ -110,6 +113,8 @@ const CreateBillPage = () => {
             billingItems={billingItems}
             setBillingItems={setBillingItems}
           />
+          {/* def : {bill_discount} */}
+
           {viewPrintableBill && (
             <Modal>
               <BillSummaryPage
@@ -118,7 +123,7 @@ const CreateBillPage = () => {
                   whatsappNum,
                   customerAddressArea,
                 }}
-                itemDetails={onlyItemDetailsHandler()}
+                itemDetails={onlyItemDetailsHandler(billingItems)}
                 setViewPrintableBill={setViewPrintableBill}
               />
             </Modal>

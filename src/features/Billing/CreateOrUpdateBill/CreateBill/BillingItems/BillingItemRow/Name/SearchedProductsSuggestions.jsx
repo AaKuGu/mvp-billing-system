@@ -13,12 +13,12 @@ const SearchedProductsSuggestions = ({
   setUnitName,
 }) => {
   return (
-    <div className={`w-full flex flex-wrap gap-2`}>
+    <div className={`w-full flex flex-wrap gap-2 absolute top-[100%]  `}>
       {searchedProducts.map((p, idx) => {
         return (
           <div
             key={idx}
-            className="p-2 hover:bg-gray-200 cursor-pointer px-5 py-2 border "
+            className="p-2 hover:bg-gray-200 cursor-pointer px-5 py-2 border  bg-gray-200"
             onMouseDown={() => {
               // const engLabel = p.productName.find((d) => d.lang === "eng");
               // const hiLabel = p.productName.find((d) => d.lang === "hi");
@@ -38,8 +38,6 @@ const SearchedProductsSuggestions = ({
               setSearchedProducts([]);
             }}
           >
-            {/* {p.productName.find((n) => n.lang === "eng")?.value || ""}&nbsp; */}
-            {/* {p.productName.find((n) => n.lang === "hi")?.value || ""} */}
             {p.productName}
           </div>
         );
