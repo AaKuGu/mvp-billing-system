@@ -1,12 +1,11 @@
-import FinalBill from "@/features/Billing/BillListing/finalBillPage/FinalBillPage";
+import Final_Bill_Page from "@/features/r_go/r_bills/r_final_bill/Final_Bill_Page";
 import React from "react";
 
 const page = ({ params }) => {
   const { id } = params;
 
-  
-
-  return <FinalBill id={id} />;
+  return <Final_Bill_Page id={id} />;
+  // return <FinalBill id={id} />;
   // return <ViewBillDetails id={id} />;
 };
 

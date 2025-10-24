@@ -4,9 +4,11 @@ import React, { useEffect, useState } from "react";
 import Product_Details_Form from "../common/Product_Details_Form";
 import { getAProductDetails } from "../../common/funcs";
 import { useProductsStore } from "../../store";
+import { udpateAProduct } from "./funcs";
 
 const Update_Product = ({ productId }) => {
   const [product_details, set_product_details] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const { getOneProductByProductId } = useProductsStore();
 
@@ -21,9 +23,9 @@ const Update_Product = ({ productId }) => {
   };
 
   useEffect(() => {
-    if (createOrUpdate === "update" && productId) {
+    if (productId) {
       const data = getOneProductByProductId(productId);
-      setProduct(data);
+      set_product_details(data);
       if (!data) {
         initialApiCallForUpdate();
       }
@@ -34,6 +36,7 @@ const Update_Product = ({ productId }) => {
     <Product_Details_Form
       createOrUpdate={`update`}
       product_details={product_details}
+      udpateAProduct={udpateAProduct}
     />
   );
 };

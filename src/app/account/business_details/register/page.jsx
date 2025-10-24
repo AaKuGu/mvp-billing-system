@@ -1,4 +1,4 @@
-import BusinessRegistrationPage from "@/features/account/business_details/register/Business_Details_Registration";
+import BusinessRegistrationPage from "@/features/r_account/r_business_details/r_register/Business_Details_Registration";
 import React from "react";
 
 const page = () => {

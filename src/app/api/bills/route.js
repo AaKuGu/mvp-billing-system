@@ -12,8 +12,9 @@ export const POST = controllerFunc(async (req) => {
   console.log("Finalizing bill with data: ", data);
 
   const stringifiedBill = JSON.stringify(data);
+  const user_id = data?.user_id;
 
-  const bill_created = await Bill.create({ stringifiedBill });
+  const bill_created = await Bill.create({ user_id, stringifiedBill });
 
   await Promise.all(
     data.itemDetails.map(async (item) => {

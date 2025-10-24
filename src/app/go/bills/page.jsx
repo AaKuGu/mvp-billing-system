@@ -1,11 +1,10 @@
 "use client";
 
-import Billing from "@/features/Billing/CreateOrUpdateBill/CreateBill/CreateBillPage";
-import BillListing from "@/features/Billing/BillListing/BillListing";
+import Bills_Page from "@/features/r_go/r_bills/bills_page/Bills_Page";
 
 const page = () => {
   // return <Billing />;
-  return <BillListing />;
+  return <Bills_Page />;
 };
 
 export default page;

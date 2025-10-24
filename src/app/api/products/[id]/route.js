@@ -29,6 +29,14 @@ export const PUT = controllerFunc(async (req, { params }) => {
   let errorContext = "Error in PUT /products/[id]";
 
   const { id } = params;
+
+  console.log("product id in put request : ", id);
+  console.log("params in put request : ", params);
+
+  if (!id) {
+    throw new CustomError(`Id is required`, 404, errorContext);
+  }
+
   const body = await req.json();
 
   const { productName, units } = body;

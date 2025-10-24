@@ -1,4 +1,7 @@
-export const saveProduct = async (
+import toast from "react-hot-toast";
+import { saveAProductStock } from "./apiCalls";
+
+export const saveAProduct = async (
   product,
   setLoading,
   setProduct,
