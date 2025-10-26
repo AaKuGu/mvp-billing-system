@@ -22,8 +22,11 @@ export const bills_related_data_handler = async (user_id) => {
   const totalBills = billsToday.length;
   const totalSales = billsToday.reduce((sum, bill) => {
     const billData = JSON.parse(bill.stringifiedBill);
-    return sum + (billData.grandTotal || 0);
+    return sum + (billData.grand_total || 0);
   }, 0);
+
+  console.log("total sales : ", billsToday);
+  console.log("total sales : ", totalSales);
 
   return { totalBills, totalSales };
 };

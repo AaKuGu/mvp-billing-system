@@ -204,9 +204,9 @@ import Item_Details from "./Item_Details/Item_Details";
 
 const FinalBill = async ({
   data,
-  createdDate,
-  customerDetails,
-  itemDetails,
+  created_date,
+  customer_details,
+  item_details,
   bill_discount,
 }) => {
   const { data: session, isPending, error, refetch } = authClient.useSession();
@@ -254,29 +254,32 @@ const FinalBill = async ({
           <div>
             <p>
               <span className="font-semibold">Invoice ID:</span>{" "}
-              {data._id.slice(-6)}
+              {/* {data._id.slice(-6)} */}
             </p>
             <p>
-              <span className="font-semibold">Date:</span> {createdDate}
+              <span className="font-semibold">Date:</span> {created_date}
             </p>
           </div>
           <div>
             <p>
               <span className="font-semibold">Customer:</span>{" "}
-              {customerDetails.customerName}
+              {customer_details.customerName}
             </p>
             <p>
               <span className="font-semibold">Phone:</span>{" "}
-              {customerDetails.whatsappNum}
+              {customer_details.whatsappNum}
             </p>
             <p>
               <span className="font-semibold">Address:</span>{" "}
-              {customerDetails.customerAddressArea}
+              {customer_details.customerAddressArea}
             </p>
           </div>
         </div>
 
-        <Item_Details itemDetails={itemDetails} bill_discount={bill_discount} />
+        <Item_Details
+          item_details={item_details}
+          bill_discount={bill_discount}
+        />
         <Footer data={{ businessAddress, businessEmail, businessContactNo }} />
       </div>
 

@@ -5,10 +5,21 @@ import { fetchProducts } from "../funcs";
 import BillingItemRow from "./BillingItemRow/BillingItemRow";
 import PlusMinusButtons from "./PlusMinusButtons";
 import { createEmptyBillData } from "./funcs";
-import FinalPrice from "./FinalPrice";
-import { onlyItemDetailsHandler } from "../../re_usables/funcs";
+import FinalPrice from "../pricing_details/FinalPrice";
+import {
+  calculateGrandTotal,
+  onlyItemDetailsHandler,
+} from "../../re_usables/funcs";
+import { use_billingItems_details, use_pricing_details } from "../store";
 
-const BillingItems = ({ billingItems, setBillingItems }) => {
+const BillingItems = () => {
+  const { billingItems, setBillingItems, addAnEmptyItem } =
+    use_billingItems_details();
+
+  console.log("billingItems : ", billingItems);
+
+  const { set_pricing_details, pricing_details } = use_pricing_details();
+
   const [fuse, setFuse] = useState(null);
 
   console.log("fuse : ", fuse);
@@ -18,6 +29,21 @@ const BillingItems = ({ billingItems, setBillingItems }) => {
     setBillingItems([createEmptyBillData()]);
     fetchProducts(setFuse);
   }, []);
+
+  useEffect(() => {
+    if (billingItems?.length) {
+      localStorage.setItem("billingItems", JSON.stringify(billingItems));
+    }
+
+    // const { discount = 0, gst_percent = 0 } = pricing_details;
+
+    // calculateGrandTotal(
+    //   billingItems,
+    //   set_pricing_details,
+    //   discount,
+    //   gst_percent
+    // );
+  }, [billingItems]);
 
   return (
     <div className={`flex w-full flex-col`}>
@@ -34,11 +60,11 @@ const BillingItems = ({ billingItems, setBillingItems }) => {
           />
         ))}
       </div>
-      <FinalPrice
+      <PlusMinusButtons addAnEmptyItem={addAnEmptyItem} />
+      {/* <FinalPrice
         itemDetails={onlyItemDetailsHandler(billingItems)}
         setBillingItems={setBillingItems}
-      />
-      <PlusMinusButtons setBillingItems={setBillingItems} />
+      /> */}
     </div>
   );
 };

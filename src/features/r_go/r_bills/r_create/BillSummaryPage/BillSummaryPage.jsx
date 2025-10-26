@@ -6,31 +6,54 @@ import BillSummery from "../../re_usables/BillSummery/BillSummery";
 import { calculateGrandTotal } from "../../re_usables/funcs";
 
 const BillSummaryPage = ({
-  customerDetails,
-  itemDetails,
+  item_details,
+  customer_details,
+  price_details,
   setViewPrintableBill,
 }) => {
   const [finalized, setFinalized] = useState(false);
 
-  const [bill_discount, set_bill_discount] = useState(0);
+  // const [bill_details, set_bill_details] = useState(null);
+  // const [customer_details, set_customer_details] = useState(null);
 
-  const { price_after_discount, price_before_discount } = calculateGrandTotal(
-    itemDetails,
-    bill_discount
-  );
+  // const {
+  //   price_after_discount = 0,
+  //   price_before_discount = 0,
+  //   discount = 0,
+  //   gst_percent = 0,
+  //   gst_amount = 0,
+  //   price_after_gst = 0,
+  //   round_off = 0,
+  //   grand_total = 0,
+  // } = bill_details || {};
 
-  const discountApplied = price_before_discount - price_after_discount;
+  // const [bill_discount, set_bill_discount] = useState(0);
 
-  useEffect(() => {
-    const bill_discount = window.localStorage.getItem("bill_discount");
-    if (bill_discount !== null) {
-      set_bill_discount(parseFloat(bill_discount));
-    }
-  }, []);
+  // const { price_after_discount, price_before_discount } = calculateGrandTotal(
+  //   item_details,
+  //   bill_discount
+  // );
+
+  // const discountApplied = price_before_discount - price_after_discount;
+
+  // useEffect(() => {
+  //   const bill_discount = window.localStorage.getItem("bill_discount");
+  //   if (bill_discount !== null) {
+  //     set_bill_discount(parseFloat(bill_discount));
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   const customer_details = window.localStorage.getItem("customerDetails");
+  //   const bill_details = window.localStorage.getItem("bill_details");
+
+  //   set_customer_details(JSON.parse(customer_details));
+  //   set_bill_details(JSON.parse(bill_details));
+  // }, []);
 
   return (
     <div
-      className={`w-full h-full flex items-center justify-center text-black`}
+      className={`w-full h-full flex items-center justify-center text-white text-sm`}
     >
       <div
         className={`bg-white p-2 w-[90%] h-[90%] border-2 border-dashed border-gray-300 flex flex-col items-center justify-between`}
@@ -41,18 +64,16 @@ const BillSummaryPage = ({
           </div>
           <Header style={"text-black"}>Bill Summary</Header>
           <BillSummery
-            customerDetails={customerDetails}
-            itemDetails={itemDetails}
-            price_after_discount={price_after_discount}
-            price_before_discount={price_before_discount}
-            discountApplied={discountApplied}
+            customer_details={customer_details}
+            item_details={item_details}
+            price_details={price_details}
           />
           {!finalized && (
             <Finalized
-              itemDetails={itemDetails}
-              customerDetails={customerDetails}
+              item_details={item_details}
+              customer_details={customer_details}
               setFinalized={setFinalized}
-              price_after_discount={price_after_discount}
+              price_details={price_details}
             />
           )}
         </div>

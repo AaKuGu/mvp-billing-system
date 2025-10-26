@@ -19,7 +19,15 @@ const ProductName = ({
   setTotalPrice,
   setUnitName,
   setUnitPrice,
+  customProduct,
 }) => {
+  useEffect(() => {
+    if (!customProduct) {
+      setTotalPrice(null);
+      setUnitPrice(null);
+      setUnitName("Pcs");
+    }
+  }, [customProduct]);
   return (
     <div className={``}>
       {/* productname = {JSON.stringify(productName)} */}
@@ -31,9 +39,7 @@ const ProductName = ({
           setName(e.target.value);
           // alert("custom product true : " + e.target.value);
           setCustomProduct(true);
-          setTotalPrice(null);
-          setUnitPrice(null);
-          setUnitName("Pcs");
+
           productNameChangeHandler(
             billingItems,
             setBillingItems,

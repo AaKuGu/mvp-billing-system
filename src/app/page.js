@@ -12,7 +12,7 @@ const page = async () => {
   });
 
   if (session) {
-    redirect(`/go/dashboard`);
+    redirect(`/go`);
   }
 
   return <Login />;

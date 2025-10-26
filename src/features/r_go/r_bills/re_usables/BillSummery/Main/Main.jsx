@@ -2,7 +2,7 @@ import React from "react";
 import { dataStyle, srStyle } from "../css";
 import TableData from "./TableData";
 
-const Main = ({ itemDetails }) => {
+const Main = ({ item_details }) => {
   return (
     <div className="h-fit w-full">
       <table className="w-full border-collapse text-sm">
@@ -20,7 +20,7 @@ const Main = ({ itemDetails }) => {
 
       <table className="w-full border-collapse text-sm">
         <tbody>
-          {itemDetails.map((item, i) => {
+          {item_details.map((item, i) => {
             const unitPrice = item.unitPrice;
             const quantity = Number(item?.quantity) || 0;
             const unit = item.unitName;

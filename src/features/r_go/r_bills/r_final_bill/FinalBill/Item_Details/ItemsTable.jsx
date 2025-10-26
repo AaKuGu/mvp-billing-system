@@ -1,6 +1,6 @@
 import React from "react";
 
-const ItemsTable = ({itemDetails}) => {
+const ItemsTable = ({ item_details }) => {
   return (
     <table className="w-full border-collapse border border-gray-400 text-sm">
       <thead>
@@ -16,7 +16,7 @@ const ItemsTable = ({itemDetails}) => {
         </tr>
       </thead>
       <tbody>
-        {itemDetails.map((item, index) => (
+        {item_details.map((item, index) => (
           <tr key={index} className="even:bg-gray-50">
             <td className="border border-gray-400 px-2 py-1">{index + 1}</td>
             <td className="border border-gray-400 px-2 py-1">

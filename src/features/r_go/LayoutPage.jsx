@@ -24,7 +24,7 @@ const LayoutPage = async ({ children }) => {
       <Nav_Bar />
       <div className={`w-full flex flex-row flex-1 overflow-hidden`}>
         <Sidebar />
-        <main className="w-full h-full relative overflow-y-auto p-1">
+        <main className="w-full h-full relative overflow-y-auto p-1 bg-gray-100">
           {children}
         </main>
       </div>

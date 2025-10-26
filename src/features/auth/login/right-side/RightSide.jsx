@@ -82,7 +82,7 @@ const RightSide = () => {
   const googleLoginHandler = async () => {
     const data = await authClient.signIn.social({
       provider: "google",
-      callbackURL: "/go/dashboard", // 👈 Redirect after successful login
+      callbackURL: "/go", // 👈 Redirect after successful login
     });
     console.log("google login : data : ", data);
   };

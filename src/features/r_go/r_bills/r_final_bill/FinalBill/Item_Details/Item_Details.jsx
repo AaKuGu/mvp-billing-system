@@ -2,9 +2,9 @@ import React from "react";
 import ItemsTable from "./ItemsTable";
 import { calculateGrandTotal } from "../../../re_usables/funcs";
 
-const Item_Details = ({ itemDetails, bill_discount = 0 }) => {
+const Item_Details = ({ item_details, bill_discount = 0 }) => {
   const { price_after_discount, price_before_discount } = calculateGrandTotal(
-    itemDetails,
+    item_details,
     bill_discount
   );
 
@@ -12,7 +12,7 @@ const Item_Details = ({ itemDetails, bill_discount = 0 }) => {
 
   return (
     <>
-      <ItemsTable itemDetails={itemDetails} />
+      <ItemsTable item_details={item_details} />
 
       {/* Summary Totals */}
       <div className="mt-6 flex justify-end text-sm print:text-xs">

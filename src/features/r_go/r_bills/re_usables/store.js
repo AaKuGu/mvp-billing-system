@@ -13,4 +13,3 @@ export const useOneBillDetailStore = create((set) => ({
   oneBillDetail: null, // ✅ default value
   setOneBillDetail: (value) => set({ oneBillDetail: value }),
 }));
-

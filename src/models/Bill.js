@@ -2,11 +2,21 @@ import mongoose from "mongoose";
 
 const billSchema = new mongoose.Schema(
   {
-    stringifiedBill: { type: String, required: true },
-    user_id: {
+    stringifiedBill: {
       type: String,
       required: true,
-      unique: true, // one business per user
+    },
+
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // references your BetterAuth user collection
+      required: true,
+    },
+
+    customer_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Customer", // references your Customer collection
+      required: true,
     },
   },
   {

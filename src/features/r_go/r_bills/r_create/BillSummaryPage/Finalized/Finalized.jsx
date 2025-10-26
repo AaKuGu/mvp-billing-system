@@ -6,30 +6,16 @@ import { useOneBillDetailStore } from "../../../re_usables/store";
 import { authClient } from "@/lib/auth-client";
 
 const Finalized = ({
-  customerDetails,
+  customer_details,
   setFinalized,
-  itemDetails,
-  price_after_discount,
+  item_details,
+  price_details,
 }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { setOneBillDetail } = useOneBillDetailStore();
 
-  const [bill_discount, set_bill_discount] = useState(0);
-
-  const {
-    data: session,
-    isPending, //loading state
-    error: err, //error object
-    refetch, //refetch the session
-  } = authClient.useSession();
-
-  useEffect(() => {
-    const bill_discount = window.localStorage.getItem("bill_discount");
-    if (bill_discount !== null) {
-      set_bill_discount(parseFloat(bill_discount));
-    }
-  }, []);
+  const { data: session } = authClient.useSession();
 
   return (
     <BlueButton
@@ -42,17 +28,16 @@ const Finalized = ({
           return;
         }
         const preparedData = {
-          itemDetails,
-          customerDetails,
-          bill_discount,
-          grandTotal: price_after_discount,
+          item_details,
+          customer_details,
+          price_details,
           user_id: session?.user?.id,
         };
 
-        alert(
-          "prepared data : /features/create or update bill/bill sujmmar page/ finalised/ finalized.jsx" +
-            JSON.stringify(preparedData?.grandTotal)
-        );
+        // alert(
+        //   "prepared data : /features/create or update bill/bill sujmmar page/ finalised/ finalized.jsx" +
+        //     JSON.stringify(preparedData?.grand_total)
+        // );
 
         finalizeHandler(
           preparedData,

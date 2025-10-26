@@ -2,25 +2,30 @@ import mongoose from "mongoose";
 
 const CustomerSchema = new mongoose.Schema(
   {
-    name: {
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // optional, reference to the User model
+      required: true,
+    },
+    customer_name: {
       type: String,
       required: true,
       trim: true,
     },
-    whatsappNumber: {
+    whatsapp_num: {
       type: String,
-      required: true,
-      unique: true, // ✅ prevent duplicate numbers
       match: [/^\d{10,15}$/, "Invalid WhatsApp number"], // basic validation
     },
-    area: {
+    customer_address_area: {
       type: String,
-      required: true,
       trim: true,
     },
   },
   { timestamps: true }
 );
+
+// ✅ Allow same number for different users
+CustomerSchema.index({ user_id: 1, whatsapp_num: 1 }, { unique: true });
 
 export default mongoose.models.Customer ||
   mongoose.model("Customer", CustomerSchema);

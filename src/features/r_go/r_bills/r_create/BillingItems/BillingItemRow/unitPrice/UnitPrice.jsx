@@ -7,7 +7,7 @@ const UnitPrice = ({ unitPrice, customProduct, setUnitPrice }) => {
   return (
     <div className="flex-1 w-full">
       <Label>Unit Price</Label>
-      {customProduct ? (
+      {/* {customProduct ? (
         <Input
           type="number"
           value={unitPrice}
@@ -21,7 +21,18 @@ const UnitPrice = ({ unitPrice, customProduct, setUnitPrice }) => {
         <div className="p-2 border rounded bg-gray-50 w-24 text-center">
           ₹{unitPrice}
         </div>
-      )}
+      )} */}
+      {
+        <Input
+          type="number"
+          value={unitPrice}
+          onChange={(e) => {
+            setUnitPrice(e.target.value);
+            // handleUnitPriceChange(e, billingItems, d, setBillingItems, i)
+          }}
+          placeholder="Enter"
+        />
+      }
     </div>
   );
 };

@@ -102,6 +102,9 @@ const BillingItemRow = ({
   }, [unitName]);
 
   useEffect(() => {
+  }, [totalPrice]);
+
+  useEffect(() => {
     // alert("total price change" + JSON.stringify(billingItems));
     if (unitName && quantity && totalPrice) {
       setUnitPrice(roundTo(totalPrice / quantity));
@@ -190,11 +193,13 @@ const BillingItemRow = ({
           unitName={unitName}
           customProduct={customProduct}
         />
+        {/* {JSON.stringify(customProduct)} */}
         <UnitPrice
           unitPrice={unitPrice}
           customProduct={customProduct}
           setUnitPrice={setUnitPrice}
         />
+        {/* {totalPrice} */}
         <TotalPrice
           customProduct={customProduct}
           totalPrice={totalPrice}

@@ -4,6 +4,7 @@ import Product from "@/models/Product";
 import { controllerFunc } from "@/re_usables/backend/utils/ControllerFunc";
 import successResponse from "@/re_usables/backend/utils/success/successResponse";
 import { calculateStock } from "./funcs/funcs";
+import Customer from "@/models/Customer";
 
 export const POST = controllerFunc(async (req) => {
   await dbConnect();
@@ -11,13 +12,38 @@ export const POST = controllerFunc(async (req) => {
 
   console.log("Finalizing bill with data: ", data);
 
-  const stringifiedBill = JSON.stringify(data);
-  const user_id = data?.user_id;
+  const { user_id, customer_details, ...rest } = data;
 
-  const bill_created = await Bill.create({ user_id, stringifiedBill });
+  let customerId;
+
+  if (!customer_details?.customerId) {
+    const { customer_name, customer_address_area, whatsapp_num } =
+      customer_details;
+
+    const customer_created = await Customer.create({
+      user_id,
+      customer_name,
+      customer_address_area,
+      whatsapp_num,
+    });
+
+    console.log("customer_created : ", customer_created);
+
+    customerId = customer_created?._id;
+  } else {
+    customerId = customer_details?.customerId;
+  }
+
+  const stringifiedBill = JSON.stringify(rest);
+
+  const bill_created = await Bill.create({
+    user_id,
+    customer_id: customerId,
+    stringifiedBill,
+  });
 
   await Promise.all(
-    data.itemDetails.map(async (item) => {
+    data.item_details.map(async (item) => {
       const productData = await Product.findById(item.productId).lean();
 
       console.log("product Data find by id : ", productData);

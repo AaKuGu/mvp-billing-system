@@ -4,6 +4,7 @@ import {
   FiFileText,
   FiSettings,
   FiActivity,
+  FiUsers,
 } from "react-icons/fi";
 
 export const sidebarMenus = [
@@ -15,6 +16,12 @@ export const sidebarMenus = [
     icon: <FiBox />,
   },
   { label: "Bills", link: "/go/bills", name: "bills", icon: <FiFileText /> },
+  {
+    label: "Customers",
+    link: "/go/customers",
+    name: "customers",
+    icon: <FiUsers />, // 👈 better icon for customers
+  },
   {
     label: "System Logs",
     link: "/go/system_logs",

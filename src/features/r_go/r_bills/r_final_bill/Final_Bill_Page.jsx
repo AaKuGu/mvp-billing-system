@@ -1,41 +1,53 @@
-"use client";
+// "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
+// import React, { useEffect, useState } from "react";
 // import { handlePrint } from "./func";
-import { useBillsStore, useOneBillDetailStore } from "../re_usables/store";
+// import { useBillsStore, useOneBillDetailStore } from "../re_usables/store";
 import FinalBill from "./FinalBill/FinalBill";
+import { fetch_bill_details } from "../re_usables/server_actions";
 
-const Final_Bill_Page = ({ id }) => {
-  const [data, setData] = useState(null);
-  const { getOneBillByBillId, bills } = useBillsStore();
-  const { oneBillDetail } = useOneBillDetailStore();
+const Final_Bill_Page = async ({ id }) => {
+  const bill_details = await fetch_bill_details(id);
 
-  useEffect(() => {
-    if (oneBillDetail) {
-      const parsed = JSON.parse(oneBillDetail.stringifiedBill);
-      setData({ ...oneBillDetail, parsedBill: parsed });
-    } else if (bills.length > 0 && id) {
-      const bill = getOneBillByBillId(id);
-      if (bill) {
-        const parsed = JSON.parse(bill.stringifiedBill);
-        setData({ ...bill, parsedBill: parsed });
-      }
-    }
-  }, [id, getOneBillByBillId]);
+  const { stringifiedBill, customer_details } = JSON.parse(bill_details);
 
-  if (!data)
+  const parsed_item_details = JSON.parse(stringifiedBill);
+
+  const data = parsed_item_details;
+
+  if (!bill_details)
     return <div className="p-4 text-gray-500">Loading bill details...</div>;
 
-  const { customerDetails, itemDetails, bill_discount } = data.parsedBill;
-  const createdDate = new Date(data.createdAt).toLocaleString();
+  const { item_details, bill_discount, grand_total } = data;
+  const created_date = new Date(data.createdAt).toLocaleString();
+
+  // const [data, setData] = useState(null);
+  // const { getOneBillByBillId, bills } = useBillsStore();
+  // const { oneBillDetail } = useOneBillDetailStore();
+
+  // useEffect(() => {
+  //   if (oneBillDetail) {
+  //     const parsed = JSON.parse(oneBillDetail.stringifiedBill);
+  //     setData({ ...oneBillDetail, parsedBill: parsed });
+  //   } else if (bills.length > 0 && id) {
+  //     const bill = getOneBillByBillId(id);
+  //     if (bill) {
+  //       const parsed = JSON.parse(bill.stringifiedBill);
+  //       setData({ ...bill, parsedBill: parsed });
+  //     }
+  //   }
+  // }, [id, getOneBillByBillId]);
 
   return (
     <div className={`w-full h-full `}>
+      {/* {JSON.stringify(grand_total)} */}
+
       <FinalBill
         data={data}
-        createdDate={createdDate}
-        customerDetails={customerDetails}
-        itemDetails={itemDetails}
+        created_date={created_date}
+        customer_details={customer_details}
+        item_details={item_details}
         bill_discount={bill_discount}
       />
       {/* <div className={`text-black`}>pipe</div> */}

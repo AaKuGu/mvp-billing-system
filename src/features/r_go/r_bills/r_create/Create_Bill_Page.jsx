@@ -3,78 +3,48 @@ import React, { useEffect, useState } from "react";
 // import BillingItems from "../BillingItems/BillingItems";
 import Header from "@/re_usables/components/ui/Header";
 import Form from "@/re_usables/components/form/Form";
-import BillEye from "./components/BillEye";
+import BillEye from "./re_usables/BillEye";
 import Modal from "@/re_usables/components/Modal";
 import { RedButton } from "@/re_usables/components/Button";
 // import BillSummery from "../../shared/BillSummery/BillSummery";
 import BillSummaryPage from "./BillSummaryPage/BillSummaryPage";
-import CustomerDetails from "./CustomerDetails";
+import CustomerDetails from "./customer_details/CustomerDetails";
 import BillingItems from "./BillingItems/BillingItems";
-import { onlyItemDetailsHandler } from "../re_usables/funcs";
+import Pricing_Details from "./pricing_details/Pricing_Details";
+import {
+  use_billingItems_details,
+  use_customer_details,
+  use_pricing_details,
+} from "./store";
 
 const Create_Bill_Page = () => {
-  const [customerName, setCustomerName] = useState(null);
-  const [whatsappNum, setWhatsappNum] = useState(null);
-  const [customerAddressArea, setCustomerAddressArea] = useState("");
-  const [billingItems, setBillingItems] = useState();
   const [viewPrintableBill, setViewPrintableBill] = useState(false);
-  const [bill_discount, set_bill_discount] = useState(0);
 
-  //==================== get the product data into localstorage =======================================
+  const { set_customer_details_null, set_customer_details } =
+    use_customer_details();
+  const { setBillingItems_null, setBillingItems } = use_billingItems_details();
+  const { set_pricing_details_null, set_pricing_details } =
+    use_pricing_details();
 
   useEffect(() => {
-    const savedItems = localStorage.getItem("billingItems");
-    const bill_discount = window.localStorage.getItem("bill_discount");
-    if (bill_discount !== null) {
-      set_bill_discount(parseFloat(bill_discount));
-    }
+    const str_billingItems = localStorage.getItem("billingItems");
+    const str_pricing_details = localStorage.getItem("pricing_details");
+    const str_customer_details = localStorage.getItem("customer_details");
 
-    console.log("saved items ; ", savedItems);
-    const savedCustomerDetails = localStorage.getItem("customerDetails");
-    if (savedCustomerDetails) {
-      // alert("saved customer details : " + savedCustomerDetails);
-      try {
-        const parsedDetails = JSON.parse(savedCustomerDetails);
-        setCustomerName(parsedDetails.customerName || "");
-        setWhatsappNum(parsedDetails.whatsappNum || "");
-        setCustomerAddressArea(parsedDetails.customerAddressArea || "");
-      } catch (err) {
-        console.error("Error parsing customerDetails:", err);
-      }
+    // alert(str_customer_details);
+
+    if (str_customer_details) {
+      // alert(str_customer_details)
+      set_customer_details(JSON.parse(str_customer_details));
     }
-    if (savedItems) {
-      try {
-        // alert("yes");
-        // alert("saved items : " + savedItems);
-        setBillingItems(JSON.parse(savedItems));
-      } catch (err) {
-        console.error("Error parsing billingItems:", err);
-      }
+    if (str_billingItems) {
+      setBillingItems(JSON.parse(str_billingItems));
+    }
+    if (str_pricing_details) {
+      alert("jaane do")
+      set_pricing_details(JSON.parse(str_pricing_details));
     }
   }, []);
-
-  useEffect(() => {
-    if (billingItems?.length) {
-      console.log("billing items useffect : ", billingItems);
-      localStorage.setItem("billingItems", JSON.stringify(billingItems));
-    }
-  }, [billingItems]);
-
-  useEffect(() => {
-    // alert("customerDetailsChange useEffect ran");
-
-    // alert(customerName);
-
-    localStorage.setItem(
-      "customerDetails",
-      JSON.stringify({
-        customerName,
-        whatsappNum,
-        customerAddressArea,
-      })
-    );
-    // setCustomerDetailsChange((prev) => !prev);
-  }, [customerName, whatsappNum, customerAddressArea]);
 
   return (
     <div className={`w-full h-full bg-green-100 px-2 flex flex-col `}>
@@ -84,13 +54,14 @@ const Create_Bill_Page = () => {
         <RedButton
           onClick={() => {
             if (window.confirm("आप यह बिल साफ़ करना चाहते हैं क्या?")) {
-              setBillingItems([]);
               window.localStorage.removeItem("billingItems");
-              setCustomerName("");
-              setCustomerAddressArea("");
-              setWhatsappNum("");
-              window.localStorage.removeItem("customerDetails");
+              window.localStorage.removeItem("customer_details");
+              window.localStorage.removeItem("pricing_details");
             }
+
+            set_customer_details_null();
+            setBillingItems_null();
+            set_pricing_details_null();
           }}
         >
           Clear
@@ -100,29 +71,18 @@ const Create_Bill_Page = () => {
         className={`w-full h-[600px] overflow-y-auto px-2  flex flex-col items-center justify-start gap-4 `}
       >
         <Form style="w-full ">
-          <CustomerDetails
-            customerName={customerName}
-            setCustomerName={setCustomerName}
-            setWhatsappNum={setWhatsappNum}
-            whatsappNum={whatsappNum}
-            customerAddressArea={customerAddressArea}
-            setCustomerAddressArea={setCustomerAddressArea}
-          />
-          <BillingItems
-            billingItems={billingItems}
-            setBillingItems={setBillingItems}
-          />
-          {/* def : {bill_discount} */}
-
+          <CustomerDetails />
+          <BillingItems />
+          <Pricing_Details />
           {viewPrintableBill && (
             <Modal>
               <BillSummaryPage
-                customerDetails={{
-                  customerName,
-                  whatsappNum,
-                  customerAddressArea,
-                }}
-                itemDetails={onlyItemDetailsHandler(billingItems)}
+                // customer_details={{
+                //   customerName,
+                //   whatsappNum,
+                //   customerAddressArea,
+                //   customerId,
+                // }}
                 setViewPrintableBill={setViewPrintableBill}
               />
             </Modal>
