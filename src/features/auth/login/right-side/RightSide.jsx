@@ -39,14 +39,14 @@ const RightSide = () => {
           password, // user password -> min 8 characters by default
           name, // user display name
           //   image, // User image URL (optional)
-          callbackURL: "/business-details", // A URL to redirect to after the user verifies their email (optional)
+          callbackURL: "/go", // A URL to redirect to after the user verifies their email (optional)
         },
         {
           onRequest: (ctx) => {
             //show loading
           },
           onSuccess: (ctx) => {
-            router.push(`/business-details`);
+            router.push(`/go`);
             //redirect to the dashboard or sign in page
           },
           onError: (ctx) => {
@@ -67,12 +67,12 @@ const RightSide = () => {
         {
           email,
           password,
-          callbackURL: "/business-details",
+          callbackURL: "/go",
           rememberMe: true,
         },
         {
           onSuccess: () => {
-            router.push(`/business-details`);
+            router.push(`/go`);
           },
         }
       );
