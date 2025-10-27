@@ -17,29 +17,28 @@ const Pricing_Details = () => {
 
   const isFirstRender = useRef(true);
 
-  useEffect(() => {
-    if (isFirstRender) {
-      isFirstRender.current = false;
-      return;
-    }
+  console.log("Render - first?", isFirstRender.current);
 
-    alert("domi");
+  // useEffect(() => {
+  //   if (isFirstRender.current) {
+  //     isFirstRender.current = false;
+  //     return;
+  //   }
 
-    const { discount = 0, gst_percent = 0 } = pricing_details;
+  //   // alert("this will not run on first render");
 
-    calculateGrandTotal(
-      billingItems,
-      set_pricing_details,
-      discount,
-      gst_percent
-    );
-  }, [billingItems]);
+  //   const { discount = 0, gst_percent = 0 } = pricing_details;
+
+  //   calculateGrandTotal(
+  //     billingItems,
+  //     set_pricing_details,
+  //     discount,
+  //     gst_percent
+  //   );
+  // }, [billingItems]);
 
   return (
     <div className="w-full flex flex-col gap-4 p-4 bg-gray-50 border border-gray-200 rounded-md shadow-sm">
-      {JSON.stringify(pricing_details)}
-      {JSON.stringify(billingItems)}
-
       <Discount_Line
         pricing_details={pricing_details}
         set_pricing_details={set_pricing_details}
@@ -55,7 +54,6 @@ const Pricing_Details = () => {
           ₹{pricing_details?.round_off}
         </span>
       </div>
-      {/* Grand Total */}
       <div className="flex gap-2 items-center border-t border-gray-300 pt-2">
         <span className="text-sm text-gray-700 font-medium">Grand Total:</span>
         <span className="text-lg font-bold text-blue-600">

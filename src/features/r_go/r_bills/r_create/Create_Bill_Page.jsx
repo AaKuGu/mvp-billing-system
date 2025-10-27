@@ -41,7 +41,6 @@ const Create_Bill_Page = () => {
       setBillingItems(JSON.parse(str_billingItems));
     }
     if (str_pricing_details) {
-      alert("jaane do")
       set_pricing_details(JSON.parse(str_pricing_details));
     }
   }, []);
@@ -58,7 +57,6 @@ const Create_Bill_Page = () => {
               window.localStorage.removeItem("customer_details");
               window.localStorage.removeItem("pricing_details");
             }
-
             set_customer_details_null();
             setBillingItems_null();
             set_pricing_details_null();

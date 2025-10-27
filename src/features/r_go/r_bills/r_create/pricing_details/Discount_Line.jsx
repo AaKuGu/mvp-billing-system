@@ -14,26 +14,26 @@ const Discount_Line = ({ pricing_details, set_pricing_details }) => {
 
   const [discount, set_discount] = useState(0);
 
-  useEffect(() => {
-    const str_pricing_details = localStorage.getItem("pricing_details");
-    if (str_pricing_details) {
-      alert(str_pricing_details);
-      const parsed = JSON.stringify(str_pricing_details);
-      const discount = parsed?.discount;
-      set_discount(discount);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const str_pricing_details = localStorage.getItem("pricing_details");
+  //   if (str_pricing_details) {
+  //     alert(str_pricing_details);
+  //     const parsed = JSON.stringify(str_pricing_details);
+  //     const discount = parsed?.discount;
+  //     set_discount(discount);
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    const gst_percent = pricing_details.gst_percent;
+  // useEffect(() => {
+  //   const gst_percent = pricing_details.gst_percent;
 
-    calculateGrandTotal(
-      billingItems,
-      set_pricing_details,
-      discount,
-      gst_percent
-    );
-  }, [discount]);
+  //   calculateGrandTotal(
+  //     billingItems,
+  //     set_pricing_details,
+  //     discount,
+  //     gst_percent
+  //   );
+  // }, [discount]);
 
   return (
     <div className={`w-full flex gap-3 `}>
@@ -55,11 +55,20 @@ const Discount_Line = ({ pricing_details, set_pricing_details }) => {
           id="discount"
           type="number"
           className="w-24 px-2 py-1 border border-gray-300 rounded text-sm text-right"
-          value={discount}
+          value={pricing_details?.discount}
           onChange={(e) => {
             const val = parseFloat(e.target.value);
             set_discount(val);
             // set_pricing_details((prev) => ({ ...prev, discount: val }));
+            // set_pricing_details((prev) => ({...prev, }))
+            const { gst_percent = 0 } = pricing_details;
+
+            calculateGrandTotal(
+              billingItems,
+              set_pricing_details,
+              val,
+              gst_percent
+            );
           }}
           min={0}
           max={price_before_discount}

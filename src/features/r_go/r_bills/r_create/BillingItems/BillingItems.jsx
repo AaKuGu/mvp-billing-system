@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "@/re_usables/components/ui/Header";
 // import { fetchProducts } from "./api";
 import { fetchProducts } from "../funcs";
@@ -22,6 +22,8 @@ const BillingItems = () => {
 
   const [fuse, setFuse] = useState(null);
 
+  const isFirstRender = useRef(true);
+
   console.log("fuse : ", fuse);
 
   // Fetch products
@@ -34,9 +36,15 @@ const BillingItems = () => {
     if (billingItems?.length) {
       localStorage.setItem("billingItems", JSON.stringify(billingItems));
     }
+  }, [billingItems]);
 
+  useEffect(() => {
+    // if (isFirstRender.current) {
+    //   isFirstRender.current = false;
+    //   return;
+    // }
+    // alert("billing items : running not in first render");
     // const { discount = 0, gst_percent = 0 } = pricing_details;
-
     // calculateGrandTotal(
     //   billingItems,
     //   set_pricing_details,

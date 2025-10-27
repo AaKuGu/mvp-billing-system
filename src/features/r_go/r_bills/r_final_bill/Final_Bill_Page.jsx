@@ -19,7 +19,7 @@ const Final_Bill_Page = async ({ id }) => {
   if (!bill_details)
     return <div className="p-4 text-gray-500">Loading bill details...</div>;
 
-  const { item_details, bill_discount, grand_total } = data;
+  const { item_details, pricing_details } = data;
   const created_date = new Date(data.createdAt).toLocaleString();
 
   // const [data, setData] = useState(null);
@@ -48,7 +48,7 @@ const Final_Bill_Page = async ({ id }) => {
         created_date={created_date}
         customer_details={customer_details}
         item_details={item_details}
-        bill_discount={bill_discount}
+        pricing_details={pricing_details}
       />
       {/* <div className={`text-black`}>pipe</div> */}
       {/* Print button */}

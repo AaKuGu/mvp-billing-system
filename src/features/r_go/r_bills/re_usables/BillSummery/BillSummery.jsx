@@ -6,7 +6,7 @@ import { calculateGrandTotal } from "../funcs";
 import Customer_Details from "./Customer_Details";
 import Bill_Details from "./Bill_Details";
 
-const BillSummery = ({ customer_details, item_details, price_details }) => {
+const BillSummery = ({ customer_details, item_details, pricing_details }) => {
   return (
     <div className="w-full px-4 py-5 bg-white rounded-md shadow-md space-y-6 text-black">
       {/* Customer Info */}
@@ -14,7 +14,7 @@ const BillSummery = ({ customer_details, item_details, price_details }) => {
       <div>
         <Main item_details={item_details} />
       </div>
-      <Bill_Details price_details={price_details} />
+      <Bill_Details pricing_details={pricing_details} />
     </div>
   );
 };

@@ -207,9 +207,9 @@ const FinalBill = async ({
   created_date,
   customer_details,
   item_details,
-  bill_discount,
+  pricing_details,
 }) => {
-  const { data: session, isPending, error, refetch } = authClient.useSession();
+  const { data: session } = authClient.useSession();
 
   const handlePrint = () => {
     window.print();
@@ -263,22 +263,22 @@ const FinalBill = async ({
           <div>
             <p>
               <span className="font-semibold">Customer:</span>{" "}
-              {customer_details.customerName}
+              {customer_details.customer_name}
             </p>
             <p>
               <span className="font-semibold">Phone:</span>{" "}
-              {customer_details.whatsappNum}
+              {customer_details.whatsapp_num}
             </p>
             <p>
               <span className="font-semibold">Address:</span>{" "}
-              {customer_details.customerAddressArea}
+              {customer_details.customer_address_area}
             </p>
           </div>
         </div>
 
         <Item_Details
           item_details={item_details}
-          bill_discount={bill_discount}
+          pricing_details={pricing_details}
         />
         <Footer data={{ businessAddress, businessEmail, businessContactNo }} />
       </div>

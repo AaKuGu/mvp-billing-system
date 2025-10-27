@@ -3,15 +3,24 @@ import { BlueButton, RoundButtonClose } from "@/re_usables/components/Button";
 import Header from "@/re_usables/components/ui/Header";
 import Finalized from "./Finalized/Finalized";
 import BillSummery from "../../re_usables/BillSummery/BillSummery";
-import { calculateGrandTotal } from "../../re_usables/funcs";
+import {
+  calculateGrandTotal,
+  onlyItemDetailsHandler,
+} from "../../re_usables/funcs";
+import {
+  use_billingItems_details,
+  use_customer_details,
+  use_pricing_details,
+} from "../store";
 
-const BillSummaryPage = ({
-  item_details,
-  customer_details,
-  price_details,
-  setViewPrintableBill,
-}) => {
+const BillSummaryPage = ({ setViewPrintableBill }) => {
   const [finalized, setFinalized] = useState(false);
+
+  const { customer_details } = use_customer_details();
+  const { billingItems } = use_billingItems_details();
+  const { pricing_details } = use_pricing_details();
+
+  const item_details = onlyItemDetailsHandler(billingItems);
 
   // const [bill_details, set_bill_details] = useState(null);
   // const [customer_details, set_customer_details] = useState(null);
@@ -66,14 +75,14 @@ const BillSummaryPage = ({
           <BillSummery
             customer_details={customer_details}
             item_details={item_details}
-            price_details={price_details}
+            pricing_details={pricing_details}
           />
           {!finalized && (
             <Finalized
               item_details={item_details}
               customer_details={customer_details}
               setFinalized={setFinalized}
-              price_details={price_details}
+              pricing_details={pricing_details}
             />
           )}
         </div>

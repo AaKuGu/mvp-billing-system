@@ -48,19 +48,15 @@ const Bill_Summary = async ({ id }) => {
   if (!bill_details)
     return <div className="p-4 text-gray-500">Loading bill details...</div>;
 
-  const { item_details, bill_discount, grand_total } = data;
+  const { item_details, pricing_details } = data;
   const created_date = new Date(data.createdAt).toLocaleString();
-
-  
 
   return (
     <div className="w-full max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-6">
       <BillSummery
         customer_details={customer_details}
         item_details={item_details}
-        price_after_discount={grand_total}
-        price_before_discount={grand_total + bill_discount}
-        discountApplied={bill_discount}
+        pricing_details={pricing_details}
       />
     </div>
   );

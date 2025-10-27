@@ -6,7 +6,7 @@ import { authClient } from "@/lib/auth-client";
 import { on_change_handler } from "@/re_usables/funcs";
 import { use_customer_details } from "../store";
 
-const Customer_Details = () => {
+const   Customer_Details = () => {
   const { customer_details, set_customer_details_keyValue } =
     use_customer_details();
 

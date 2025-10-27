@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { use_billingItems_details } from "../store";
 import { calculateGrandTotal } from "../../re_usables/funcs";
 
@@ -6,18 +6,16 @@ const GST_Line = ({ pricing_details, set_pricing_details }) => {
   const { gst_amount, price_after_gst } = pricing_details;
   const { billingItems } = use_billingItems_details();
 
-  const [gst_percent, set_gst_percent] = useState(0);
+  // useEffect(() => {
+  //   const discount = pricing_details.discount;
 
-  useEffect(() => {
-    const discount = pricing_details.discount;
-
-    calculateGrandTotal(
-      billingItems,
-      set_pricing_details,
-      discount,
-      gst_percent
-    );
-  }, [gst_percent]);
+  //   calculateGrandTotal(
+  //     billingItems,
+  //     set_pricing_details,
+  //     discount,
+  //     gst_percent
+  //   );
+  // }, [gst_percent]);
   return (
     <div className="flex gap-2 items-center">
       <label htmlFor="discount" className="text-sm text-gray-700 font-medium">
@@ -27,10 +25,12 @@ const GST_Line = ({ pricing_details, set_pricing_details }) => {
         id="gst_%"
         type="number"
         className="w-24 px-2 py-1 border border-gray-300 rounded text-sm text-right"
-        value={gst_percent}
+        value={pricing_details?.gst_percent}
         onChange={(e) => {
           const val = parseFloat(e.target.value);
-          set_gst_percent(isNaN(val) ? 0 : val);
+          const { discount = 0 } = pricing_details;
+
+          calculateGrandTotal(billingItems, set_pricing_details, discount, val);
           // set_pricing_details((prev) => ({ ...prev, gst_percent: val }));
         }}
         min={0}

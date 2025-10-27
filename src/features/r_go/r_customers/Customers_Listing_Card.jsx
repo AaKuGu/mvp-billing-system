@@ -18,20 +18,20 @@ const Customers_Listing_Card = ({ data, index }) => {
         <div>
           <h3 className="text-lg font-semibold text-gray-800">
             <span className={`${label_style}`}>Name : </span>{" "}
-            {data?.customerName}
+            {data?.customer_name}
           </h3>
         </div>
         <div>
           <h3 className="text-lg font-semibold text-gray-800">
             <span className={`${label_style}`}>Whatsapp Number : </span>{" "}
-            {data?.whatsappNum}
+            {data?.whatsapp_num}
           </h3>
         </div>
 
         <div>
           <h3 className="text-lg font-semibold text-gray-800">
-            <span className={`${label_style}`}>Address :  </span>{" "}
-            {data?.customerAddressArea}
+            <span className={`${label_style}`}>Address : </span>{" "}
+            {data?.customer_address_area}
           </h3>
         </div>
       </div>

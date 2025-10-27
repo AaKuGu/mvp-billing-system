@@ -69,3 +69,4 @@ export const calculateGrandTotal = (
 export const onlyItemDetailsHandler = (billingItems) => {
   return billingItems?.map((d) => d?.itemDetails);
 };
+  

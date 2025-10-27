@@ -101,8 +101,7 @@ const BillingItemRow = ({
     }
   }, [unitName]);
 
-  useEffect(() => {
-  }, [totalPrice]);
+  useEffect(() => {}, [totalPrice]);
 
   useEffect(() => {
     // alert("total price change" + JSON.stringify(billingItems));

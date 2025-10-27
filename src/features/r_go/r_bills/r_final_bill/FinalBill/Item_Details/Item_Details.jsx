@@ -1,12 +1,17 @@
 import React from "react";
 import ItemsTable from "./ItemsTable";
-import { calculateGrandTotal } from "../../../re_usables/funcs";
 
-const Item_Details = ({ item_details, bill_discount = 0 }) => {
-  const { price_after_discount, price_before_discount } = calculateGrandTotal(
-    item_details,
-    bill_discount
-  );
+const Item_Details = ({ item_details, pricing_details }) => {
+  const {
+    price_before_discount = 0,
+    discount = 0,
+    price_after_discount = 0,
+    gst_percent = 0,
+    gst_amount = 0,
+    price_after_gst = 0,
+    round_off = 0,
+    grand_total = 0,
+  } = pricing_details || {};
 
   const discountAmount = price_before_discount - price_after_discount;
 
@@ -14,32 +19,64 @@ const Item_Details = ({ item_details, bill_discount = 0 }) => {
     <>
       <ItemsTable item_details={item_details} />
 
-      {/* Summary Totals */}
-      <div className="mt-6 flex justify-end text-sm print:text-xs">
-        <div className="w-full sm:w-1/2 border-t border-gray-300 pt-2 space-y-1">
-          {/* Subtotal */}
-          <div className="flex justify-between py-1">
-            <span className="font-medium text-gray-700">Subtotal:</span>
-            <span className="text-gray-800">
-              ₹{price_before_discount.toFixed(2)}
+      {/* Horizontal compact summary */}
+      <div className="mt-3 flex flex-wrap justify-between items-start gap-x-5 gap-y-2 text-[13px] print:text-[11px] leading-tight border-t border-gray-300 pt-2">
+        {/* Subtotal */}
+        <div className="flex flex-col">
+          <span className="font-medium text-gray-600">Subtotal</span>
+          <span className="text-gray-800">
+            ₹{price_before_discount.toFixed(2)}
+          </span>
+        </div>
+
+        {/* Discount */}
+        {discount > 0 && (
+          <div className="flex flex-col">
+            <span className="font-medium text-gray-600">
+              Discount ({discount}%)
             </span>
+            <span className="text-red-600">-₹{discountAmount.toFixed(2)}</span>
           </div>
+        )}
 
-          {/* Discount (if any) */}
-          {discountAmount > 0 && (
-            <div className="flex justify-between py-1">
-              <span className="font-medium text-gray-700">Discount:</span>
-              <span className="text-red-600">
-                - ₹{discountAmount.toFixed(2)}
-              </span>
-            </div>
-          )}
+        {/* Price After Discount */}
+        <div className="flex flex-col">
+          <span className="font-medium text-gray-600">After Discount</span>
+          <span className="text-gray-800">
+            ₹{price_after_discount.toFixed(2)}
+          </span>
+        </div>
 
-          {/* Grand Total */}
-          <div className="flex justify-between py-2 text-lg font-bold text-blue-700 border-t border-gray-300 mt-2">
-            <span>Grand Total:</span>
-            <span>₹{price_after_discount.toFixed(2)}</span>
+        {/* GST */}
+        {gst_percent > 0 && (
+          <div className="flex flex-col">
+            <span className="font-medium text-gray-600">
+              GST ({gst_percent}%)
+            </span>
+            <span className="text-gray-800">₹{gst_amount.toFixed(2)}</span>
           </div>
+        )}
+
+        {/* Price After GST */}
+        <div className="flex flex-col">
+          <span className="font-medium text-gray-600">After GST</span>
+          <span className="text-gray-800">₹{price_after_gst.toFixed(2)}</span>
+        </div>
+
+        {/* Round Off */}
+        {round_off !== 0 && (
+          <div className="flex flex-col">
+            <span className="font-medium text-gray-600">Round Off</span>
+            <span className="text-gray-800">{round_off.toFixed(2)}</span>
+          </div>
+        )}
+
+        {/* Grand Total */}
+        <div className="flex flex-col text-blue-800 font-semibold">
+          <span className="font-semibold text-gray-700">Grand Total</span>
+          <span className="text-[14px] font-bold">
+            ₹{grand_total.toFixed(2)}
+          </span>
         </div>
       </div>
     </>

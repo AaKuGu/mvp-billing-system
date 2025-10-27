@@ -11,6 +11,8 @@ export const fetch_customers_list_handler = async (user_id) => {
 
     const customers_list = await Customer.find({ user_id }).lean();
 
+    console.log("customers_list", customers_list);
+
     return JSON.stringify(customers_list);
   } catch (error) {
     console.log("error : ", error);

@@ -9,7 +9,7 @@ const Finalized = ({
   customer_details,
   setFinalized,
   item_details,
-  price_details,
+  pricing_details,
 }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -30,7 +30,7 @@ const Finalized = ({
         const preparedData = {
           item_details,
           customer_details,
-          price_details,
+          pricing_details,
           user_id: session?.user?.id,
         };
 
@@ -43,9 +43,10 @@ const Finalized = ({
           preparedData,
           setFinalized,
           setLoading,
-          router,
           setOneBillDetail
-        );
+        ).then((Bill) => {
+          router.push(`/go/bills/finalBill/${Bill?._id}`);
+        });
       }}
       loading={loading}
     >
