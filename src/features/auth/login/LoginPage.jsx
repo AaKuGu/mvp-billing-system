@@ -6,9 +6,9 @@ const LoginPage = () => {
   return (
     <div className={`w-full h-full flex-col md:flex justify-center `}>
       <div
-        className={`w-full h-full flex items-center justify-center flex-col`}
+        className={`w-full h-auto md:h-full flex items-center justify-center flex-col`}
       >
-        <Logo style="text-8xl" />
+        <Logo style="text-4xl md:text-8xl" />
         {/* <span>Your Business Partner</span> */}
       </div>
       <div className={`w-full h-full flex items-center justify-center`}>
