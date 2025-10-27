@@ -208,6 +208,7 @@ const FinalBill = async ({
   customer_details,
   item_details,
   pricing_details,
+  id,
 }) => {
   const { data: session } = authClient.useSession();
 
@@ -253,8 +254,7 @@ const FinalBill = async ({
         <div className="mb-6 flex justify-between text-sm text-gray-700">
           <div>
             <p>
-              <span className="font-semibold">Invoice ID:</span>{" "}
-              {/* {data._id.slice(-6)} */}
+              <span className="font-semibold">Invoice ID:</span> {id}
             </p>
             <p>
               <span className="font-semibold">Date:</span> {created_date}
@@ -293,33 +293,66 @@ const FinalBill = async ({
         </button>
       </div>
 
-      {/* Print Styles */}
       <style jsx global>{`
         @media print {
           @page {
-            size: 50mm auto; /* ✅ thermal paper width */
-            margin: 0; /* remove printer default margins */
+            size: A4 portrait; /* ✅ A4 sheet, auto height */
+            margin: 6mm 6mm; /* ✅ Nice even margins on all sides */
           }
+
+          /* Hide everything except printable area */
           body * {
             visibility: hidden;
             font-size: 11pt;
+            line-height: 1.4;
           }
+
           #printable-area,
           #printable-area * {
             visibility: visible;
           }
+
           #printable-area {
-            position: absolute;
-            top: 0;
-            left: 0;
+            position: relative;
             width: 100%;
-            padding: 0;
+            max-width: 190mm; /* ✅ Prevent text from touching edges */
+            margin: 0 auto;
+            background: white;
+            padding: 10mm 12mm; /* ✅ Clean inner padding */
             box-shadow: none !important;
             border: none !important;
-            background: white;
           }
-          button {
+
+          /* Optional: Hide buttons and UI controls */
+          button,
+          .no-print {
             display: none !important;
+          }
+
+          /* Optional: Enhance table readability */
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+
+          th,
+          td {
+            padding: 4px 6px;
+            border-bottom: 1px solid #ddd;
+          }
+
+          th {
+            font-weight: bold;
+            background: #f9f9f9;
+          }
+
+          /* Make headings stand out */
+          h1,
+          h2,
+          h3,
+          h4 {
+            margin: 0 0 8px 0;
+            font-weight: 600;
           }
         }
       `}</style>

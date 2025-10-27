@@ -25,7 +25,11 @@ export const POST = controllerFunc(async (req, { params }) => {
   }
 
   // ✅ Allow only specific searchable fields to prevent misuse
-  const allowedFields = ["customerName", "whatsappNum", "customerAreaLocation"];
+  const allowedFields = [
+    "customer_name",
+    "whatsapp_num",
+    "customer_address_area",
+  ];
   if (!allowedFields.includes(search_term)) {
     throw new CustomError(
       `Invalid search term: ${search_term}`,
@@ -44,7 +48,7 @@ export const POST = controllerFunc(async (req, { params }) => {
   const customers = await Customer.find(query)
     .sort({ name: 1 })
     .limit(10)
-    .select("customerName whatsappNum customerAddressArea") // only return needed fields
+    .select("customer_name whatsapp_num customer_address_area") // only return needed fields
     .lean();
 
   console.log("customers : ", customers);

@@ -22,20 +22,20 @@ const Main = ({ setIsOpen }) => {
           </Link>
         ))}
       </nav> */}
-      <nav className="flex flex-col gap-8 flex-1 text-black">
+      <nav className="flex flex-col gap-2 flex-1 text-black ">
         {sidebarMenus.map((menu) => (
           <Link
             key={menu.name}
             href={menu.link}
-            className="p-4 hover:bg-teal-500 duration-300 hover:text-white font-bold cursor-pointer flex items-center gap-3 shadow-md shadow-teal-100"
+            className="p-1 py-2 hover:bg-teal-500 duration-300 hover:text-white font-bold cursor-pointer flex items-center gap-3 shadow-md shadow-teal-100"
             onClick={() => setIsOpen(false)} // auto-close when clicking a link on mobile
           >
             <span className="text-xl">{menu.icon}</span>
             <span>{menu.label}</span>
           </Link>
         ))}
+        <Logout />
       </nav>
-      <Logout />
     </div>
   );
 };

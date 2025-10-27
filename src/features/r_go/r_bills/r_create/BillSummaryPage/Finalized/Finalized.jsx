@@ -4,6 +4,11 @@ import { useRouter } from "next/navigation";
 import { finalizeHandler } from "./func";
 import { useOneBillDetailStore } from "../../../re_usables/store";
 import { authClient } from "@/lib/auth-client";
+import {
+  use_billingItems_details,
+  use_customer_details,
+  use_pricing_details,
+} from "../../store";
 
 const Finalized = ({
   customer_details,
@@ -14,6 +19,10 @@ const Finalized = ({
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { setOneBillDetail } = useOneBillDetailStore();
+
+  const { setBillingItems_null } = use_billingItems_details();
+  const { set_customer_details_null } = use_customer_details();
+  const { set_pricing_details_null } = use_pricing_details();
 
   const { data: session } = authClient.useSession();
 
@@ -43,10 +52,12 @@ const Finalized = ({
           preparedData,
           setFinalized,
           setLoading,
-          setOneBillDetail
-        ).then((Bill) => {
-          router.push(`/go/bills/finalBill/${Bill?._id}`);
-        });
+          setOneBillDetail,
+          router,
+          setBillingItems_null,
+          set_customer_details_null,
+          set_pricing_details_null
+        );
       }}
       loading={loading}
     >

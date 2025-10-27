@@ -14,31 +14,54 @@ export const POST = controllerFunc(async (req) => {
 
   const { user_id, customer_details, ...rest } = data;
 
-  let customerId;
+  let customer_id;
 
-  if (!customer_details?.customerId) {
+  if (!customer_details?.customer_id) {
     const { customer_name, customer_address_area, whatsapp_num } =
       customer_details;
 
-    const customer_created = await Customer.create({
-      user_id,
-      customer_name,
-      customer_address_area,
-      whatsapp_num,
-    });
+    // Check if a customer with this WhatsApp number already exists
+    let existingCustomer = await Customer.findOne({ whatsapp_num });
 
-    console.log("customer_created : ", customer_created);
+    if (existingCustomer) {
+      // Compare key fields
+      const isSame =
+        existingCustomer.customer_name === customer_name &&
+        existingCustomer.customer_address_area === customer_address_area;
 
-    customerId = customer_created?._id;
+      if (!isSame) {
+        // Update the record only if there’s a change
+        existingCustomer.customer_name = customer_name;
+        existingCustomer.customer_address_area = customer_address_area;
+        await existingCustomer.save();
+        console.log("✅ Existing customer updated:", existingCustomer._id);
+      } else {
+        console.log("ℹ️ Customer found with same details, no update needed.");
+      }
+
+      customer_id = existingCustomer._id;
+    } else {
+      // Create new customer if WhatsApp number not found
+      const customer_created = await Customer.create({
+        user_id,
+        customer_name,
+        customer_address_area,
+        whatsapp_num,
+      });
+
+      console.log("🆕 New customer created:", customer_created._id);
+      customer_id = customer_created._id;
+    }
   } else {
-    customerId = customer_details?.customerId;
+    console.log("ℹ️ Customer ID already provided.");
+    customer_id = customer_details.customer_id;
   }
 
   const stringifiedBill = JSON.stringify(rest);
 
   const bill_created = await Bill.create({
     user_id,
-    customer_id: customerId,
+    customer_id: customer_id,
     stringifiedBill,
   });
 

@@ -5,7 +5,11 @@ export const finalizeHandler = async (
   preparedData,
   setFinalized,
   setLoading,
-  setOneBillDetail
+  setOneBillDetail,
+  router,
+  setBillingItems_null,
+  set_customer_details_null,
+  set_pricing_details_null
 ) => {
   setLoading(true);
   const data = await finalizeBill_apiCall(preparedData);
@@ -15,7 +19,7 @@ export const finalizeHandler = async (
 
     window.localStorage.removeItem("customer_details");
     window.localStorage.removeItem("pricing_details");
-    window.localStorage.removeItem("billing_items");
+    window.localStorage.removeItem("billingItems");
 
     setFinalized(true);
     // alert("Bill finalized successfully!" + JSON.stringify(data?.Bill));
@@ -24,9 +28,12 @@ export const finalizeHandler = async (
     //the reason to remove products is that since this handler will do stock updation and in localstorage stale data
     //of stock would remain, but since stock got updated hence i will remove the staled products data
     window.localStorage.removeItem("products");
-    alert("is this working !" + JSON.stringify(data?.Bill));
 
-    return data?.Bill;
+    setBillingItems_null();
+    set_customer_details_null();
+    set_pricing_details_null();
+
+    router.push(`/go/bills/finalBill/${data?.Bill?._id}`);
   }
   // setLoading(false);
 };

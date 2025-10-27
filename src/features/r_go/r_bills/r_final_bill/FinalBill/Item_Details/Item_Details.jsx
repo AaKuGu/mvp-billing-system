@@ -28,49 +28,52 @@ const Item_Details = ({ item_details, pricing_details }) => {
             ₹{price_before_discount.toFixed(2)}
           </span>
         </div>
-
         {/* Discount */}
         {discount > 0 && (
-          <div className="flex flex-col">
-            <span className="font-medium text-gray-600">
-              Discount ({discount}%)
-            </span>
-            <span className="text-red-600">-₹{discountAmount.toFixed(2)}</span>
-          </div>
-        )}
+          <>
+            <div className="flex flex-col">
+              <span className="font-medium text-gray-600">
+                Discount ({discount}%)
+              </span>
+              <span className="text-red-600">
+                -₹{discountAmount.toFixed(2)}
+              </span>
+            </div>
+            {/* Price After Discount */}
 
-        {/* Price After Discount */}
-        <div className="flex flex-col">
-          <span className="font-medium text-gray-600">After Discount</span>
-          <span className="text-gray-800">
-            ₹{price_after_discount.toFixed(2)}
-          </span>
-        </div>
+            <div className="flex flex-col">
+              <span className="font-medium text-gray-600">After Discount</span>
+              <span className="text-gray-800">
+                ₹{price_after_discount.toFixed(2)}
+              </span>
+            </div>
+          </>
+        )}
 
         {/* GST */}
         {gst_percent > 0 && (
-          <div className="flex flex-col">
-            <span className="font-medium text-gray-600">
-              GST ({gst_percent}%)
-            </span>
-            <span className="text-gray-800">₹{gst_amount.toFixed(2)}</span>
-          </div>
+          <>
+            <div className="flex flex-col">
+              <span className="font-medium text-gray-600">
+                GST ({gst_percent}%)
+              </span>
+              <span className="text-gray-800">₹{gst_amount.toFixed(2)}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="font-medium text-gray-600">After GST</span>
+              <span className="text-gray-800">
+                ₹{price_after_gst.toFixed(2)}
+              </span>
+            </div>
+          </>
         )}
 
-        {/* Price After GST */}
-        <div className="flex flex-col">
-          <span className="font-medium text-gray-600">After GST</span>
-          <span className="text-gray-800">₹{price_after_gst.toFixed(2)}</span>
-        </div>
-
-        {/* Round Off */}
         {round_off !== 0 && (
           <div className="flex flex-col">
             <span className="font-medium text-gray-600">Round Off</span>
             <span className="text-gray-800">{round_off.toFixed(2)}</span>
           </div>
         )}
-
         {/* Grand Total */}
         <div className="flex flex-col text-blue-800 font-semibold">
           <span className="font-semibold text-gray-700">Grand Total</span>

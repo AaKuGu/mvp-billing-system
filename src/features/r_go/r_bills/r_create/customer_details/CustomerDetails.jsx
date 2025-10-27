@@ -6,9 +6,12 @@ import { authClient } from "@/lib/auth-client";
 import { on_change_handler } from "@/re_usables/funcs";
 import { use_customer_details } from "../store";
 
-const   Customer_Details = () => {
-  const { customer_details, set_customer_details_keyValue } =
-    use_customer_details();
+const Customer_Details = () => {
+  const {
+    customer_details,
+    set_customer_details_keyValue,
+    set_customer_details,
+  } = use_customer_details();
 
   const { data: session } = authClient.useSession();
 
@@ -54,6 +57,8 @@ const   Customer_Details = () => {
   return (
     <div className="w-full flex flex-col md:flex-row gap-2">
       <div className="w-full">
+        {/* {JSON.stringify(customer_suggestions)} */}
+
         <Label>Customer Name</Label>
         <Input
           type="text"
@@ -67,20 +72,23 @@ const   Customer_Details = () => {
                 key={cust._id}
                 className="p-1 hover:bg-gray-100 cursor-pointer rounded"
                 onClick={() => {
-                  setCustomerId(cust._id);
-                  setCustomerName(cust.customerName);
-                  setWhatsappNum(cust.whatsappNum || "");
-                  setCustomerAddressArea(cust.customerAddressArea || "");
+                  const data = {
+                    customer_id: cust._id,
+                    customer_name: cust.customer_name,
+                    whatsapp_num: cust.whatsapp_num,
+                    customer_address_area: cust.customer_address_area,
+                  };
+                  set_customer_details(data);
                   set_customer_suggestions([]); // close suggestions
                 }}
               >
-                <p className="font-medium">{cust.customerName}</p>
-                {cust.whatsappNum && (
-                  <p className="text-sm text-gray-500">{cust.whatsappNum}</p>
+                <p className="font-medium">{cust.customer_name}</p>
+                {cust.whatsapp_num && (
+                  <p className="text-sm text-gray-500">{cust.whatsapp_num}</p>
                 )}
-                {cust.customerAddressArea && (
+                {cust.customer_address_area && (
                   <p className="text-sm text-gray-400">
-                    {cust.customerAddressArea}
+                    {cust.customer_address_area}
                   </p>
                 )}
               </div>

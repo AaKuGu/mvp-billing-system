@@ -10,7 +10,8 @@ import { fetch_bill_details } from "../re_usables/server_actions";
 const Final_Bill_Page = async ({ id }) => {
   const bill_details = await fetch_bill_details(id);
 
-  const { stringifiedBill, customer_details } = JSON.parse(bill_details);
+  const { stringifiedBill, customer_details, createdAt, _id } =
+    JSON.parse(bill_details);
 
   const parsed_item_details = JSON.parse(stringifiedBill);
 
@@ -20,7 +21,7 @@ const Final_Bill_Page = async ({ id }) => {
     return <div className="p-4 text-gray-500">Loading bill details...</div>;
 
   const { item_details, pricing_details } = data;
-  const created_date = new Date(data.createdAt).toLocaleString();
+  const created_date = new Date(createdAt).toLocaleString();
 
   // const [data, setData] = useState(null);
   // const { getOneBillByBillId, bills } = useBillsStore();
@@ -41,10 +42,9 @@ const Final_Bill_Page = async ({ id }) => {
 
   return (
     <div className={`w-full h-full `}>
-      {/* {JSON.stringify(grand_total)} */}
-
       <FinalBill
         data={data}
+        id={_id}
         created_date={created_date}
         customer_details={customer_details}
         item_details={item_details}
@@ -52,7 +52,6 @@ const Final_Bill_Page = async ({ id }) => {
       />
       {/* <div className={`text-black`}>pipe</div> */}
       {/* Print button */}
-
       {/* <div className="text-center mb-6 border-b pb-4">
         <h1 className="text-2xl font-bold">KeroBill Stores</h1>
         <p className="text-gray-600">123 Market Street, Mirzapur, India</p>
