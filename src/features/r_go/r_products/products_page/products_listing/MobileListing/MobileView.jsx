@@ -1,5 +1,5 @@
 import React from "react";
-import { handleDelete } from "../common/funcs";
+import { handleDelete } from "../funcs";
 import Link from "next/link";
 import { RedButton } from "@/re_usables/components/Button";
 import ViewUpdateDelete from "@/re_usables/components/ViewUpdateDelete";

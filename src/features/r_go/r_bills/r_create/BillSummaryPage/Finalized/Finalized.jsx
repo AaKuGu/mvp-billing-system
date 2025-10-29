@@ -16,7 +16,6 @@ const Finalized = ({
   item_details,
   pricing_details,
 }) => {
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { setOneBillDetail } = useOneBillDetailStore();
 
@@ -51,7 +50,6 @@ const Finalized = ({
         finalizeHandler(
           preparedData,
           setFinalized,
-          setLoading,
           setOneBillDetail,
           router,
           setBillingItems_null,
@@ -59,9 +57,8 @@ const Finalized = ({
           set_pricing_details_null
         );
       }}
-      loading={loading}
     >
-      {loading ? "Processing..." : "Finalize"}
+      Finalize
     </BlueButton>
   );
 };

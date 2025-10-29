@@ -1,13 +1,7 @@
 import toast from "react-hot-toast";
 import { updateAProduct_api } from "./apiCalls";
 
-export const udpateAProduct = async (
-  productId,
-  product,
-  router,
-  setLoading
-) => {
-  setLoading(true);
+export const udpateAProduct = async (productId, product, router) => {
   // const _product = unitCostSettingToProduct(product);
   const data = await updateAProduct_api(productId, product);
   if (data.success) {
@@ -22,5 +16,4 @@ export const udpateAProduct = async (
     localStorage.setItem("products", JSON.stringify(updatedProducts));
     router.push(`/go/products`);
   }
-  setLoading(false);
 };

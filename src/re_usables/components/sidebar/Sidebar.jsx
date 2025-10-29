@@ -17,7 +17,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="lg:static absolute h-auto z-[200] bg-white w-fit">
+    <div className="lg:static absolute h-auto z-[110] bg-white w-fit">
       <SmallScr isOpen={isOpen} setIsOpen={setIsOpen} />
       {/* <DesktopScr /> */}
 

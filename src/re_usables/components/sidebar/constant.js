@@ -22,16 +22,16 @@ export const sidebarMenus = [
     name: "customers",
     icon: <FiUsers />, // 👈 better icon for customers
   },
-  {
-    label: "System Logs",
-    link: "/go/system_logs",
-    name: "system_logs",
-    icon: <FiActivity />,
-  },
-  {
-    label: "Settings",
-    link: "/go/settings",
-    name: "settings",
-    icon: <FiSettings />,
-  },
+  // {
+  //   label: "System Logs",
+  //   link: "/go/system_logs",
+  //   name: "system_logs",
+  //   icon: <FiActivity />,
+  // },
+  // {
+  //   label: "Settings",
+  //   link: "/go/settings",
+  //   name: "settings",
+  //   icon: <FiSettings />,
+  // },
 ];

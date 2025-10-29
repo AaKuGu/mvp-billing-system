@@ -1,9 +1,8 @@
 import { create } from "zustand";
 
-const useLoadingStore = create((set) => ({
-  loading: false, // ✅ default value
-  setLoading: (value) => set({ loading: value }),
-  toggleLoading: () => set((state) => ({ loading: !state.loading })),
+export const use_loading_store = create((set) => ({
+  is_loading: false,
+  message: null,
+  show_loading: (message = null) => set({ is_loading: true, message }),
+  hide_loading: () => set({ is_loading: false, message: null }),
 }));
-
-export default useLoadingStore;

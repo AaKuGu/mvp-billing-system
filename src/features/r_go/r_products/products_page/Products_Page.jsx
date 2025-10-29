@@ -1,6 +1,5 @@
 "use client";
 
-import LoadingWrapper from "@/re_usables/components/Loading/LoadingWrapper";
 import Header, { MainHeader } from "@/re_usables/components/ui/Header";
 import React, { useEffect, useState } from "react";
 import { Input } from "@/re_usables/components/form/Input";
@@ -10,10 +9,9 @@ import { fetchProducts } from "../productListing/funcs";
 import Products_Listing from "./products_listing/Products_Listing";
 
 const ProductListingPage = () => {
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-
+  const [loading, setLoading] = useState();
   const { products, setProducts } = useProductsStore();
 
   useEffect(() => {
@@ -34,32 +32,30 @@ const ProductListingPage = () => {
 
   return (
     <div className="w-full h-full p-4 sm:p-6 text-black relative flex flex-col">
-      <LoadingWrapper loading={loading}>
-        <MainHeader>Products</MainHeader>
-        {/* <Header>Products</Header> */}
-        <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 mb-4">
-          <Input
-            type="text"
-            placeholder="Search product..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <CreateButton href={`products/create`}>
-            Create&nbsp;Product
-          </CreateButton>
-        </div>
-
-        {/* {JSON.stringify(products)} */}
-
-        <Products_Listing
-          setLoading={setLoading}
-          loading={loading}
-          searchTerm={searchTerm}
-          filteredProducts={filteredProducts}
-          setProducts={setProducts}
-          products={products}
+      <MainHeader>Products</MainHeader>
+      {/* <Header>Products</Header> */}
+      <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 mb-4">
+        <Input
+          type="text"
+          placeholder="Search product..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-      </LoadingWrapper>
+        <CreateButton href={`products/create`}>
+          Create&nbsp;Product
+        </CreateButton>
+      </div>
+
+      {/* {JSON.stringify(products)} */}
+
+      <Products_Listing
+        setLoading={setLoading}
+        loading={loading}
+        searchTerm={searchTerm}
+        filteredProducts={filteredProducts}
+        setProducts={setProducts}
+        products={products}
+      />
     </div>
   );
 };

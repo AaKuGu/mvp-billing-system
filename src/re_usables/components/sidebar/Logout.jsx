@@ -2,14 +2,14 @@ import React from "react";
 import { FiLogOut } from "react-icons/fi";
 import { logout } from "./funcs";
 import { useRouter } from "next/navigation";
-import useLoadingStore from "@/store/loading";
 import { authClient } from "@/lib/auth-client";
+import { use_loading_store } from "@/store/loading";
 
 const Logout = () => {
   const router = useRouter();
-  const { setLoading } = useLoadingStore();
-
+  const { show_loading } = use_loading_store();
   const handleLogout = async () => {
+    show_loading("Logging Out...");
     // setLoading(true);
     // logout(router, setLoading);
     await authClient.signOut({

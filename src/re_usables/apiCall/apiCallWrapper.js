@@ -1,11 +1,26 @@
+import { use_loading_store } from "@/store/loading";
 import toast from "react-hot-toast";
 
 export const apiCallWrapper = async (
   apiFunc,
-  errorContext = "API call error"
+  errorContext = "API call error",
+  options = {}
 ) => {
+  const {
+    should_show_loading = true, // show global loader by default
+    should_hide_loading = false, // let route transition hide it normally
+    loading_message = "Loading...", // message to display
+    minVisibleDuration = 500, // at least 500ms visible to avoid blink
+  } = options;
+
+  const { show_loading, hide_loading } = use_loading_store.getState();
+  let startTime = Date.now();
   try {
     // alert("api call wrapper called");
+
+    if (should_show_loading) {
+      show_loading(loading_message);
+    }
 
     const data = await apiFunc();
     console.log("data : apiCallWrapper", data);
@@ -33,6 +48,17 @@ export const apiCallWrapper = async (
 
     toast.error(message);
     return null;
+  } finally {
+    if (should_hide_loading) {
+      const elapsed = Date.now() - startTime;
+      const remaining = minVisibleDuration - elapsed;
+
+      if (remaining > 0) {
+        // keep loader visible long enough to reach min duration
+        await new Promise((res) => setTimeout(res, remaining));
+      }
+      hide_loading();
+    }
   }
 };
 

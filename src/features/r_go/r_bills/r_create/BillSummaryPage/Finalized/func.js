@@ -4,14 +4,12 @@ import { finalizeBill_apiCall } from "./apiCalls";
 export const finalizeHandler = async (
   preparedData,
   setFinalized,
-  setLoading,
   setOneBillDetail,
   router,
   setBillingItems_null,
   set_customer_details_null,
   set_pricing_details_null
 ) => {
-  setLoading(true);
   const data = await finalizeBill_apiCall(preparedData);
   // alert("Bill finalized!" + JSON.stringify(data));
   if (data?.success) {
@@ -35,5 +33,4 @@ export const finalizeHandler = async (
 
     router.push(`/go/bills/finalBill/${data?.Bill?._id}`);
   }
-  // setLoading(false);
 };

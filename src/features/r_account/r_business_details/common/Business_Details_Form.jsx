@@ -1,162 +1,88 @@
-// app/go/business-details/page.jsx (or .tsx if using TypeScript)
 "use client";
 
 import React, { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { update_business_handler } from "../r_update/funcs";
-import { register_business_handler } from "../r_register/funcs";
+import { handleSubmit, handleChange } from "./funcs";
+import { fieldMeta } from "./constant";
 
-// const initialFormState = {
-//   businessName: "",
-//   businessTagline: "",
-//   businessDescription: "",
-//   businessEmail: "",
-//   businessContactNo: "",
-//   businessAddress: "",
-//   gstNumber: "",
-// };
-
-const Business_Details_Form = ({ data = null }) => {
+const Business_Details_Form = ({ data = {} }) => {
   const [formData, setFormData] = useState({ ...data });
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
   const router = useRouter();
+
 
   const {
     data: session,
-    isPending, //loading state
-    error: err, //error object
-    refetch, //refetch the session
+    isPending,
+    error: err,
+    refetch,
   } = authClient.useSession();
 
-  // console.log(
-  //   "session?.user?.id features/business-details/BusinessRegistration : ",
-  //   session?.user?.id
-  // );
-
-  const fieldMeta = {
-    businessName: {
-      label: "Business Name",
-      required: true,
-      placeholder: "Enter your business name",
-    },
-    businessDescription: {
-      label: "Business Description",
-      required: false,
-      placeholder: "Describe your business",
-    },
-    businessTagline: {
-      label: "Business Tagline",
-      required: false,
-      placeholder: "Catchy tagline for your business",
-    },
-    businessEmail: {
-      label: "Business Email",
-      required: true,
-      placeholder: "you@example.com",
-    },
-    businessContactNo: {
-      label: "Business Contact No.",
-      required: true,
-      placeholder: "+1 123 456 7890",
-    },
-    businessAddress: {
-      label: "Business Address",
-      required: false,
-      placeholder: "123 Main St, City, Country",
-    },
-    gstNumber: {
-      label: "GST Number",
-      required: false,
-      placeholder: "GSTIN / Tax ID (if applicable)",
-    },
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    const user_id = await session?.user?.id;
-
-    let data_to_send;
-
-    if (user_id) {
-      data_to_send = { ...formData, user_id };
-    }
-
-    if (data) {
-      //if data is true, it means we have to update instead of create
-      data_to_send = formData;
-      let id = data?._id;
-
-      // alert(
-      //   "update id : /features/business_registraion/BusinessRegistration.jsx : " +
-      //     id
-      // );
-
-      await update_business_handler(id, data_to_send, router);
-    } else {
-      await register_business_handler(data_to_send, router);
-    }
-  };
-
   return (
-    <div className="flex flex-col max-w-xl mx-auto p-4">
-      <h1 className="text-2xl font-semibold mb-4">Business Registration</h1>
-
-      {/* {JSON.stringify(data)} */}
+    <div className="max-w-2xl mx-auto my-2 bg-white shadow-md rounded-2xl p-8">
+      <h1 className="text-3xl font-semibold text-gray-800 mb-8 text-center">
+        Business Registration
+      </h1>
 
       <form
-        onSubmit={handleSubmit}
-        className="flex flex-col space-y-6 max-w-xl mx-auto p-4"
+        onSubmit={(e) =>
+          handleSubmit(
+            e,
+            session,
+            formData,
+            router,
+            setError,
+            data
+          )
+        }
+        className="space-y-6"
       >
         {Object.entries(fieldMeta).map(
           ([key, { label, required, placeholder }]) => (
-            <div key={key} className="flex flex-col">
-              <label className="flex items-center gap-2 font-semibold text-gray-700">
+            <div
+              key={key}
+              className="flex flex-col sm:flex-row sm:items-center sm:gap-6"
+            >
+              <label
+                htmlFor={key}
+                className="sm:w-1/3 font-medium text-gray-700 flex items-center justify-between"
+              >
                 {label}
-                {required && <span className="text-red-600">*</span>}
-                {!required && (
-                  <span className="bg-gray-200 text-gray-600 text-xs px-2 py-0.5 rounded-full select-none">
-                    Optional
-                  </span>
+                {required ? (
+                  <span className="text-red-500 ml-1">*</span>
+                ) : (
+                  <span className="text-xs text-gray-400 ml-2">(Optional)</span>
                 )}
               </label>
 
               <input
+                id={key}
                 type="text"
                 name={key}
-                value={formData[key]}
-                onChange={handleChange}
+                value={formData[key] || ""}
+                onChange={(e) => handleChange(e, setFormData)}
                 placeholder={placeholder}
                 required={required}
-                className="border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="sm:w-2/3 border border-gray-300 rounded-lg px-4 py-2.5 mt-2 sm:mt-0 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800"
               />
             </div>
           )
         )}
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
-        >
-          {loading ? "Submitting..." : "Register Business"}
-        </button>
+        {error && (
+          <p className="text-red-600 text-sm mt-2 text-center">{error}</p>
+        )}
 
-        {error && <p className="text-red-600 mt-2">{error}</p>}
+        <div className="pt-6">
+          <button
+            type="submit"
+            disabled={isPending}
+            className="w-full bg-blue-600 text-white font-medium py-3 rounded-lg hover:bg-blue-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isPending ? "Registering..." : "Register Business"}
+          </button>
+        </div>
       </form>
     </div>
   );

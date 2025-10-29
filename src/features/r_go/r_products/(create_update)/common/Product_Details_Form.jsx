@@ -6,7 +6,6 @@ import PriceManagement from "./PriceManagement/PriceManagement";
 import { product as product_seed } from "./seed";
 import { unitCostSettingToProduct } from "./funcs";
 import { GreenButton } from "@/re_usables/components/Button";
-import useLoadingStore from "@/store/loading";
 import { useRouter } from "next/navigation";
 
 const Product_Details_Form = ({
@@ -17,7 +16,6 @@ const Product_Details_Form = ({
 }) => {
   const [product, setProduct] = useState(product_seed);
 
-  const { setLoading } = useLoadingStore();
 
   const router = useRouter();
 
@@ -38,13 +36,12 @@ const Product_Details_Form = ({
 
           if (createOrUpdate === "create") {
             // alert("create is active");
-            await saveAProduct(product, setLoading, setProduct, product_seed);
+            await saveAProduct(product, setProduct, product_seed);
           } else if (createOrUpdate === "update") {
             await udpateAProduct(
               product_details?._id,
               product,
               router,
-              setLoading
             );
           }
         }}

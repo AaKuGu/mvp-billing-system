@@ -8,7 +8,6 @@ import { udpateAProduct } from "./funcs";
 
 const Update_Product = ({ productId }) => {
   const [product_details, set_product_details] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const { getOneProductByProductId } = useProductsStore();
 
@@ -17,8 +16,7 @@ const Update_Product = ({ productId }) => {
     if (_product) {
       set_product_details(_product);
     } else {
-      setLoading(true);
-      await getAProductDetails(productId, set_product_details, setLoading);
+      await getAProductDetails(productId, set_product_details);
     }
   };
 

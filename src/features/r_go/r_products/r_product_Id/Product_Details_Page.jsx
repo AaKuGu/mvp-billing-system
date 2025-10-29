@@ -2,47 +2,27 @@
 
 import React, { useEffect, useState } from "react";
 import { initialApiCall, is_stock_all_0_handler } from "./funcs";
-import useLoadingStore from "@/store/loading";
 import Card from "./Card";
 import { useProductsStore } from "../store";
 
 const Product_Details_Page = ({ productId }) => {
   const { getOneProductByProductId } = useProductsStore();
   const [product, setProduct] = useState(null);
-  const { setLoading } = useLoadingStore();
+
+  console.log("product : ", product);
 
   useEffect(() => {
     if (productId) {
-      initialApiCall(
-        productId,
-        getOneProductByProductId,
-        setProduct,
-        setLoading
-      );
+      initialApiCall(productId, getOneProductByProductId, setProduct);
     }
   }, [productId]);
-
-  if (!productId)
-    return (
-      <div className="w-full h-full flex items-center justify-center">
-        Product Id not found
-      </div>
-    );
-
-  if (!product) {
-    return (
-      <div className="w-full h-full flex items-center justify-center">
-        Loading...
-      </div>
-    );
-  }
 
   const is_stock_all_0 = is_stock_all_0_handler(product);
 
   return (
     <div className="p-4 space-y-4">
       {/* Product Name */}
-      <h1 className="text-2xl font-bold">{product.productName}</h1>
+      <h1 className="text-2xl font-bold">{product?.productName}</h1>
 
       {/* {JSON.stringify(is_stock_all_0)} */}
 
@@ -53,10 +33,10 @@ const Product_Details_Page = ({ productId }) => {
 
       <div className="bg-white shadow rounded p-4 space-y-4">
         <h2 className="text-lg font-semibold mb-2">
-          📦 Unit Hierarchy for: {product.productName}
+          📦 Unit Hierarchy for: {product?.productName}
         </h2>
 
-        {product.units.map((unit, index) => {
+        {product?.units.map((unit, index) => {
           const isLast = index === product.units.length - 1;
           const next = product.units[index + 1];
           const containsText = next
@@ -78,8 +58,8 @@ const Product_Details_Page = ({ productId }) => {
 
       {/* Metadata */}
       <div className="text-xs text-gray-500">
-        <p>Created: {new Date(product.createdAt).toLocaleString()}</p>
-        <p>Updated: {new Date(product.updatedAt).toLocaleString()}</p>
+        <p>Created: {new Date(product?.createdAt).toLocaleString()}</p>
+        <p>Updated: {new Date(product?.updatedAt).toLocaleString()}</p>
       </div>
     </div>
   );

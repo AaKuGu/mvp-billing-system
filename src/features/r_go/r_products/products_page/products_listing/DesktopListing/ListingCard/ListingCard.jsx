@@ -7,9 +7,9 @@ import {
 } from "@/re_usables/components/Button";
 import ViewUpdateDelete from "@/re_usables/components/ViewUpdateDelete";
 import TableData from "./TableData";
-import { handleDelete } from "../../common/funcs";
+import { handleDelete } from "../../funcs";
 
-const ListingCard = ({ p, index, setLoading, setProducts, products }) => {
+const ListingCard = ({ p, index, setProducts, products }) => {
   const mainUnit = p.units?.[0]; // Level 1 unit
 
   return (
@@ -32,9 +32,7 @@ const ListingCard = ({ p, index, setLoading, setProducts, products }) => {
             update: `/go/products/update/${p._id}`,
             delete: true, // presence of `delete` triggers button
           }}
-          onDelete={() =>
-            handleDelete(p._id, setProducts, products, setLoading)
-          }
+          onDelete={() => handleDelete(p._id, setProducts, products)}
         />
       </td>
     </tr>

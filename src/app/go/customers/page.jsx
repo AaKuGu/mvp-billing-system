@@ -15,8 +15,6 @@ const page = async () => {
 
   const customers_list = JSON.parse(_customers_list);
 
-  
-
   return <Customer_Page customers_list={customers_list} />;
 };
 

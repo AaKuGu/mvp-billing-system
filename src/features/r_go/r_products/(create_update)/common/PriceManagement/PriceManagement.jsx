@@ -6,11 +6,9 @@ import React, { useState } from "react";
 import UnitPriceDecide from "./UnitPriceDecide";
 import { GreenButton } from "@/re_usables/components/Button";
 import { savePricing } from "./funcs";
-import useLoadingStore from "@/store/loading";
 import Header from "@/re_usables/components/ui/Header";
 
 const PriceManagement = ({ product, setProduct }) => {
-  const { setLoading, loading } = useLoadingStore();
 
   return (
     <div className={`w-full h-full my-10 `}>

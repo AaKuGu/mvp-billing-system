@@ -3,6 +3,7 @@ import { fetchBusinessDetails_Handler } from "../../common/funcs";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 const Business_Details_Show = async ({ user_id }) => {
   // const data = await fetchBusinessDetails_Handler(user_id);
@@ -14,11 +15,7 @@ const Business_Details_Show = async ({ user_id }) => {
   const data = session?.businessDetails;
 
   if (!data) {
-    return (
-      <div className="text-red-600 p-4 bg-red-100 rounded">
-        Business details not found.
-      </div>
-    );
+    redirect(`/account/business_details/register`);
   }
 
   const {

@@ -98,19 +98,22 @@ export const POST = controllerFunc(async (req) => {
 
   console.log("businessDetails : ", businessDetails);
 
-  // ✅ Log creation event
-  //   await System_logs.create({
-  //     operationType: "business_created",
-  //     payload: JSON.stringify({
-  //       businessId: businessDetails._id,
-  //       user_id: businessDetails.user_id,
-  //       businessName: businessDetails.businessName,
-  //     }),
-  //   });
+  if (businessDetails){
+    
+  }
+    // ✅ Log creation event
+    //   await System_logs.create({
+    //     operationType: "business_created",
+    //     payload: JSON.stringify({
+    //       businessId: businessDetails._id,
+    //       user_id: businessDetails.user_id,
+    //       businessName: businessDetails.businessName,
+    //     }),
+    //   });
 
-  return successResponse(
-    { businessDetails },
-    "Business details created successfully",
-    201
-  );
+    return successResponse(
+      { businessDetails },
+      "Business details created successfully",
+      201
+    );
 }, "Error in POST /businessDetails");
