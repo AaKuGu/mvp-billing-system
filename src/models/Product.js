@@ -16,6 +16,11 @@ const unitSchema = new mongoose.Schema({
 // Product Schema
 const productSchema = new mongoose.Schema(
   {
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // optional, reference to the User model
+      required: true,
+    },
     productName: { type: String, required: [true, "Product Name is required"] },
     //firstTime will decide when the bill will be made , so if first time this product is used to make the bill or not
     //this is because only first time for any unit sold for this product , we will have to reduce its parent

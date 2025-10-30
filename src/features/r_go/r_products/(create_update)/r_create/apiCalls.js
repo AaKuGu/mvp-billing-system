@@ -1,10 +1,10 @@
 import { apiCallWrapper } from "@/re_usables/apiCall/apiCallWrapper";
 import axios from "axios";
 
-export const saveAProductStock = async (data) =>
+export const saveAProductStock = async (product) =>
   apiCallWrapper(
     async () => {
-      const res = await axios.post(`/api/products`, data);
+      const res = await axios.post(`/api/products`, { product });
       // alert("res : " + JSON.stringify(res));
       return res.data;
     },

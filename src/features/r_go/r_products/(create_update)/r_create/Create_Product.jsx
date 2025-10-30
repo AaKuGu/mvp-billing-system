@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React from "react";
 import Product_Details_Form from "../common/Product_Details_Form";

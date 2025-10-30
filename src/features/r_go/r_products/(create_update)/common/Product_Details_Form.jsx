@@ -16,7 +16,6 @@ const Product_Details_Form = ({
 }) => {
   const [product, setProduct] = useState(product_seed);
 
-
   const router = useRouter();
 
   useEffect(() => {
@@ -38,11 +37,7 @@ const Product_Details_Form = ({
             // alert("create is active");
             await saveAProduct(product, setProduct, product_seed);
           } else if (createOrUpdate === "update") {
-            await udpateAProduct(
-              product_details?._id,
-              product,
-              router,
-            );
+            await udpateAProduct(product_details?._id, product, router);
           }
         }}
         className="bg-blue-600 text-white px-5 py-2 rounded"

@@ -39,7 +39,12 @@ export const PUT = controllerFunc(async (req, { params }) => {
 
   const body = await req.json();
 
-  const { productName, units } = body;
+  const { product } = body;
+
+  //check if this can pose any security risk or not , like you are not checking
+  //if this product belongs to this user or not
+
+  const { productName, units } = product;
 
   const updatedProduct = await Product.findByIdAndUpdate(
     id,

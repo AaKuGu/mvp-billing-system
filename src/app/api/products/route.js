@@ -11,7 +11,9 @@ export const POST = controllerFunc(async (req) => {
 
   const errorContext = "Error in POST /products";
   const body = await req.json();
-  const { productName, units } = body;
+  const { product } = body;
+
+  const { productName, units } = product;
 
   console.log("post is working and body data is : ", body);
 
@@ -106,24 +108,6 @@ export const POST = controllerFunc(async (req) => {
         );
       }
     }
-    // Common fields for all units
-    // if (typeof d.unitSellingPrice !== "number" || d.unitSellingPrice < 0) {
-    //   throw new CustomError(
-    //     `Unit at level ${level} must have valid unitSellingPrice`,
-    //     400,
-    //     errorContext
-    //   );
-    // }
-    // if (
-    //   typeof d.unitSellingPercentage !== "number" ||
-    //   d.unitSellingPercentage < 0
-    // ) {
-    //   throw new CustomError(
-    //     `Unit at level ${level} must have valid unitSellingPercentage`,
-    //     400,
-    //     errorContext
-    //   );
-    // }
   });
 
   // validate each unit as before...
@@ -134,16 +118,17 @@ export const POST = controllerFunc(async (req) => {
   const newProduct = await Product.create({
     productName,
     units,
+    user_id: req.user_id,
   });
 
-  System_logs.create({
-    operationType: "product_created",
-    payload: JSON.stringify({
-      productId: newProduct._id,
-      productName: newProduct.productName,
-      units: newProduct.units,
-    }),
-  });
+  // System_logs.create({
+  //   operationType: "product_created",
+  //   payload: JSON.stringify({
+  //     productId: newProduct._id,
+  //     productName: newProduct.productName,
+  //     units: newProduct.units,
+  //   }),
+  // });
 
   return successResponse({ newProduct }, "Stock Added Successfully!", 201);
 }, "Error in POST /products");
@@ -152,13 +137,21 @@ export const POST = controllerFunc(async (req) => {
 export const GET = controllerFunc(async (req) => {
   await dbConnect(); // connect to DB
 
-  const { searchParams } = new URL(req.url);
-  const productName = searchParams.get("productName"); // from query param
-  const onlyNames = searchParams.get("onlyNames"); // from query param
+  const user_id = req.user_id;
 
-  const query = queryToSearch(productName);
+  console.log("user_id get one: ", user_id);
 
-  const products = await finalProductsToSend(Product, query, onlyNames);
+  // const { searchParams } = new URL(req.url);
+  // const productName = searchParams.get("productName"); // from query param
+  // const onlyNames = searchParams.get("onlyNames"); // from query param
+
+  // const query = queryToSearch(productName);
+
+  // console.log("query : ", query);
+
+  // const products = await finalProductsToSend(Product, query, onlyNames);
+
+  const products = await Product.find({ user_id });
 
   console.log("pp : ", products);
 
