@@ -1,21 +1,12 @@
-import { dbConnect } from "@/db/connectDB";
+"use server";
+
 import Customer from "@/models/Customer";
+import { user_list_fetcher } from "@/re_usables/backend/utils/common_queries/user_list_fetcher";
 
-export const fetch_customers_list_handler = async (user_id) => {
-  try {
-    await dbConnect();
-
-    if (!user_id) {
-      throw new Error("User Id is required");
-    }
-
-    const customers_list = await Customer.find({ user_id }).lean();
-
-    console.log("customers_list", customers_list);
-
-    return JSON.stringify(customers_list);
-  } catch (error) {
-    console.log("error : ", error);
-    throw new Error(error);
-  }
-};
+// ✅ Fetch Customers list
+export const fetch_customers_list_action = user_list_fetcher(Customer, {
+  errorMessage: "No customers found.",
+  successMessage: "Fetched Customers List successfully.",
+  limit: 10,
+  sort: { createdAt: -1 },
+});

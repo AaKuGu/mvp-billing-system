@@ -2,14 +2,19 @@
 
 import { dbConnect } from "@/db/connectDB";
 import Bill from "@/models/Bill";
+import { find_user_one_doc } from "@/re_usables/backend/utils/end_points";
 
-export const fetch_bill_details = async (bill_id) => {
+export const fetch_bill_details = async (bill_id, user_id) => {
   try {
-    await dbConnect();
+    // await dbConnect();
 
     // throw new Error("bill id not defined");
     if (!bill_id) {
       throw new Error("bill id not defined");
+    }
+
+    if (!user_id) {
+      throw new Error("User id is required");
     }
 
     const bill_data = await Bill.findById(bill_id)
@@ -29,3 +34,5 @@ export const fetch_bill_details = async (bill_id) => {
     throw new Error("error");
   }
 };
+
+

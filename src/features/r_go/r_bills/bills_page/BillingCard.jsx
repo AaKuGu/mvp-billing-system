@@ -18,9 +18,7 @@ const BillingCard = ({ data, index }) => {
           <h3 className="text-lg font-semibold text-gray-800">
             Bill #{index + 1}
           </h3>
-          <p className="text-sm text-gray-500">
-            Invoice ID: {data?._id?.slice(-6)}
-          </p>
+          <p className="text-sm text-gray-500">Invoice ID: {data?._id}</p>
         </div>
       </div>
 

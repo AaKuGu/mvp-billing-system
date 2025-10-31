@@ -18,7 +18,7 @@ const Card = ({ unit, containsText, index }) => {
         <li>
           🔢 Stock: {unit.totalQuantity} {unit.unitName}(s)
         </li>
-        <li>💰 Cost: ₹{unit.unitCost}</li>
+        <li>💰 Unit Cost: ₹{unit.unitCost}</li>
         <li>🏷️ Selling Price: ₹{unit.unitSellingPrice}</li>
         <li>📈 Margin: {unit.unitSellingPercentage}%</li>
       </ul>

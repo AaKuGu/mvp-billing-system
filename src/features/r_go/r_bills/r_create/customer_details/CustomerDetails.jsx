@@ -17,7 +17,6 @@ const Customer_Details = () => {
 
   const is_first_render = useRef(true);
 
-  const user_id = session?.user?.id;
   const [customer_suggestions, set_customer_suggestions] = useState([]);
   const [typingTimeout, setTypingTimeout] = useState(null);
 
@@ -31,8 +30,11 @@ const Customer_Details = () => {
 
     // set a new timeout
     const timeout = setTimeout(async () => {
-      if (value.trim().length > 0 && user_id) {
-        const customers = await customer_suggestions_handler(user_id, value);
+      if (value.trim().length > 0) {
+        const customers = await customer_suggestions_handler(
+          "customer_name",
+          value
+        );
         set_customer_suggestions(customers);
       } else {
         set_customer_suggestions([]);

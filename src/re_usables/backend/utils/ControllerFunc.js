@@ -1,27 +1,27 @@
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import handleError from "./error/HandleError";
+import CustomError from "./error/CustomError";
+import { init } from "./init_request";
 
-export const controllerFunc = (func, catchError, requireAuth = true) => {
+export const controllerFunc = (
+  func,
+  error_context = "",
+  requireAuth = true
+) => {
   return async (req, ...args) => {
     try {
-      let user_id = null;
-
       if (requireAuth) {
-        const session = await auth.api.getSession({
-          headers: await headers(),
-        });
+        const { success, message = null, user_id = null } = await init();
 
-        if (!session?.user) {
-          throw new CustomError("Unauthorized", 401, catchError);
+        if (!success) {
+          throw new CustomError(message, 401, error_context);
         }
 
-        user_id = session.user.id;
-        req.user_id = user_id; // ✅ attach to request
+        req.context = { user_id };
       }
 
       return await func(req, ...args);
     } catch (error) {
-      return handleError(error, catchError);
+      return handleError(error, error_context);
     }
   };
 };

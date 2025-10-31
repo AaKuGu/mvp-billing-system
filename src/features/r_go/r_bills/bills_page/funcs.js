@@ -1,3 +1,5 @@
+// not using currently, because fetch all bills will be done via server action
+
 import toast from "react-hot-toast";
 import { fetchBills_api } from "./apiCalls";
 

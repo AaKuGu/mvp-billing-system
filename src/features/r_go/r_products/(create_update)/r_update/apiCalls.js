@@ -4,7 +4,7 @@ import axios from "axios";
 export const updateAProduct_api = (productId, product) =>
   apiCallWrapper(
     async () => {
-      const res = await axios.put(`/api/products/id/${productId}`, {
+      const res = await axios.put(`/api/products/${productId}`, {
         product,
       });
       return res.data;
