@@ -2,8 +2,14 @@ import { ListHeader, MainHeader } from "@/re_usables/components/ui/Header";
 import React from "react";
 import Customers_Listing_Card from "./Customers_Listing_Card";
 import { fetch_customers_list_action } from "./re_usables/server_actions";
-
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 const Customer_Page = async () => {
+
+  const session = await auth.api.getSession({
+        headers: await headers(), // you need to pass the headers object.
+          });
+
   const { data, message } = await fetch_customers_list_action();
   console.log("customers data : ", data);
   const customers_list = data;
