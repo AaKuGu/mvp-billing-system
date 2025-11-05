@@ -1,11 +1,17 @@
-"use client";
-
-import { CreateButton } from "@/re_usables/components/Button";
 import { ListHeader, MainHeader } from "@/re_usables/components/ui/Header";
-import React, { useState } from "react";
+import React from "react";
 import Customers_Listing_Card from "./Customers_Listing_Card";
+import { fetch_customers_list_action } from "./re_usables/server_actions";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+const Customer_Page = async () => {
+  await auth.api.getSession({
+    headers: await headers(), // you need to pass the headers object.
+  });
 
-const Customer_Page = ({ customers_list }) => {
+  const { data, message } = await fetch_customers_list_action();
+  console.log("customers data : ", data);
+  const customers_list = data;
   return (
     <div className={`w-full h-full flex flex-col px-2`}>
       <MainHeader>Customers</MainHeader>

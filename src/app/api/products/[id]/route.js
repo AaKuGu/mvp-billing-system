@@ -1,18 +1,23 @@
-import { dbConnect } from "@/db/connectDB";
 import Product from "@/models/Product";
 import { controllerFunc } from "@/re_usables/backend/utils/ControllerFunc";
 import CustomError from "@/re_usables/backend/utils/error/CustomError";
 import successResponse from "@/re_usables/backend/utils/success/successResponse";
 import System_logs from "@/models/System_logs";
+import {
+  delete_user_doc,
+  find_user_one_doc,
+  update_user_doc,
+} from "@/re_usables/backend/utils/end_points";
 
 export const GET = controllerFunc(async (req, { params }) => {
-  await dbConnect();
-
   let errorContext = "Error in GET /products/[id]";
 
   const { id } = params;
 
-  const product = await Product.findById(id);
+  const product = await find_user_one_doc(Product, {
+    filter: { _id: id },
+    user_id: req.user_id,
+  });
 
   // console.log(product);
 
@@ -24,8 +29,6 @@ export const GET = controllerFunc(async (req, { params }) => {
 }, "Error in GET /products/[id]");
 
 export const PUT = controllerFunc(async (req, { params }) => {
-  await dbConnect();
-
   let errorContext = "Error in PUT /products/[id]";
 
   const { id } = params;
@@ -46,40 +49,44 @@ export const PUT = controllerFunc(async (req, { params }) => {
 
   const { productName, units } = product;
 
-  const updatedProduct = await Product.findByIdAndUpdate(
-    id,
-    { productName, units },
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
+  // const updatedProduct = await Product.findOneAndUpdate(
+  //   { _id: id, user_id: req.user_id },
+  //   { productName, units },
+  //   {
+  //     new: true,
+  //     runValidators: true,
+  //   }
+  // ).lean();
 
-  console.log(`updatedProduct: ${updatedProduct}`);
+  const updated_product = await update_user_doc(Product, {
+    user_id: req.user_id,
+    filter: { _id: id },
+    update: { productName, units },
+  });
 
-  if (!updatedProduct) {
+  console.log(`updatedProduct: ${updated_product}`);
+
+  if (!updated_product) {
     throw new CustomError("Product not found", 404, errorContext);
   }
 
-  System_logs.create({
-    operationType: "product_updated",
-    payload: JSON.stringify({
-      productId: updatedProduct._id,
-      productName: updatedProduct.productName,
-      units: updatedProduct.units,
-    }),
-  });
+  // System_logs.create({
+  //   operationType: "product_updated",
+  //   payload: JSON.stringify({
+  //     productId: updatedProduct._id,
+  //     productName: updatedProduct.productName,
+  //     units: updatedProduct.units,
+  //   }),
+  // });
 
   return successResponse(
-    { updatedProduct },
+    { updatedProduct: updated_product },
     "Product updated successfully",
     200
   );
 }, "Error in PUT /products/[id]");
 
 export const DELETE = controllerFunc(async (req, { params }) => {
-  await dbConnect();
-
   let errorContext = "Error in DELETE /products/[id]";
 
   const { id } = params;
@@ -88,23 +95,26 @@ export const DELETE = controllerFunc(async (req, { params }) => {
     throw new CustomError("Id is required", 400, errorContext);
   }
 
-  const deletedProduct = await Product.findByIdAndDelete(id);
+  const deletedProduct = await delete_user_doc(Product, {
+    filter: { _id: id },
+    user_id: req.user_id,
+  });
 
   if (!deletedProduct) {
     throw new CustomError("Product not found", 404, errorContext);
   }
 
-  System_logs.create({
-    operationType: "product_deleted",
-    payload: JSON.stringify({
-      productId: deletedProduct._id,
-      productName: deletedProduct.productName,
-      category: deletedProduct.category,
-      cost: deletedProduct.cost,
-      wholesale: deletedProduct.wholesale,
-      retail: deletedProduct.retail,
-    }),
-  });
+  // System_logs.create({
+  //   operationType: "product_deleted",
+  //   payload: JSON.stringify({
+  //     productId: deletedProduct._id,
+  //     productName: deletedProduct.productName,
+  //     category: deletedProduct.category,
+  //     cost: deletedProduct.cost,
+  //     wholesale: deletedProduct.wholesale,
+  //     retail: deletedProduct.retail,
+  //   }),
+  // });
 
   return successResponse({}, "Product deleted successfully");
 }, "Error in DELETE /products/[id]");

@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchProducts } from "@/features/products/productListing/funcs";
+// import { fetchProducts } from "@/features/products/productListing/funcs";
 import LoadingWrapper from "@/re_usables/components/Loading/LoadingWrapper";
 import Header, { MainHeader } from "@/re_usables/components/ui/Header";
 import Link from "next/link";
@@ -9,6 +9,7 @@ import MainListing from "./MainListing/MainListing";
 import { Input } from "@/re_usables/components/form/Input";
 import { useProductsStore } from "../store";
 import { CreateButton } from "@/re_usables/components/Button";
+import { fetchProducts } from "./funcs";
 
 const ProductListingPage = () => {
   const [loading, setLoading] = useState(true);
@@ -18,6 +19,7 @@ const ProductListingPage = () => {
   const { products, setProducts } = useProductsStore();
 
   useEffect(() => {
+    // alert("hallo");
     fetchProducts(setProducts, setLoading);
   }, []);
 

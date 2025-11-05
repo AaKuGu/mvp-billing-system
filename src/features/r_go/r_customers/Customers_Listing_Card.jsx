@@ -1,3 +1,5 @@
+"use client";
+
 import { BlueButton } from "@/re_usables/components/Button";
 import ViewUpdateDelete from "@/re_usables/components/ViewUpdateDelete";
 import Link from "next/link";

@@ -23,8 +23,6 @@ const Finalized = ({
   const { set_customer_details_null } = use_customer_details();
   const { set_pricing_details_null } = use_pricing_details();
 
-  const { data: session } = authClient.useSession();
-
   return (
     <BlueButton
       onClick={() => {
@@ -39,7 +37,6 @@ const Finalized = ({
           item_details,
           customer_details,
           pricing_details,
-          user_id: session?.user?.id,
         };
 
         // alert(

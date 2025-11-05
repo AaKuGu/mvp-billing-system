@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import Bills_Page from "@/features/r_go/r_bills/bills_page/Bills_Page";
 

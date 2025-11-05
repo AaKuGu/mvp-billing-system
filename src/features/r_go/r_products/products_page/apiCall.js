@@ -4,6 +4,7 @@ import axios from "axios";
 export const fetchAllProducts = async (searchTerm, onlyNames) =>
   apiCallWrapper(
     async () => {
+
       let res;
       if (searchTerm) {
         if (onlyNames) {
