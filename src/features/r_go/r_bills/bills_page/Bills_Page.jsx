@@ -10,9 +10,8 @@ import { headers } from "next/headers";
 
 const Bills_Page = async () => {
   const session = await auth.api.getSession({
-        headers: await headers(), // you need to pass the headers object.
-          });
-  
+    headers: await headers(), // you need to pass the headers object.
+  });
 
   const user_id = session?.user?.id;
   const { data } = await fetch_bills_action(user_id);
