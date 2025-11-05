@@ -5,7 +5,7 @@ import { fetch_customers_list_action } from "./re_usables/server_actions";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 const Customer_Page = async () => {
-  const session = await auth.api.getSession({
+  await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
 
