@@ -7,7 +7,7 @@ import {
   delete_user_doc,
   find_user_one_doc,
   update_user_doc,
-} from "@/re_usables/backend/utils/end_points";
+} from "@/re_usables/backend/utils/queries";
 
 export const GET = controllerFunc(async (req, { params }) => {
   let errorContext = "Error in GET /products/[id]";

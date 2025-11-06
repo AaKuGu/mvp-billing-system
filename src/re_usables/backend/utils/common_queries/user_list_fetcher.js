@@ -1,4 +1,4 @@
-import { find_user_docs } from "@/re_usables/backend/utils/end_points";
+import { find_user_docs } from "@/re_usables/backend/utils/queries";
 import { server_action_wrapper } from "@/re_usables/backend/utils/server_actions/server_action_wrapper";
 
 /**

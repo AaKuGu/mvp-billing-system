@@ -13,7 +13,7 @@ import {
   create_user_doc,
   find_user_docs,
   find_user_one_doc,
-} from "@/re_usables/backend/utils/end_points";
+} from "@/re_usables/backend/utils/queries";
 
 export const POST = controllerFunc(async (req) => {
   await dbConnect(); // connect to DB

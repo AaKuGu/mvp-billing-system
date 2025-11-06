@@ -1,70 +1,6 @@
-// export const find_user_one_doc = (
-//   Model,
-//   {
-//     user_id,
-//     filter = {},
-//     projection = "-__v",
-//     populate = null,
-//     lean = true,
-//   } = {}
-// ) => {
-//   if (!user_id) throw new Error("user_id is required");
+import { stringifyNparse } from "./helpers/stringifyNparse";
 
-//   let query = Model.findOne({ user_id, ...filter }).select(projection);
-
-//   if (populate) query = query.populate(populate);
-
-//   return lean ? query.lean() : query;
-// };
-
-// export const find_user_docs = (
-//   Model,
-//   {
-//     user_id,
-//     filter = {},
-//     projection = "-__v",
-//     sort = null,
-//     limit = null,
-//     populate = null,
-//     lean = true,
-//   } = {}
-// ) => {
-//   if (!user_id) throw new Error("user_id is required");
-
-//   let query = Model.find({ user_id, ...filter }).select(projection);
-
-//   if (sort) query = query.sort(sort);
-//   if (limit) query = query.limit(limit);
-//   if (populate) query = query.populate(populate);
-
-//   return lean ? query.lean() : query;
-// };
-
-// export const delete_user_doc = (
-//   Model,
-//   id,
-//   user_id,
-//   lean = true,
-//   projection = "-__v"
-// ) => {
-//   const query = Model.findOneAndDelete({ _id: id, user_id }).select(projection);
-//   return lean ? query.lean() : query;
-// };
-
-// ✅ Unified Options Type
-// {
-//   user_id: string,
-//   filter?: object,
-//   projection?: string | object,
-//   populate?: string | object | array,
-//   sort?: object,
-//   limit?: number,
-//   skip?: number,
-//   update?: object,
-//   lean?: boolean (default true)
-// }
-
-export const find_user_one_doc = (
+export const find_user_one_doc_query = async (
   Model,
   {
     user_id,
@@ -80,10 +16,11 @@ export const find_user_one_doc = (
 
   if (populate) query = query.populate(populate);
 
-  return lean ? query.lean() : query;
+  const data = lean ? await query.lean() : await query;
+  return stringifyNparse(data);
 };
 
-export const find_user_docs = (
+export const find_user_docs_query = async (
   Model,
   {
     user_id,
@@ -103,10 +40,11 @@ export const find_user_docs = (
   if (limit) query = query.limit(limit);
   if (populate) query = query.populate(populate);
 
-  return lean ? query.lean() : query;
+  const data = lean ? await query.lean() : await query;
+  return stringifyNparse(data);
 };
 
-export const find_user_docs_paginated = async (
+export const find_user_docs_paginated_query = async (
   Model,
   {
     user_id,
@@ -142,7 +80,7 @@ export const find_user_docs_paginated = async (
   };
 };
 
-export const update_user_doc = (
+export const update_user_doc_query = (
   Model,
   { user_id, filter = {}, update = {}, projection = "-__v", lean = true } = {}
 ) => {
@@ -156,7 +94,7 @@ export const update_user_doc = (
   return lean ? query.lean() : query;
 };
 
-export const delete_user_doc = (
+export const delete_user_doc_query = (
   Model,
   { user_id, filter = {}, projection = "-__v", lean = true } = {}
 ) => {
@@ -167,7 +105,7 @@ export const delete_user_doc = (
   return lean ? query.lean() : query;
 };
 
-export const create_user_doc = async (
+export const create_user_doc_query = async (
   Model,
   { user_id, data = {}, projection = "-__v", lean = true } = {}
 ) => {

@@ -28,13 +28,9 @@ const Product_Details_Form = ({
     >
       <StockManagement product={product} setProduct={setProduct} />
       <PriceManagement product={product} setProduct={setProduct} />
-      {/* {JSON.stringify(product)} */}
       <GreenButton
         onClick={async () => {
-          // alert("product to save : " + JSON.stringify(product));
-
           if (createOrUpdate === "create") {
-            // alert("create is active");
             await saveAProduct(product, setProduct, product_seed);
           } else if (createOrUpdate === "update") {
             await udpateAProduct(product_details?._id, product, router);

@@ -1,7 +1,7 @@
 import { dbConnect } from "@/db/connectDB";
 import Customer from "@/models/Customer";
 import { controllerFunc } from "@/re_usables/backend/utils/ControllerFunc";
-import { find_user_docs } from "@/re_usables/backend/utils/end_points";
+import { find_user_docs } from "@/re_usables/backend/utils/queries";
 import CustomError from "@/re_usables/backend/utils/error/CustomError";
 import successResponse from "@/re_usables/backend/utils/success/successResponse";
 

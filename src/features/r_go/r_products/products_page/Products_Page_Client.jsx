@@ -8,14 +8,14 @@ import { CreateButton } from "@/re_usables/components/Button";
 import { fetchProducts } from "../productListing/funcs";
 import Products_Listing from "./products_listing/Products_Listing";
 
-const ProductListingPage = () => {
+const Products_Page_Client = ({ products_ }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState();
   const { products, setProducts } = useProductsStore();
 
   useEffect(() => {
-    fetchProducts(setProducts, setLoading);
+    setProducts(products_);
   }, []);
 
   useEffect(() => {
@@ -60,4 +60,4 @@ const ProductListingPage = () => {
   );
 };
 
-export default ProductListingPage;
+export default Products_Page_Client;

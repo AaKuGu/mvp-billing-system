@@ -3,9 +3,11 @@ import { ListHeader, MainHeader } from "@/re_usables/components/ui/Header";
 import React from "react";
 // import { fetchBills } from "./funcs";
 import BillingCard from "./BillingCard";
-import { fetch_bills_action } from "./server_actions";
+// import { fetch_bills_action } from "./server_actions";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { user_docs_ssr } from "@/re_usables/backend/utils/ssr/user_docs_ssr";
+import Bill from "@/models/Bill";
 // import { useBillsStore } from "../re_usables/store";
 
 const Bills_Page = async () => {
@@ -13,7 +15,7 @@ const Bills_Page = async () => {
     headers: await headers(), // you need to pass the headers object.
   });
 
-  const { data } = await fetch_bills_action();
+  const { data } = await user_docs_ssr(Bill);
 
   const bills = data;
 

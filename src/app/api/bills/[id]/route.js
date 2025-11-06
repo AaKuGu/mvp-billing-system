@@ -1,6 +1,6 @@
 import Bill from "@/models/Bill";
 import { controllerFunc } from "@/re_usables/backend/utils/ControllerFunc";
-import { find_user_one_doc } from "@/re_usables/backend/utils/end_points";
+import { find_user_one_doc } from "@/re_usables/backend/utils/queries";
 
 export const GET = controllerFunc(async (req, { params }) => {
   console.log("hallo get og");

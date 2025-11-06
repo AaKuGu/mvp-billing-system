@@ -2,7 +2,7 @@
 
 import { dbConnect } from "@/db/connectDB";
 import Bill from "@/models/Bill";
-import { find_user_one_doc } from "@/re_usables/backend/utils/end_points";
+import { find_user_one_doc } from "@/re_usables/backend/utils/queries";
 
 export const fetch_bill_details = async (bill_id, user_id) => {
   try {
@@ -34,5 +34,3 @@ export const fetch_bill_details = async (bill_id, user_id) => {
     throw new Error("error");
   }
 };
-
-

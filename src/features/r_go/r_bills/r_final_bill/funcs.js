@@ -6,3 +6,4 @@ export const fetch_bill_details = async (id) => {
     return data.bill;
   }
 };
+  

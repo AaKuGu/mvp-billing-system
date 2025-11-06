@@ -13,7 +13,7 @@ const billSchema = new mongoose.Schema(
       required: true,
     },
 
-    customer_id: {
+    customer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Customer", // references your Customer collection
       required: true,

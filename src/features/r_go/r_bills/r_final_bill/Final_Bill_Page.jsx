@@ -1,19 +1,16 @@
 import React from "react";
 import FinalBill from "./FinalBill/FinalBill";
-// import { fetch_bill_details } from "../re_usables/server_actions";
-import { fetch_bill_details } from "./funcs";
+import Bill from "@/models/Bill";
+import Customer from "@/models/Customer";
+import { user_one_doc_ssr } from "@/re_usables/backend/utils/ssr/user_one_doc_ssr";
 
 const Final_Bill_Page = async ({ id }) => {
-  // const session = await auth.api.getSession({
-  //   headers: await headers(), // you need to pass the headers object.
-  // });
+  const { data: bill } = await user_one_doc_ssr(Bill, {
+    filter: { _id: id },
+    populate: "customer",
+  });
 
-  // const user_id = session?.user?.id;
-
-  const bill_details = await fetch_bill_details(id);
-
-  const { stringifiedBill, customer_details, createdAt, _id } =
-    JSON.parse(bill_details);
+  const { stringifiedBill, customer, createdAt, _id } = bill;
 
   const parsed_item_details = JSON.parse(stringifiedBill);
 
@@ -28,7 +25,7 @@ const Final_Bill_Page = async ({ id }) => {
         data={data}
         id={_id}
         created_date={created_date}
-        customer_details={customer_details}
+        customer_details={customer}
         item_details={item_details}
         pricing_details={pricing_details}
       />
