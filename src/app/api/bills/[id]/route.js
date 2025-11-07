@@ -6,17 +6,12 @@ export const GET = controllerFunc(async (req, { params }) => {
   console.log("hallo get og");
 
   const bill = await find_user_one_doc(Bill, {
-    user_id: req.user_id,
+    user_id: req.context.user_id,
     filter: { _id: params.id },
-    populate: "customer_id",
+    populate: "customer",
   });
 
   console.log("bill data : ", bill);
-
-  //following is because, customer_id
-  // contains the customer details, rather the name should be customer_details, but
-  bill.customer_details = bill.customer_id;
-  delete bill_data.customer_id;
 
   return successResponse({ bill }, "Bills fetched successfully");
 }, "Error in GET /bills");

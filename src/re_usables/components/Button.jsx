@@ -77,7 +77,7 @@ export const CreateButton = ({ href, children }) => {
   return (
     <Link
       href={href}
-      className="w-full border border-[2px] border-teal-800 rounded-full hover:bg-teal-800 hover:text-white px-5 py-2 text-teal-800 transition w-full sm:w-auto text-center"
+      className="text-sm w-full border border-[2px] border-teal-800 rounded-full hover:bg-teal-800 hover:text-white px-3 py-1 text-teal-800 transition w-full sm:w-auto text-center"
     >
       {children}
     </Link>

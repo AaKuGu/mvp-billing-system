@@ -30,8 +30,26 @@ export const handleSubmit = async (
           onRequest: (ctx) => {
             //show loading
           },
-          onSuccess: (ctx) => {
-            router.push(`/go`);
+          onSuccess: async (ctx) => {
+            // Sign in the user automatically
+            // const { data: loginData, error: loginError } =
+            //   await authClient.signIn.email({
+            //     email: formData.email,
+            //     password: formData.password,
+            //     callbackURL: "/go",
+            //   });
+
+            // if (loginError) {
+            //   toast.error(loginError.message || "Login after signup failed");
+            // } else {
+            //   // Full reload to get fresh session on /go
+            //   window.location.href = "/go";
+            // }
+
+            // alert(JSON.stringify(ctx));
+            // router.push(`/go`);
+
+            window.location.href = "/go";
             //redirect to the dashboard or sign in page
           },
           onError: (ctx) => {
@@ -64,7 +82,7 @@ export const handleSubmit = async (
           rememberMe: true,
         },
         {
-          onSuccess: () => {
+          onSuccess: (ctx) => {
             router.push(`/go`);
           },
           onError: (ctx) => {

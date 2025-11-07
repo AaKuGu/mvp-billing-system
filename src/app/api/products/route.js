@@ -1,17 +1,10 @@
 import Product from "@/models/Product";
 import { controllerFunc } from "@/re_usables/backend/utils/ControllerFunc";
-import CustomError from "@/re_usables/backend/utils/error/CustomError";
 import successResponse from "@/re_usables/backend/utils/success/successResponse";
+import { validateProductInput } from "./funcs";
 import {
-  finalProductsToSend,
-  queryToSearch,
-  validateProductInput,
-} from "./funcs";
-import System_logs from "@/models/System_logs";
-import {
-  create_user_doc,
-  find_user_docs,
-  find_user_one_doc,
+  create_user_doc_query,
+  find_user_docs_query,
 } from "@/re_usables/backend/utils/queries";
 
 export const POST = controllerFunc(async (req) => {
@@ -23,8 +16,8 @@ export const POST = controllerFunc(async (req) => {
 
   const { productName, units } = validateProductInput(product, errorContext);
 
-  const new_product = await create_user_doc(Product, {
-    user_id: req.user_id,
+  const new_product = await create_user_doc_query(Product, {
+    user_id: req.context.user_id,
     data: { productName, units },
   });
 
@@ -37,9 +30,9 @@ export const POST = controllerFunc(async (req) => {
 
 // GET - Fetch all products
 export const GET = controllerFunc(async (req) => {
-  const user_id = req.user_id;
+  const user_id = req.context.user_id;
 
-  const products = await find_user_docs(Product, {
+  const products = await find_user_docs_query(Product, {
     user_id,
     sort: { createdAt: -1 },
     limit: 10,

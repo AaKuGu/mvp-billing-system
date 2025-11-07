@@ -5,7 +5,6 @@ export const saveAProductStock = async (product) =>
   apiCallWrapper(
     async () => {
       const res = await axios.post(`/api/products`, { product });
-      // alert("res : " + JSON.stringify(res));
       return res.data;
     },
     "saveAProductStock",

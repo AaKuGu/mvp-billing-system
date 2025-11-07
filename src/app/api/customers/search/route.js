@@ -1,12 +1,12 @@
 import { dbConnect } from "@/db/connectDB";
 import Customer from "@/models/Customer";
 import { controllerFunc } from "@/re_usables/backend/utils/ControllerFunc";
-import { find_user_docs } from "@/re_usables/backend/utils/queries";
+import { find_user_docs_query } from "@/re_usables/backend/utils/queries";
 import CustomError from "@/re_usables/backend/utils/error/CustomError";
 import successResponse from "@/re_usables/backend/utils/success/successResponse";
 
 export const GET = controllerFunc(async (req) => {
-  await dbConnect();
+  // return successResponse({ customers: [] }, "Search results fetched");
 
   const { searchParams } = new URL(req.url);
   const search_term = searchParams.get("term");
@@ -39,7 +39,10 @@ export const GET = controllerFunc(async (req) => {
   // Build dynamic filter
   const filter = { [search_term]: { $regex: search_value, $options: "i" } };
 
-  const customers = await find_user_docs(Customer, req.user_id, {
+  // return successResponse({ customers: [] }, "Search results fetched");
+
+  const customers = await find_user_docs_query(Customer, {
+    user_id: req.context.user_id,
     filter,
     sort: { createdAt: -1 },
     limit: 20, // return top 20 matches

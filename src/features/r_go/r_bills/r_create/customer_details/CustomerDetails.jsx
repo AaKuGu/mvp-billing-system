@@ -67,7 +67,7 @@ const Customer_Details = () => {
           value={customer_details?.customer_name}
           onChange={handleCustomerNameChange}
         />
-        {customer_suggestions.length > 0 && (
+        {customer_suggestions?.length > 0 && (
           <div className="mt-2 bg-white shadow-md rounded p-2 max-h-48 overflow-y-auto">
             {customer_suggestions.map((cust) => (
               <div

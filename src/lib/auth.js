@@ -49,18 +49,23 @@ export const auth = betterAuth({
   plugins: [
     customSession(async ({ user, session }) => {
       try {
+        if (!user?.id) {
+          // No logged-in user (shouldn’t happen normally)
+          return { user: null, businessDetails: null };
+        }
+
         await dbConnect(); // Ensure MongoDB/Mongoose connection is live
 
         const businessDetails = await BusinessDetails.findOne({
           user_id: user.id,
-        });
+        }).lean();
 
         console.log(`businessDetails : /lib/auth.js : `, businessDetails);
 
         const to_return = {
           ...session,
           user,
-          businessDetails,
+          businessDetails: businessDetails || null,
         };
 
         console.log("to_return : /lib/auth.js : ", to_return);
@@ -68,7 +73,10 @@ export const auth = betterAuth({
         return to_return;
       } catch (err) {
         console.error("Error adding custom field to session:", err);
-        return session; // fallback
+        return {
+          ...session,
+          businessDetails: null,
+        };
       }
     }),
   ],

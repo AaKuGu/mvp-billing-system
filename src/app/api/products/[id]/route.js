@@ -2,11 +2,10 @@ import Product from "@/models/Product";
 import { controllerFunc } from "@/re_usables/backend/utils/ControllerFunc";
 import CustomError from "@/re_usables/backend/utils/error/CustomError";
 import successResponse from "@/re_usables/backend/utils/success/successResponse";
-import System_logs from "@/models/System_logs";
 import {
-  delete_user_doc,
-  find_user_one_doc,
-  update_user_doc,
+  delete_user_doc_query,
+  find_user_one_doc_query,
+  update_user_doc_query,
 } from "@/re_usables/backend/utils/queries";
 
 export const GET = controllerFunc(async (req, { params }) => {
@@ -14,9 +13,9 @@ export const GET = controllerFunc(async (req, { params }) => {
 
   const { id } = params;
 
-  const product = await find_user_one_doc(Product, {
+  const product = await find_user_one_doc_query(Product, {
     filter: { _id: id },
-    user_id: req.user_id,
+    user_id: req.context.user_id,
   });
 
   // console.log(product);
@@ -50,7 +49,7 @@ export const PUT = controllerFunc(async (req, { params }) => {
   const { productName, units } = product;
 
   // const updatedProduct = await Product.findOneAndUpdate(
-  //   { _id: id, user_id: req.user_id },
+  //   { _id: id, user_id: req.context.user_id },
   //   { productName, units },
   //   {
   //     new: true,
@@ -58,8 +57,8 @@ export const PUT = controllerFunc(async (req, { params }) => {
   //   }
   // ).lean();
 
-  const updated_product = await update_user_doc(Product, {
-    user_id: req.user_id,
+  const updated_product = await update_user_doc_query(Product, {
+    user_id: req.context.user_id,
     filter: { _id: id },
     update: { productName, units },
   });
@@ -95,9 +94,9 @@ export const DELETE = controllerFunc(async (req, { params }) => {
     throw new CustomError("Id is required", 400, errorContext);
   }
 
-  const deletedProduct = await delete_user_doc(Product, {
+  const deletedProduct = await delete_user_doc_query(Product, {
     filter: { _id: id },
-    user_id: req.user_id,
+    user_id: req.context.user_id,
   });
 
   if (!deletedProduct) {

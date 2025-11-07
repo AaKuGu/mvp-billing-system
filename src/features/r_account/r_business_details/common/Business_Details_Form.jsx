@@ -1,23 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { handleSubmit, handleChange } from "./funcs";
 import { fieldMeta } from "./constant";
 
-const Business_Details_Form = ({ data = {} }) => {
+const Business_Details_Form = ({ data = {}, create_or_update = "create" }) => {
   const [formData, setFormData] = useState({ ...data });
   const [error, setError] = useState(null);
   const router = useRouter();
-
-
-  const {
-    data: session,
-    isPending,
-    error: err,
-    refetch,
-  } = authClient.useSession();
 
   return (
     <div className="max-w-2xl mx-auto my-2 bg-white shadow-md rounded-2xl p-8">
@@ -27,14 +18,7 @@ const Business_Details_Form = ({ data = {} }) => {
 
       <form
         onSubmit={(e) =>
-          handleSubmit(
-            e,
-            session,
-            formData,
-            router,
-            setError,
-            data
-          )
+          handleSubmit(e, create_or_update, formData, router, data?._id)
         }
         className="space-y-6"
       >
@@ -77,10 +61,11 @@ const Business_Details_Form = ({ data = {} }) => {
         <div className="pt-6">
           <button
             type="submit"
-            disabled={isPending}
+            // disabled={isPending}
             className="w-full bg-blue-600 text-white font-medium py-3 rounded-lg hover:bg-blue-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isPending ? "Registering..." : "Register Business"}
+            Register Business
+            {/* {isPending ? "Registering..." : "Register Business"} */}
           </button>
         </div>
       </form>

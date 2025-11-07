@@ -17,7 +17,9 @@ export const find_user_one_doc_query = async (
   if (populate) query = query.populate(populate);
 
   const data = lean ? await query.lean() : await query;
-  return stringifyNparse(data);
+
+  // Only stringify/parse if lean, since non-lean needs to stay a Mongoose doc
+  return lean ? stringifyNparse(data) : data;
 };
 
 export const find_user_docs_query = async (
@@ -80,7 +82,7 @@ export const find_user_docs_paginated_query = async (
   };
 };
 
-export const update_user_doc_query = (
+export const update_user_doc_query = async (
   Model,
   { user_id, filter = {}, update = {}, projection = "-__v", lean = true } = {}
 ) => {
@@ -91,7 +93,10 @@ export const update_user_doc_query = (
     runValidators: true,
   }).select(projection);
 
-  return lean ? query.lean() : query;
+  const data = lean ? await query.lean() : await query;
+
+  // ✅ Only stringify/parse if lean
+  return lean ? stringifyNparse(data) : data;
 };
 
 export const delete_user_doc_query = (
@@ -120,5 +125,8 @@ export const create_user_doc_query = async (
   // Refetch clean with projection + lean
   let query = Model.findOne({ _id: created._id }).select(projection);
 
-  return lean ? query.lean() : query;
+  const result = lean ? await query.lean() : await query;
+
+  // Only parse if lean
+  return lean ? stringifyNparse(result) : result;
 };

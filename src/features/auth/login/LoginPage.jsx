@@ -1,8 +1,14 @@
 import Logo from "@/re_usables/components/Logo";
 import React from "react";
 import RightSide from "./right-side/RightSide";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-const LoginPage = () => {
+const LoginPage = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(), // you need to pass the headers object.
+  });
+
   return (
     <div className={`w-full h-full flex-col md:flex justify-center `}>
       <div

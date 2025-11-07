@@ -21,6 +21,7 @@ const LayoutPage = async ({ children }) => {
 
   return (
     <div className="w-full h-screen flex relative p-1  flex-col ">
+      {/* business details = {JSON.stringify(session, null, 2)} */}
       <Nav_Bar />
       <div className={`w-full flex flex-row flex-1 overflow-hidden`}>
         <Sidebar />

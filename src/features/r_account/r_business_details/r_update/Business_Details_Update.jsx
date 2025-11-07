@@ -7,7 +7,7 @@ const Business_Details_Update = ({ data }) => {
     <div
       className={`w-full h-screen flex items-start justify-center p-1 bg-red-500 overflow-y-auto`}
     >
-      <Business_Details_Form data={data} />
+      <Business_Details_Form data={data} create_or_update="update" />
     </div>
   );
 };

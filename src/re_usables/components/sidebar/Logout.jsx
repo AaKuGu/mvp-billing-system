@@ -10,8 +10,6 @@ const Logout = () => {
   const { show_loading } = use_loading_store();
   const handleLogout = async () => {
     show_loading("Logging Out...");
-    // setLoading(true);
-    // logout(router, setLoading);
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {

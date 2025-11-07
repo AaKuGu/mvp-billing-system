@@ -44,7 +44,7 @@ const Finalized = ({
         //     JSON.stringify(preparedData?.grand_total)
         // );
 
-        finalizeHandler(
+      const _a =   finalizeHandler(
           preparedData,
           setFinalized,
           setOneBillDetail,
@@ -53,6 +53,7 @@ const Finalized = ({
           set_customer_details_null,
           set_pricing_details_null
         );
+        
       }}
     >
       Finalize

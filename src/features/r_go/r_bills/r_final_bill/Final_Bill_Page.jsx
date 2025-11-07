@@ -10,7 +10,7 @@ const Final_Bill_Page = async ({ id }) => {
     populate: "customer",
   });
 
-  const { stringifiedBill, customer, createdAt, _id } = bill;
+  const { stringifiedBill, bill_number, customer, createdAt, _id } = bill;
 
   const parsed_item_details = JSON.parse(stringifiedBill);
 
@@ -23,6 +23,7 @@ const Final_Bill_Page = async ({ id }) => {
     <div className={`w-full h-full `}>
       <FinalBill
         data={data}
+        bill_number={bill_number}
         id={_id}
         created_date={created_date}
         customer_details={customer}

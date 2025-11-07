@@ -193,7 +193,6 @@
 // };
 
 // export default FinalBill;
-
 "use client";
 
 import React from "react";
@@ -208,6 +207,7 @@ const FinalBill = async ({
   customer_details,
   item_details,
   pricing_details,
+  bill_number,
   id,
 }) => {
   const { data: session } = authClient.useSession();
@@ -253,6 +253,9 @@ const FinalBill = async ({
         {/* Invoice Info */}
         <div className="mb-6 flex justify-between text-sm text-gray-700">
           <div>
+            <p>
+              <span className="font-semibold">Bill No:</span> {bill_number}
+            </p>
             <p>
               <span className="font-semibold">Invoice ID:</span> {id}
             </p>

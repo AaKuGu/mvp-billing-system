@@ -17,7 +17,7 @@ const Account_Page = async () => {
   return (
     <div className={`w-full h-full flex flex-col gap-2`}>
       <MainHeader>Account</MainHeader>
-      <main className={`flex `}>
+      <main className={`flex flex-col gap-2 md:flex-row`}>
         <User_Details_Show user_data={user_data} />
         <Business_Details_Show user_id={user_data.id} />
       </main>

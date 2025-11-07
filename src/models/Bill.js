@@ -6,13 +6,15 @@ const billSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-
+    bill_number: {
+      type: Number,
+      required: true,
+    },
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User", // references your BetterAuth user collection
       required: true,
     },
-
     customer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Customer", // references your Customer collection
