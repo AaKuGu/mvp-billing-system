@@ -35,7 +35,7 @@ export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client,
   }),
-  trustedOrigins: [process.env.BETTER_AUTH_URL],
+  trustedOrigins: [process.env.BETTER_AUTH_URL, "https://www.korobill.online"],
   emailAndPassword: {
     enabled: true,
   },
