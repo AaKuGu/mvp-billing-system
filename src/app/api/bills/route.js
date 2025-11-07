@@ -43,6 +43,7 @@ export const POST = controllerFunc(async (req) => {
         existingCustomer.customer_name === customer_name &&
         existingCustomer.customer_address_area === customer_address_area;
 
+        
       if (!isSame) {
         // Update the record only if there’s a change
         existingCustomer.customer_name = customer_name;
