@@ -39,6 +39,7 @@ export const dbConnect = async () => {
         .connect(process.env.MONGODB_URI, {
           useNewUrlParser: true,
           useUnifiedTopology: true,
+          tls: true,
           // optional: you **don't need dbName** here if it's in the URI
         })
         .then((mongoose) => mongoose);
