@@ -1,5 +1,6 @@
 import Bill_Summary from "@/features/r_go/r_bills/r_summary/Bill_Summary";
 import React from "react";
+import Customer from "@/models/Customer";
 
 const page = ({ params }) => {
   const { id } = params;
