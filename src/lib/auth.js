@@ -35,10 +35,15 @@ export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client,
   }),
-
+  trustedOrigins: [process.env.BETTER_AUTH_URL],
   emailAndPassword: {
     enabled: true,
   },
+  // allowedOrigins: [
+  //   "http://localhost:3000", // dev
+  //   "https://korobill.online", // prod without www
+  //   "https://www.korobill.online", // prod with www
+  // ],
 
   socialProviders: {
     google: {
