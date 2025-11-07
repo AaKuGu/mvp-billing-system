@@ -9,4 +9,3 @@ export const register_business_handler = async (form_data, router) => {
     router.push(`/account`);
   }
 };
-
