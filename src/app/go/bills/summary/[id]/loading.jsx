@@ -2,7 +2,7 @@ import Server_Side_Loading from "@/re_usables/components/Loading/Server_Side_Loa
 import React from "react";
 
 const loading = () => {
-  return <Server_Side_Loading message={`Product Loading...`} />;
+  return <Server_Side_Loading message={`Summary Loading...`} />;
 };
 
 export default loading;
