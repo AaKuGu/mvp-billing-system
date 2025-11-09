@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Input } from "@/re_usables/components/form/Input";
 import { useProductsStore } from "../store";
 import { CreateButton } from "@/re_usables/components/Button";
-import { fetchProducts } from "../productListing/funcs";
+// import { fetchProducts } from "../productListing/funcs";
 import Products_Listing from "./products_listing/Products_Listing";
 
 const Products_Page_Client = ({ products_ }) => {
