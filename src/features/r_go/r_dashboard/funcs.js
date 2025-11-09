@@ -1,5 +1,6 @@
 import { dbConnect } from "@/db/connectDB";
 import Bill from "@/models/Bill";
+import mongoose from "mongoose";
 
 // export const bills_related_data_handler = async (user_id) => {
 //   await dbConnect();
@@ -32,6 +33,8 @@ import Bill from "@/models/Bill";
 // };
 
 export const bills_related_data_handler = async (user_id) => {
+  console.log("Calculating bills related data for user_id:", user_id);
+
   try {
     await dbConnect();
 
@@ -39,12 +42,14 @@ export const bills_related_data_handler = async (user_id) => {
     const startOfDay = new Date(today.setHours(0, 0, 0, 0));
     const endOfDay = new Date(today.setHours(23, 59, 59, 999));
 
+    const userObjectId = new mongoose.Types.ObjectId(String(user_id));
+
     // Single aggregation query - most efficient
     const result = await Bill.aggregate([
       {
         $match: {
           createdAt: { $gte: startOfDay, $lte: endOfDay },
-          user_id: user_id,
+          user_id: userObjectId || user_id,
         },
       },
       {
@@ -55,6 +60,8 @@ export const bills_related_data_handler = async (user_id) => {
         },
       },
     ]);
+
+    console.log("Aggregation result:", result);
 
     const { totalBills = 0, totalSales = 0 } = result[0] || {};
 
