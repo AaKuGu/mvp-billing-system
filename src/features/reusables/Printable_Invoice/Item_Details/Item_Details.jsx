@@ -21,19 +21,20 @@ const Item_Details = ({ data }) => {
     <>
       <ItemsTable item_details={item_details} />
 
-      {/* Horizontal compact summary */}
-      <div className="mt-3 flex flex-wrap justify-between items-start gap-x-5 gap-y-2 text-[13px] print:text-[11px] leading-tight border-t border-gray-300 pt-2">
+      {/* Responsive summary - stacks on mobile, horizontal on larger screens */}
+      <div className="mt-3 flex flex-wrap justify-end gap-x-3 sm:gap-x-5 gap-y-2 text-[11px] sm:text-[13px] print:text-[11px] leading-tight border-t border-gray-300 pt-2">
         {/* Subtotal */}
-        <div className="flex flex-col">
+        <div className="flex flex-col min-w-[70px]">
           <span className="font-medium text-gray-600">Subtotal</span>
           <span className="text-gray-800">
             ₹{price_before_discount.toFixed(2)}
           </span>
         </div>
+
         {/* Discount */}
         {discount > 0 && (
           <>
-            <div className="flex flex-col">
+            <div className="flex flex-col min-w-[70px]">
               <span className="font-medium text-gray-600">
                 Discount ({discount}%)
               </span>
@@ -41,9 +42,8 @@ const Item_Details = ({ data }) => {
                 -₹{discountAmount.toFixed(2)}
               </span>
             </div>
-            {/* Price After Discount */}
 
-            <div className="flex flex-col">
+            <div className="flex flex-col min-w-[70px]">
               <span className="font-medium text-gray-600">After Discount</span>
               <span className="text-gray-800">
                 ₹{price_after_discount.toFixed(2)}
@@ -55,13 +55,13 @@ const Item_Details = ({ data }) => {
         {/* GST */}
         {gst_percent > 0 && (
           <>
-            <div className="flex flex-col">
+            <div className="flex flex-col min-w-[70px]">
               <span className="font-medium text-gray-600">
                 GST ({gst_percent}%)
               </span>
               <span className="text-gray-800">₹{gst_amount.toFixed(2)}</span>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col min-w-[70px]">
               <span className="font-medium text-gray-600">After GST</span>
               <span className="text-gray-800">
                 ₹{price_after_gst.toFixed(2)}
@@ -71,15 +71,16 @@ const Item_Details = ({ data }) => {
         )}
 
         {round_off !== 0 && (
-          <div className="flex flex-col">
+          <div className="flex flex-col min-w-[70px]">
             <span className="font-medium text-gray-600">Round Off</span>
             <span className="text-gray-800">{round_off.toFixed(2)}</span>
           </div>
         )}
+
         {/* Grand Total */}
-        <div className="flex flex-col text-blue-800 font-semibold">
+        <div className="flex flex-col text-blue-800 font-semibold min-w-[80px]">
           <span className="font-semibold text-gray-700">Grand Total</span>
-          <span className="text-[14px] font-bold">
+          <span className="text-sm sm:text-[14px] font-bold">
             ₹{grand_total.toFixed(2)}
           </span>
         </div>
