@@ -1,7 +1,9 @@
 import React from "react";
 import ItemsTable from "./ItemsTable";
 
-const Item_Details = ({ item_details, pricing_details }) => {
+const Item_Details = ({ data }) => {
+  const { item_details, pricing_details } = data;
+
   const {
     price_before_discount = 0,
     discount = 0,

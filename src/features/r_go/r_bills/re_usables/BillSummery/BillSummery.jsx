@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Main from "./Main/Main";
 import { calculateGrandTotal } from "../funcs";
 import Customer_Details from "./Customer_Details";
-import Bill_Details from "./Bill_Details";
+import Pricing_Details from "./Pricing_Details";
 
 const BillSummery = ({ customer_details, item_details, pricing_details }) => {
   return (
@@ -14,9 +14,9 @@ const BillSummery = ({ customer_details, item_details, pricing_details }) => {
       <div>
         <Main item_details={item_details} />
       </div>
-      <Bill_Details pricing_details={pricing_details} />
+      <Pricing_Details pricing_details={pricing_details} />
     </div>
   );
 };
-
+  
 export default BillSummery;

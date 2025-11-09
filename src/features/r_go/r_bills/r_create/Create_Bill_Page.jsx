@@ -74,15 +74,7 @@ const Create_Bill_Page = () => {
           <Pricing_Details />
           {viewPrintableBill && (
             <Modal>
-              <BillSummaryPage
-                // customer_details={{
-                //   customerName,
-                //   whatsappNum,
-                //   customerAddressArea,
-                //   customerId,
-                // }}
-                setViewPrintableBill={setViewPrintableBill}
-              />
+              <BillSummaryPage setViewPrintableBill={setViewPrintableBill} />
             </Modal>
           )}
         </Form>

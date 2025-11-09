@@ -9,6 +9,7 @@ import {
   use_customer_details,
   use_pricing_details,
 } from "../../store";
+import toast from "react-hot-toast";
 
 const Finalized = ({
   customer_details,
@@ -23,6 +24,15 @@ const Finalized = ({
   const { set_customer_details_null } = use_customer_details();
   const { set_pricing_details_null } = use_pricing_details();
 
+  const {
+    data: session,
+    isPending, //loading state
+    error: err, //error object
+    refetch, //refetch the session
+  } = authClient.useSession();
+
+  const business_details = session?.businessDetails || {};
+
   return (
     <BlueButton
       onClick={() => {
@@ -33,10 +43,22 @@ const Finalized = ({
         if (!_confirm) {
           return;
         }
+
+        if (
+          business_details === null ||
+          Object.keys(business_details).length === 0
+        ) {
+          toast(
+            "Please set up your business details in profile settings before finalizing the bill."
+          );
+          return;
+        }
+
         const preparedData = {
           item_details,
           customer_details,
           pricing_details,
+          business_details,
         };
 
         // alert(
@@ -44,7 +66,7 @@ const Finalized = ({
         //     JSON.stringify(preparedData?.grand_total)
         // );
 
-      const _a =   finalizeHandler(
+        const _a = finalizeHandler(
           preparedData,
           setFinalized,
           setOneBillDetail,
@@ -53,7 +75,6 @@ const Finalized = ({
           set_customer_details_null,
           set_pricing_details_null
         );
-        
       }}
     >
       Finalize

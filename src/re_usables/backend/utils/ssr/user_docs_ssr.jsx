@@ -1,5 +1,6 @@
 import { find_user_docs_query } from "../queries";
 import { init } from "../init_request";
+import Bill from "@/models/Bill";
 
 export const user_docs_ssr = async (
   Model,

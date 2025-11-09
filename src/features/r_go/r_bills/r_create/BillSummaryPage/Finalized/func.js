@@ -31,6 +31,8 @@ export const finalizeHandler = async (
     set_customer_details_null();
     set_pricing_details_null();
 
+    // alert(JSON.stringify(data?.Bill, null, 2));
+
     router.push(`/go/bills/finalBill/${data?.Bill?._id}`);
   }
 };

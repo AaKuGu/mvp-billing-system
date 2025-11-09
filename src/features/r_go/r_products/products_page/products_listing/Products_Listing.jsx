@@ -1,9 +1,8 @@
-import React from "react";
-import { ListHeader } from "@/re_usables/components/ui/Header";
+import React, { useState } from "react";
 import DesktopListing from "./DesktopListing/DesktopListing";
-import MobileView from "./MobileListing/MobileView";
+import Mobile_Listing from "./MobileListing/Mobile_Listing";
 
-const Products_Listing = ({
+const ProductListing = ({
   setLoading,
   loading,
   searchTerm,
@@ -12,27 +11,24 @@ const Products_Listing = ({
   products,
 }) => {
   return (
-    <div className="w-full ">
-      <ListHeader>List of Products</ListHeader>
-      <div className={`h-[400px] md:h-[500px] overflow-y-auto`}>
+    <div className="p-4 bg-gray-50 min-h-screen">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-2xl font-bold mb-4">Products</h2>
+
         <DesktopListing
-          // filteredProducts={filteredProducts}
-          setLoading={setLoading}
-          filteredProducts={filteredProducts}
-          setProducts={setProducts}
           products={products}
+          setProducts={setProducts}
+          filteredProducts={filteredProducts}
         />
 
-        <MobileView
-          // filteredProducts={filteredProducts}
-          setLoading={setLoading}
-          filteredProducts={filteredProducts}
-          setProducts={setProducts}
+        <Mobile_Listing
           products={products}
+          setProducts={setProducts}
+          filteredProducts={filteredProducts}
         />
       </div>
     </div>
   );
 };
 
-export default Products_Listing;
+export default ProductListing;
