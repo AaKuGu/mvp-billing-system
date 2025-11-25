@@ -277,7 +277,10 @@ async function generateBillNumber(user_id) {
     createdAt: { $gte: start, $lte: end },
   });
 
-  return (today_bill_count + 1).toString();
+  const date = new Date();
+  const dateStr = date.toISOString().slice(0, 10).replace(/-/g, ""); // YYYYMMDD
+  return `${dateStr}-${(today_bill_count + 1).toString().padStart(4, "0")}`;
+  // Returns: "20251125-0001", "20251125-0002", etc.
 }
 
 /**
@@ -392,6 +395,8 @@ export const POST = controllerFunc(async (req) => {
 
   // 2. Generate bill number
   const bill_number = await generateBillNumber(user_id);
+  console.log("bill_number : ", bill_number);
+  console.log("typeof bill_number : ", typeof bill_number);
 
   // 3. Prepare bill data
   const billData = prepareBillData(data, bill_number, customer_id);

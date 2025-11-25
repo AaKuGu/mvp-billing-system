@@ -8,6 +8,7 @@ export const saveAProduct = async (product, setProduct, product_seed) => {
     const storedProducts = JSON.parse(localStorage.getItem("products")) || [];
     const updatedProducts = [data?.newProduct, ...storedProducts];
     localStorage.setItem("products", JSON.stringify(updatedProducts));
+    window.location.href = "/go/products";
     setProduct(product_seed);
   }
 };

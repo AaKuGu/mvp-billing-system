@@ -8,7 +8,7 @@ const Invoice_Info = ({ invoice_info }) => {
         <span className="font-semibold">Bill No:</span> {bill_number}
       </p>
       <p className="break-words">
-        <span className="font-semibold">Date:</span> {created_date}
+        <span className="font-semibold">Bill Date:</span> {created_date}
       </p>
     </div>
   );
